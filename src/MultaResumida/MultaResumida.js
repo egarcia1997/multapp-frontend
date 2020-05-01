@@ -1,38 +1,31 @@
-import React, {Component} from "react";
+import React from "react";
 import "./MultaResumida.css";
 
-class MultaResumida extends Component {
-    state = {
-        id: null,
-        nombreInfractor: null,
-        dniInfractor: null,
-        fecha: null,
-        extracto: null,
-        estado: null,
+const multaResumida = (props) => {
+    var nombreDeLaClase;
+    switch (props.estado) {
+        case "No resuelta":
+            nombreDeLaClase = "MultaResumidaNoResuelta";
+            break;
+        case "Aceptada":
+            nombreDeLaClase = "MultaResumidaAceptada";
+            break;
+        case "Rechazada":
+            nombreDeLaClase = "MultaResumidaRechazada";
+            break;
     }
-
-    render() {
-        var nombreDeLaClase;
-        switch (this.state.estado) {
-            case "No resuelta":
-                nombreDeLaClase = "MultaResumidaNoResuelta";
-                break;
-            case "Aceptada":
-                nombreDeLaClase = "MultaResumidaAceptada";
-                break;
-            case "Rechazada":
-                nombreDeLaClase = "MultaResumidaRechazada";
-                break;
-        }
-        return (
-            <div className={"MultaResumida " + nombreDeLaClase}>
-                <p>asd</p>
-                <p></p>
-                <p></p>
-                <p></p>
+    return (
+        <div className={"MultaResumida " + nombreDeLaClase}>
+            <div className="contenidoDeLaMultaResumida">
+                <p>{props.id}</p>
+                <p><b>Nombre del conductor: </b>{props.nombreConductor}</p>
+                <p><b>DNI del conductor: </b>{props.dniConductor}</p>
+                <p><b>Fecha: </b>{props.fecha}</p>
+                <p><b>Extracto: </b>{props.extracto}</p>
             </div>
-        );
-    }
+            <div className="estadoDeLaMultaResumida">{props.estado}ghk</div>
+        </div>
+    );
 }
 
-export default MultaResumida;
+export default multaResumida;

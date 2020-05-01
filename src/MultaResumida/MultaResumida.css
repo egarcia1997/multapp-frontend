@@ -1,5 +1,19 @@
 .MultaResumida {
     border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.contenidoDeLaMultaResumida {
+    width: 90%;
+}
+
+.estadoDeLaMultaResumida {
+    width: 10%;
+    float: right;
+    text-align: center;
+    vertical-align: 50%;
 }
 
 .MultaResumidaNoResuelta {
