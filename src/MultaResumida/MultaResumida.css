@@ -1,0 +1,21 @@
+.MultaResumida {
+    border: 1px solid black;
+}
+
+.MultaResumidaNoResuelta {
+    border-color: red;
+    color: red;
+    background-color: #ffcccc;
+}
+
+.MultaResumidaAceptada {
+    border-color: green;
+    color: green;
+    background-color: #ccffcc;
+}
+
+.MultaResumidaRechazada {
+    border-color: #bf9000;
+    color: #bf9000;
+    background-color: #fff2cc;
+}
