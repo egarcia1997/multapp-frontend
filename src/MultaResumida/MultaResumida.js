@@ -2,8 +2,8 @@ import React from "react";
 import "./MultaResumida.css";
 
 const multaResumida = (props) => {
-    var nombreDeLaClase;
-    switch (props.estado) {
+    var nombreDeLaClase; // esto es para definir el estilo de una multa segun su estado
+    switch (props.estado) { // esto define el estilo de una multa segun su estado
         case "No resuelta":
             nombreDeLaClase = "MultaResumidaNoResuelta";
             break;
@@ -23,7 +23,7 @@ const multaResumida = (props) => {
                 <p><b>Fecha: </b>{props.fecha}</p>
                 <p><b>Extracto: </b>{props.extracto}</p>
             </div>
-            <div className="estadoDeLaMultaResumida">{props.estado}ghk</div>
+            <div className="estadoDeLaMultaResumida">{props.estado}</div>
         </div>
     );
 }
