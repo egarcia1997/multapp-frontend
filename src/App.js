@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import MultaResumida from "./MultaResumida/MultaResumida";
+import BarraSuperior from "./BarraSuperior/BarraSuperior";
 
 class App extends Component{
   state = {
@@ -29,8 +30,13 @@ class App extends Component{
         fecha: "3/01/20",
         extracto: "Estacionar sobre calzada amarilla",
         estado: "Rechazada",
-      }
+      },
     ],
+    usuario:
+    {
+      nombre: "Juan Pérez",
+      imagen: "../../public/favicon.ico",
+    }
   }
 
   render() {
@@ -50,6 +56,7 @@ class App extends Component{
 
     return (
       <div className="App">
+        <BarraSuperior nombre={this.state.usuario.nombre} imagen={this.state.usuario.imagen} />
         {multasParaMostrar}
       </div>
     );
