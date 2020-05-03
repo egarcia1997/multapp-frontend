@@ -3,7 +3,9 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 16px;
+    padding: 10px;
+    margin-bottom: 16px;
+    box-shadow: 2px solid black;
 }
 
 .contenidoDeLaMultaResumida {
@@ -14,9 +16,10 @@
     width: 10%;
     float: right;
     text-align: right;
-    vertical-align: middle;
-    display: table;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: right;
 }
 
 .MultaResumidaNoResuelta {
