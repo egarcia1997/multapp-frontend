@@ -35,7 +35,7 @@ class App extends Component{
     usuario:
     {
       nombre: "Juan Pérez",
-      imagen: "../../public/favicon.ico",
+      imagen: "https://frre.cvg.utn.edu.ar/pluginfile.php/1/theme_snap/favicon/1587712311/logo_favicon.ico",
     }
   }
 
