@@ -9,8 +9,10 @@ const barraSuperior = (props) => {
             <img src={props.imagen} alt="Su foto de perfil" />
             <div>
                 <table>
-                    <tr><td><b>{props.nombre}</b></td></tr>
-                    <tr><td>Cerrar sesión</td></tr>
+                    <tbody>
+                        <tr><td><b>{props.nombre}</b></td></tr>
+                        <tr><td>Cerrar sesión</td></tr>
+                    </tbody>
                 </table>
             </div>
         </div>
