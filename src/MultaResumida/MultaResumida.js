@@ -13,9 +13,11 @@ const multaResumida = (props) => {
         case "Rechazada":
             nombreDeLaClase = "MultaResumidaRechazada";
             break;
+        default:
+            console.log("El estado de la multa " + props.id + " está mal cargado: " + props.estado);
     }
     return (
-        <div className={"MultaResumida " + nombreDeLaClase}>
+        <div className={"MultaResumida " + nombreDeLaClase} onClick={props.click}>
             <div className="contenidoDeLaMultaResumida">
                 <p>{props.id}</p>
                 <p><b>Nombre del conductor: </b>{props.nombreConductor}</p>

@@ -56,7 +56,8 @@ class App extends Component{
         dniConductor={multa.dniConductor}
         fecha={multa.fecha}
         extracto={multa.extracto}
-        estado={multa.estado} />
+        estado={multa.estado}
+        click={() => alert("coso")} />
       );
     });
 
@@ -73,6 +74,7 @@ class App extends Component{
         <BarraSuperior nombre={this.state.usuario.nombre} imagen={this.state.usuario.imagen} />
         <h1>Bienvenido, {this.state.usuario.nombre}</h1>
         <h2>{textoDeMultasSinResolver}</h2>
+        <button onClick={() => alert("asd")}>Filtrar</button>
         {multasParaMostrar}
       </div>
     );
