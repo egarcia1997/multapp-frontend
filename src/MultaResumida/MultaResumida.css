@@ -1,7 +1,7 @@
 .MultaResumida {
     border: 1px solid black;
     border-radius: 5px;
-    box-shadow: 2px 2px 5px #888888;
+    box-shadow: 0px 2px 3px #cccccc;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
