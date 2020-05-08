@@ -4,10 +4,13 @@ import "./BarraSuperior.css";
 const barraSuperior = (props) => {
     return (
         <div className="BarraSuperior">
-            {/* los elementos se van a mostrar al reves de como estan aca */}
+            {/* los elementos en el div derecha se van a mostrar al reves de como estan aca */}
             {/* porque en el css tiene el estilo flex-direction: row-reverse */}
-            <img src={props.imagen} alt="Su foto de perfil" />
-            <div>
+            <div className="izquierda">
+                <img src="public/multapp-logo.png" alt="Logo de MultApp" />
+            </div>
+            <div className="derecha">
+                <img src={props.imagen} alt="Su foto de perfil" />
                 <table>
                     <tbody>
                         <tr><td><b>{props.nombre}</b></td></tr>

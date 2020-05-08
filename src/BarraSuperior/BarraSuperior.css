@@ -5,13 +5,23 @@
     width: 100%;
     position: sticky;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     background-color: black;
     box-shadow: 0px 4px 5px #aaaaaa;
     color: white;
     text-align: right;
+    justify-content: space-between;
 }
 
-.BarraSuperior img {
+.izquierda {
+    display: flex;
+    float: left;
+    left: 0px;
+}
+
+.derecha {
+    display: flex;
     float: right;
+    right: 0px;
+    flex-direction: row-reverse;
 }
