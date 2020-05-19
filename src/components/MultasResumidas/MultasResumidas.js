@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
+import PropTypes from "prop-types";
 //import './MultasResumidas.module.css';
 import MultaResumida from "./MultaResumida/MultaResumida";
 
-class MultasResumidas extends Component{
+class MultasResumidas extends Component {
     state = {
       multas: [ // esto contiene los resumenes de todas las multas sacado directamente de la db
         // lo que esta aca cargado es a modo de ejemplo, se saca al tener acceso a la db
@@ -72,6 +73,10 @@ class MultasResumidas extends Component{
         </div>
       );
     }
+  }
+  
+  MultasResumidas.propTypes = {
+      nombreUsuario: PropTypes.string,
   }
   
   export default MultasResumidas;
