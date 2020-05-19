@@ -20,6 +20,8 @@ const Filtro = (props) => {
                 <span>DNI</span><input type="number" />
             </div>
         );
+    } else {
+        return null;
     }
 }
 
