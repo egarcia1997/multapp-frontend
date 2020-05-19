@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import estilos from './MultasResumidas.module.css';
+import Filtro from "../MultasResumidas/Filtro/Filtro";
 import MultaResumida from "./MultaResumida/MultaResumida";
 
 class MultasResumidas extends Component {
@@ -32,8 +33,17 @@ class MultasResumidas extends Component {
           estado: "Rechazada",
         },
       ],
+      mostrarFiltro: false,
     }
-  
+
+    // metodo para mostrar/ocultar las opciones de filtrado
+    // o sea, el componente Filtro
+    // se ejecuta al hacer clic en un boton mas abajo
+    toggleFiltroHandler = () => {
+        const nuevoEstado = !(this.state.mostrarFiltro);
+        this.setState({mostrarFiltro: nuevoEstado});
+    }
+
     render() {
       let multasParaMostrar = []; // crea un array con las multas que se van a mostrar
       let numeroDeMultasSinResolver = 0; // el numero total de multas que estan sin resolver
@@ -68,7 +78,8 @@ class MultasResumidas extends Component {
         <div className={estilos.MultasResumidas}>
           <h1>Bienvenido, {this.props.nombreUsuario}</h1>
           <h2>{textoDeMultasSinResolver}</h2>
-          <button onClick={() => alert("asd")}>Filtrar</button>
+          <button onClick={this.toggleFiltroHandler}>Filtrar</button>
+          <Filtro visible={this.state.mostrarFiltro} />
           {multasParaMostrar}
         </div>
       );
