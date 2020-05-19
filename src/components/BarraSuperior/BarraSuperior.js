@@ -9,8 +9,8 @@ const BarraSuperior = (props) => {
             {/* porque en el css tiene el estilo flex-direction: row-reverse */}
             <div className={estilos.Izquierda}>
                 <img src={applogo} alt="Logo de MultApp" width="48" height="48" />
+                <span>MultApp</span>
             </div>
-            <div></div>
             <div className={estilos.Derecha}>
                 <img src={props.imagen} alt="Su foto de perfil" width="48" height="48" />
                 <span>{props.nombre}</span>

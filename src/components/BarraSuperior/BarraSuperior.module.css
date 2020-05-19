@@ -17,6 +17,13 @@
     display: flex;
     float: left;
     left: 0px;
+    align-items: center;
+}
+
+.Izquierda span {
+    height: min-content;
+    font-weight: bold;
+    font-size: larger;
 }
 
 .Derecha {
@@ -24,4 +31,5 @@
     float: right;
     right: 0px;
     flex-direction: row-reverse;
+    align-items: center;
 }
