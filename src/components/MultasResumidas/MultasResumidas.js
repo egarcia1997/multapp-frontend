@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
-//import './MultasResumidas.module.css';
+import estilos from './MultasResumidas.module.css';
 import MultaResumida from "./MultaResumida/MultaResumida";
 
 class MultasResumidas extends Component {
@@ -65,7 +65,7 @@ class MultasResumidas extends Component {
       }
   
       return (
-        <div className="App">
+        <div className={estilos.MultasResumidas}>
           <h1>Bienvenido, {this.props.nombreUsuario}</h1>
           <h2>{textoDeMultasSinResolver}</h2>
           <button onClick={() => alert("asd")}>Filtrar</button>
@@ -78,6 +78,6 @@ class MultasResumidas extends Component {
   MultasResumidas.propTypes = {
       nombreUsuario: PropTypes.string,
   }
-  
+
   export default MultasResumidas;
   
