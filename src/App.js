@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
-import MultaResumida from "./MultaResumida/MultaResumida";
-import BarraSuperior from "./BarraSuperior/BarraSuperior";
+import MultaResumida from "./components/MultaResumida/MultaResumida";
+import BarraSuperior from "./components/BarraSuperior/BarraSuperior";
 
 class App extends Component{
   state = {
