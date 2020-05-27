@@ -43,7 +43,7 @@ class MultasResumidas extends Component {
     // y lo meto en el estado (pero solo los datos mas importantes)
     componentDidMount() {
         if (!this.state.multasCargadas) { // si no se cargaron las multas ejecuta esto
-            axios.get("https://multa-app.herokuapp.com/getAll") // hace la peticion al servidor
+            axios.get("/getAll") // hace la peticion al servidor
                 .then(response => { // una vez que llegue todo hace esto
                     console.log(response); // muestra por consola la respuesta
                     let multasResumidas = []; // array donde voy a cargar las multas resumidas para luego meter en el state
@@ -116,6 +116,11 @@ class MultasResumidas extends Component {
         return (
             <div className={estilos.MultasResumidas}>
                 <h1>Bienvenido, {this.props.nombreUsuario}</h1>
+                <div className={estilos.Cargando}></div>
+                <div className={estilos.Error} style={this.state.huboErrorAlCargarLasMultas ? {display: "block"} : null}>
+                    <h2>Ha ocurrido un error</h2>
+                    <h3>Intente recargar la página</h3>
+                </div>
                 <h2>{textoDeMultasSinResolver}</h2>
                 <button className={estilosDelBoton.join(" ")} onClick={this.toggleFiltroHandler}>Filtrar</button>
                 <Filtro visible={this.state.mostrarFiltro} />

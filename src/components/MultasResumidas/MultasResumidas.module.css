@@ -5,6 +5,7 @@
 
 .Error {
     color: red;
+    display: none;
 }
 
 .BotonDeFiltro {
