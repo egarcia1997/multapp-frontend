@@ -34,14 +34,15 @@ class MultasResumidas extends Component {
                 estado: "Rechazada",
             },
         ],
-        multasCargadas: false,
+        multasCargadas: false, // controla si ya se cargaron las multas o no
         mostrarFiltro: false, // controla si se muestran las opciones de filtros
+        huboErrorAlCargarLasMultas: false, // controla si hubo un error al cargar las multas
     }
 
     // hook del ciclo de vida en el que recupero el listado de todas las multas del servidor
     // y lo meto en el estado (pero solo los datos mas importantes)
-    componentDidUpdate() {
-        //if (!this.state.mostrarFiltro) {
+    componentDidMount() {
+        if (!this.state.multasCargadas) { // si no se cargaron las multas ejecuta esto
             axios.get("https://multa-app.herokuapp.com/getAll") // hace la peticion al servidor
                 .then(response => { // una vez que llegue todo hace esto
                     console.log(response); // muestra por consola la respuesta
@@ -60,8 +61,11 @@ class MultasResumidas extends Component {
                     });
                     this.setState({multas: multasResumidas}); // actualiza el state con el array de las multas resumidas sacadas de la db
                     this.setState({multasCargadas: true}); // actualiza el state para que no se vuelva a hacer la peticion al servidor
+                }).catch(error => { // si hubo error hace esto
+                    console.log(error); // muestra por consola el error
+                    this.setState({huboErrorAlCargarLasMultas: true}); // actualiza el state para decir que hubo error
                 });
-        //}
+        }
     }
 
     // metodo para mostrar/ocultar las opciones de filtrado
@@ -76,12 +80,13 @@ class MultasResumidas extends Component {
         let multasParaMostrar = []; // crea un array con las multas que se van a mostrar
         let numeroDeMultasSinResolver = 0; // el numero total de multas que estan sin resolver
         let textoDeMultasSinResolver = ""; // el texto que se va a mostrar debajo del h2 que da la bienvenida
-  
+        let estilosDelBoton = [estilos.BotonDeFiltro]; // controla que estilos se le asignan al boton de mostrar filtros
+
         this.state.multas.forEach((multa) => { // ejecuta por cada multa del estado
             // ACA VAN LAS CONDICIONES DE FILTRADO
             // if (cumpleConLasCondicionesDeFiltrado)
-            if (multa.estado === "No resuelta") {
-                numeroDeMultasSinResolver++;
+            if (multa.estado === "No resuelta") { // si la multa no fue resuelta
+                numeroDeMultasSinResolver++; // actualiza el contador de multas no resueltas
             }
             multasParaMostrar.push( // crea el componente por cada multa que va a mostrar
                 <MultaResumida
@@ -96,7 +101,7 @@ class MultasResumidas extends Component {
             );
         });
   
-        if (numeroDeMultasSinResolver === 0) {
+        if (numeroDeMultasSinResolver === 0) { // segun el numero de multas sin resolver, muestra un mensaje informando eso
             textoDeMultasSinResolver = "No quedan multas sin resolver";
         } else if (numeroDeMultasSinResolver === 1) {
             textoDeMultasSinResolver = "Tiene 1 multa sin resolver";
@@ -104,11 +109,15 @@ class MultasResumidas extends Component {
             textoDeMultasSinResolver = "Tiene " + numeroDeMultasSinResolver + " multas sin resolver";
         }
   
+        if (this.state.mostrarFiltro) {
+            estilosDelBoton.push(estilos.BotonConFiltroDesplegado);
+        }
+
         return (
             <div className={estilos.MultasResumidas}>
                 <h1>Bienvenido, {this.props.nombreUsuario}</h1>
                 <h2>{textoDeMultasSinResolver}</h2>
-                <button onClick={this.toggleFiltroHandler}>Filtrar</button>
+                <button className={estilosDelBoton.join(" ")} onClick={this.toggleFiltroHandler}>Filtrar</button>
                 <Filtro visible={this.state.mostrarFiltro} />
                 {multasParaMostrar}
             </div>
