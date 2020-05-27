@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import './App.css';
 import * as placeholder from "./assets/placeholder-vault-boy.png";
+import Login from "./containers/Login/Login";
 import LayoutSupervisor from './containers/LayoutSupervisor/LayoutSupervisor';
 
 class App extends Component{
@@ -15,7 +16,8 @@ class App extends Component{
   render() {
     return (
       <Fragment>
-          <LayoutSupervisor usuario={this.state.usuario} />
+          <Login />
+          {/* <LayoutSupervisor usuario={this.state.usuario} /> */}
       </Fragment>
     );
   }
