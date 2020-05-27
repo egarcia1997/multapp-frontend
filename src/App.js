@@ -1,8 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import './App.css';
-import MultasResumidas from "./components/MultasResumidas/MultasResumidas";
-import BarraSuperior from "./components/BarraSuperior/BarraSuperior";
 import * as placeholder from "./assets/placeholder-vault-boy.png";
+import LayoutSupervisor from './containers/LayoutSupervisor/LayoutSupervisor';
 
 class App extends Component{
   state = {
@@ -16,8 +15,7 @@ class App extends Component{
   render() {
     return (
       <Fragment>
-        <BarraSuperior nombre={this.state.usuario.nombre} imagen={this.state.usuario.imagen} />
-        <MultasResumidas nombreUsuario={this.state.usuario.nombre} />
+          <LayoutSupervisor usuario={this.state.usuario} />
       </Fragment>
     );
   }
