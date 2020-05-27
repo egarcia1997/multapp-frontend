@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from "axios";
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+axios.defaults.baseURL = "https://multa-app.herokuapp.com"; // esto es para usar la misma url en todas las peticiones http sin tener que andar escribiendo
 
 ReactDOM.render(
   <React.StrictMode>
