@@ -17,7 +17,7 @@ class Login extends Component {
             <Fragment>
                 <div className={estilos.Background}></div>
                 <div className={estilos.Controles}>
-                    <Logo width={185} height={186} />
+                    <Logo width={90} height={90} />
                     <h1>MultApp</h1>
                     <div className={estilos.Error}>
                         El correo electrónico o la contraseña son incorrectos
@@ -28,6 +28,9 @@ class Login extends Component {
                     <input type="password" id="contrasena" />
                     <button onClick={this.loginHandler}>Iniciar sesión</button>
                     <a href="">¿Olvidó su contraseña?</a>
+                </div>
+                <div className={estilos.Footer}>
+                    © 2020 El grupo de Acosta, Cardozo, García, Ibáñez y Mansilla. Todos los derechos reservados.
                 </div>
             </Fragment>
         );
