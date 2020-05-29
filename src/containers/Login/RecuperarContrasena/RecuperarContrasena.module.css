@@ -1,0 +1,32 @@
+.Button {
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    padding: 10px 20px;
+}
+
+.BotonRecuperar {
+    background-color: #3494d3;
+    color: white;
+}
+
+.BotonRecuperar:hover {
+    background-color: #81bce4;
+}
+
+.BotonRecuperar:active {
+    background-color: #1c567d;
+}
+
+.BotonCancelar {
+    background-color: grey;
+    color: black;
+}
+
+.BotonCancelar:hover {
+    background-color: lightgray;
+}
+
+.BotonCancelar:active {
+    background-color: darkgray;
+}

@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 import estilos from "./Login.module.css";
+
 import Logo from "../../components/Logo/Logo";
+import RecuperarContrasena from "./RecuperarContrasena/RecuperarContrasena";
 
 class Login extends Component {
     // metodo para hacer el login
