@@ -1,10 +1,40 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 p {
-  margin: 0px;
+    margin: 0px;
+}
+
+button {
+    border: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+}
+
+button {
+    background-color: #3494d3;
+}
+
+button:hover {
+    background-color: #81bce4;
+}
+
+button:active {
+    background-color: #1c567d;
+}
+
+.BotonCancelar {
+    background-color: darkgrey;
+    color: black;
+}
+
+.BotonCancelar:hover {
+    background-color: lightgray;
+}
+
+.BotonCancelar:active {
+    background-color: gray;
 }
