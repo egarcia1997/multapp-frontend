@@ -12,7 +12,6 @@
 .Error {
     color: red;
     margin-bottom: 5px;
-    display: none;
 }
 
 .Controles {
@@ -27,33 +26,6 @@
     flex-direction: column;
     text-align: center;
     align-items: center;
-}
-
-.Controles input {
-    margin-bottom: 20px;
-    padding: 10px;
-    width: 50%;
-}
-
-.Controles label {
-    margin-bottom: 5px;
-}
-
-.Controles button {
-    background-color: #3494d3;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 18px;
-    padding: 10px 20px;
-}
-
-.Controles button:hover {
-    background-color: #81bce4;
-}
-
-.Controles button:active {
-    background-color: #1c567d;
 }
 
 .Footer {
