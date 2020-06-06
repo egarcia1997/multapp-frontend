@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import axios from "axios";
+import {Route} from "react-router-dom";
 import estilos from './MultasResumidas.module.css';
 import Filtro from "../MultasResumidas/Filtro/Filtro";
 import MultaResumida from "./MultaResumida/MultaResumida";
@@ -91,6 +92,12 @@ class MultasResumidas extends Component {
         });
     }
 
+    // metodo que carga todos los datos de una multa
+    // se ejecuta al hacer clic en una multa
+    multaSeleccionadaHandler = (id) => {
+        this.props.history.push("/multas/" + id); // NO ANDA
+    }
+
     render() {
         let numeroDeMultasSinResolver = 0; // el numero total de multas que estan sin resolver
         let textoDeMultasSinResolver = ""; // el texto que se va a mostrar debajo del h2 que da la bienvenida
@@ -110,7 +117,7 @@ class MultasResumidas extends Component {
                     fecha={multa.fecha}
                     extracto={multa.extracto}
                     estado={multa.estado}
-                    click={() => alert("coso")}
+                    click={() => this.multaSeleccionadaHandler(multa.id)}
                 />
             );
         });
@@ -135,6 +142,7 @@ class MultasResumidas extends Component {
                 <button onClick={this.toggleFiltroHandler}>Filtrar</button>
                 <Filtro visible={this.state.mostrarFiltro} aplicar={this.filtrarHandler} />
                 {multasParaMostrar}
+                <Route path="/multas/:id" exact={true} render={() => <h1>se tendria que mostrar una multa</h1>} />
             </div>
         );
     }
