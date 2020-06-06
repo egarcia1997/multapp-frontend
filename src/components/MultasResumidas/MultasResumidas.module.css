@@ -7,25 +7,3 @@
     color: red;
     display: none;
 }
-
-.BotonDeFiltro {
-    background-color: #3494d3;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 18px;
-    padding: 10px 20px;
-}
-
-.BotonDeFiltro:hover {
-    background-color: #81bce4;
-}
-
-.BotonDeFiltro:active {
-    background-color: #1c567d;
-}
-
-.BotonConFiltroDesplegado {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-}

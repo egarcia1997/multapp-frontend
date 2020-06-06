@@ -78,7 +78,6 @@ class MultasResumidas extends Component {
         let multasParaMostrar = []; // crea un array con las multas que se van a mostrar
         let numeroDeMultasSinResolver = 0; // el numero total de multas que estan sin resolver
         let textoDeMultasSinResolver = ""; // el texto que se va a mostrar debajo del h2 que da la bienvenida
-        let estilosDelBoton = [estilos.BotonDeFiltro]; // controla que estilos se le asignan al boton de mostrar filtros
 
         this.state.multas.forEach((multa) => { // ejecuta por cada multa del estado
             // ACA VAN LAS CONDICIONES DE FILTRADO
@@ -107,10 +106,6 @@ class MultasResumidas extends Component {
             textoDeMultasSinResolver = "Tiene " + numeroDeMultasSinResolver + " multas sin resolver";
         }
   
-        if (this.state.mostrarFiltro) {
-            estilosDelBoton.push(estilos.BotonConFiltroDesplegado);
-        }
-
         return (
             <div className={estilos.MultasResumidas}>
                 <h1>Bienvenido, {this.props.nombreUsuario}</h1>
@@ -120,7 +115,7 @@ class MultasResumidas extends Component {
                     <h3>Intente recargar la página</h3>
                 </div>
                 <h2>{textoDeMultasSinResolver}</h2>
-                <button className={estilosDelBoton.join(" ")} onClick={this.toggleFiltroHandler}>Filtrar</button>
+                <button onClick={this.toggleFiltroHandler}>Filtrar</button>
                 <Filtro visible={this.state.mostrarFiltro} />
                 {multasParaMostrar}
             </div>
