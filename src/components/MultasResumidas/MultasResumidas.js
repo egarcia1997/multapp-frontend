@@ -74,11 +74,28 @@ class MultasResumidas extends Component {
         this.setState({mostrarFiltro: nuevoEstado});
     }
 
+    // metodo para aplicar los filtros seleccionados
+    filtrarHandler = (estado, desde, hasta, dni) => {
+        const fechaDesde = new Date(desde);
+        const fechaHasta = new Date(hasta);
+        return this.state.multas.map(multa => {
+            if (dni == "" || dni == multa.dniConductor) {
+                if (desde == "" || desde <= multa.fecha) {
+                    if (hasta == "" || hasta >= multa.fecha) {
+                        if (multa.estado in estado) {
+                            return multa;
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     render() {
         let numeroDeMultasSinResolver = 0; // el numero total de multas que estan sin resolver
         let textoDeMultasSinResolver = ""; // el texto que se va a mostrar debajo del h2 que da la bienvenida
 
-        let multasParaMostrar = this.state.multas.map((multa) => { // ejecuta por cada multa del estado
+        let multasParaMostrar = this.state.multas.map(multa => { // ejecuta por cada multa del estado
             // ACA VAN LAS CONDICIONES DE FILTRADO
             // if (cumpleConLasCondicionesDeFiltrado)
             if (multa.estado === "No resuelta") { // si la multa no fue resuelta
@@ -116,7 +133,7 @@ class MultasResumidas extends Component {
                 </div>
                 <h2>{textoDeMultasSinResolver}</h2>
                 <button onClick={this.toggleFiltroHandler}>Filtrar</button>
-                <Filtro visible={this.state.mostrarFiltro} />
+                <Filtro visible={this.state.mostrarFiltro} aplicar={this.filtrarHandler} />
                 {multasParaMostrar}
             </div>
         );
