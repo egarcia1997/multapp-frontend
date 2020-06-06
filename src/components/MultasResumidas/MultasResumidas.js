@@ -42,14 +42,12 @@ class MultasResumidas extends Component {
     // hook del ciclo de vida en el que recupero el listado de todas las multas del servidor
     // y lo meto en el estado (pero solo los datos mas importantes)
     componentDidMount() {
-        if (!this.state.multasCargadas) { // si no se cargaron las multas ejecuta esto
+        //if (!this.state.multasCargadas) { // si no se cargaron las multas ejecuta esto
             axios.get("/getAll") // hace la peticion al servidor
                 .then(response => { // una vez que llegue todo hace esto
                     console.log(response); // muestra por consola la respuesta
-                    let multasResumidas = []; // array donde voy a cargar las multas resumidas para luego meter en el state
-                    const multasIDs = Object.keys(response.data); // crea un array con todos los id de las multas
-                    multasIDs.map(multaID => { // itera sobre ese array para ir cargando las multas resumidas
-                        const multa = { // crea una multa resumida. los datos los saca de response.data usando las keys de multasIDs
+                    const multasIDs = Object.keys(response.data).map(multaID => { // itera sobre los id de las multas para ir cargando las multas resumidas
+                        const multa = { // crea una multa resumida. los datos los saca de response.data
                             id: multaID,
                             nombreConductor: response.data[multaID]["apellidoInfractor"] + response.data[multaID]["nombresInfractor"],
                             dniConductor: response.data[multaID]["NroDoc"],
@@ -57,15 +55,15 @@ class MultasResumidas extends Component {
                             extracto: "falta agregar a la db",
                             estado: "tambien falta agregar a la db",
                         }
-                        multasResumidas.push(multa); // mete esa multa en el array de multas resumidas
+                        return multa; // mete esa multa en el array de multas resumidas
                     });
-                    this.setState({multas: multasResumidas}); // actualiza el state con el array de las multas resumidas sacadas de la db
+                    this.setState({multas: multasIDs}); // actualiza el state con el array de las multas resumidas sacadas de la db
                     this.setState({multasCargadas: true}); // actualiza el state para que no se vuelva a hacer la peticion al servidor
                 }).catch(error => { // si hubo error hace esto
                     console.log(error); // muestra por consola el error
                     this.setState({huboErrorAlCargarLasMultas: true}); // actualiza el state para decir que hubo error
                 });
-        }
+        //}
     }
 
     // metodo para mostrar/ocultar las opciones de filtrado
