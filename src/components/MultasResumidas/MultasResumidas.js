@@ -75,26 +75,26 @@ class MultasResumidas extends Component {
     }
 
     render() {
-        let multasParaMostrar = []; // crea un array con las multas que se van a mostrar
         let numeroDeMultasSinResolver = 0; // el numero total de multas que estan sin resolver
         let textoDeMultasSinResolver = ""; // el texto que se va a mostrar debajo del h2 que da la bienvenida
 
-        this.state.multas.forEach((multa) => { // ejecuta por cada multa del estado
+        let multasParaMostrar = this.state.multas.map((multa) => { // ejecuta por cada multa del estado
             // ACA VAN LAS CONDICIONES DE FILTRADO
             // if (cumpleConLasCondicionesDeFiltrado)
             if (multa.estado === "No resuelta") { // si la multa no fue resuelta
                 numeroDeMultasSinResolver++; // actualiza el contador de multas no resueltas
             }
-            multasParaMostrar.push( // crea el componente por cada multa que va a mostrar
+            return ( // crea el componente por cada multa que va a mostrar
                 <MultaResumida
-                key={multa.id}
-                id={multa.id}
-                nombreConductor={multa.nombreConductor}
-                dniConductor={multa.dniConductor}
-                fecha={multa.fecha}
-                extracto={multa.extracto}
-                estado={multa.estado}
-                click={() => alert("coso")} />
+                    key={multa.id}
+                    id={multa.id}
+                    nombreConductor={multa.nombreConductor}
+                    dniConductor={multa.dniConductor}
+                    fecha={multa.fecha}
+                    extracto={multa.extracto}
+                    estado={multa.estado}
+                    click={() => alert("coso")}
+                />
             );
         });
   
