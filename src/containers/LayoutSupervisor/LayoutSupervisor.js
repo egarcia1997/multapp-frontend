@@ -12,6 +12,8 @@ class LayoutSupervisor extends Component {
                 <Switch>
                     <Route path="/multas" render={() => <MultasResumidas nombreUsuario={this.props.usuario.nombre} />} />
                     <Route path="/perfil" component={Perfil} />
+                    {/* esto es temporal, esta para probar nomas */}
+                    <Redirect from="/" to="/multas" />
                 </Switch>
             </Fragment>
         );
