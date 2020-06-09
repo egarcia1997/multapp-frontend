@@ -1,0 +1,41 @@
+.Perfil {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    width: 100%;
+}
+
+.Cabecera {
+    display: flex;
+    flex-direction: row;
+}
+
+.Cabecera * {
+    margin: 0px;
+}
+
+.Foto {
+    border-radius: 50%;
+}
+
+.DatosPersonales {
+    list-style: none;
+    padding: 0px;
+    width: 50%;
+}
+
+.DatosPersonales li {
+    padding: 5px 0px 5px;
+}
+
+.DatosPersonales li span {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+}
+
+.DatosPersonales li:nth-child(odd) {
+    background-color: #eeeeee;
+    border: 1px solid;
+    border-color: grey #eeeeee grey;
+}
