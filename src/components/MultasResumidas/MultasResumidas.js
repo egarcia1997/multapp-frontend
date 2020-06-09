@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import axios from "axios";
-import {Route} from "react-router-dom";
+import {Route, withRouter} from "react-router-dom";
 import estilos from './MultasResumidas.module.css';
 import Filtro from "../MultasResumidas/Filtro/Filtro";
 import MultaResumida from "./MultaResumida/MultaResumida";
@@ -152,4 +152,4 @@ MultasResumidas.propTypes = {
     nombreUsuario: PropTypes.string.isRequired,
 }
 
-export default MultasResumidas;
+export default withRouter(MultasResumidas);
