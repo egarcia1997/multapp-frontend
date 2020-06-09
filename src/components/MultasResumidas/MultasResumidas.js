@@ -131,7 +131,7 @@ class MultasResumidas extends Component {
         }
   
         return (
-            <div className={estilos.MultasResumidas}>
+            <div>
                 <h1>Bienvenido, {this.props.nombreUsuario}</h1>
                 <div className={estilos.Cargando}></div>
                 <div className={estilos.Error} style={this.state.huboErrorAlCargarLasMultas ? {display: "block"} : null}>
