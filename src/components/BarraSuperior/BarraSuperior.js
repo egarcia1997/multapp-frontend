@@ -14,7 +14,7 @@ class BarraSuperior extends Component {
     }
 
     render() {
-        let dropdownMenu = this.state.mostrarDropdownMenu ? <DropdownMenu /> : null;
+        let dropdownMenu = this.state.mostrarDropdownMenu ? <DropdownMenu cerrar={this.mostrarDropdownHandler} /> : null;
         return (
             <Fragment>
                 <div className={estilos.BarraSuperior}>
