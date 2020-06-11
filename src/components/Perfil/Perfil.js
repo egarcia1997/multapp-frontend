@@ -2,8 +2,21 @@ import React, { Component } from "react";
 import axios from "axios";
 import estilos from "./Perfil.module.css";
 import * as placeholder from "../../assets/placeholder-vault-boy.png";
+import Modal from "../UI/Modal/Modal";
 
 class Perfil extends Component {
+    state = {
+        cambiarContrasena: false,
+    }
+
+    cambiarContrasena = () => {
+        this.setState({cambiarContrasena: true});
+    }
+
+    cerrarModal = () => {
+        this.setState({cambiarContrasena: false});
+    }
+
     render() {
         return (
             <div className={estilos.Perfil}>
@@ -37,8 +50,16 @@ class Perfil extends Component {
                             <span>·········</span>
                         </li>
                     </ul>
-                    <button>Cambiar contraseña</button>
+                    <button onClick={this.cambiarContrasena}>Cambiar contraseña</button>
                 </div>
+                <Modal mostrar={this.state.cambiarContrasena} modalClosed={this.cerrarModal}>
+                    <label for="contrasenaActual">Contraseña actual</label>
+                    <input type="password" id="contrasenaActual" />
+                    <label for="nuevaContrasena">Nueva contraseña</label>
+                    <input type="password" id="nuevaContrasena" />
+                    <label for="reingreseNuevaContrasena">Vuelva a ingresar la nueva contraseña</label>
+                    <input type="password" id="reingreseNuevaContrasena" />
+                </Modal>
             </div>
         );
     };
