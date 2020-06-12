@@ -71,7 +71,7 @@ class Perfil extends Component {
                         <TextField type="password" label="Nueva contraseña" fullWidth={true} />
                         <TextField type="password" label="Repita la nueva contraseña" fullWidth={true} />
                         <DialogActions>
-                            <Button onClick={this.cerrarDialog} color="secondary">
+                            <Button onClick={this.cerrarDialog} color="default">
                                 Cancelar
                             </Button>
                             <Button onClick={this.cerrarDialog} color="primary">
