@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import estilos from "./Perfil.module.css";
 import * as placeholder from "../../assets/placeholder-vault-boy.png";
-import {Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions} from "@material-ui/core";
+import {Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, DialogContentText} from "@material-ui/core";
 
 class Perfil extends Component {
     state = {
@@ -52,12 +52,15 @@ class Perfil extends Component {
                     </ul>
                     <Button variant="contained" color="primary" onClick={this.cambiarContrasena}>Cambiar contraseña</Button>
                 </div>
-                <Dialog open={this.cambiarContrasena} onClose={this.cerrarModal}>
+                <Dialog open={this.state.cambiarContrasena} onClose={this.cerrarModal}>
                     <DialogTitle>Cambiar contraseña</DialogTitle>
                     <DialogContent>
-                        <TextField autoFocus={true} type="password" label="Contraseña actual" />
-                        <TextField type="password" label="Nueva contraseña" />
-                        <TextField type="password" label="Repita la nueva contraseña" />
+                        <DialogContentText>
+                            No vayas a meter cualquier cosa insegura como contraseña
+                        </DialogContentText>
+                        <TextField autoFocus={true} type="password" label="Contraseña actual" fullWidth={true} />
+                        <TextField type="password" label="Nueva contraseña" fullWidth={true} />
+                        <TextField type="password" label="Repita la nueva contraseña" fullWidth={true} />
                         <DialogActions>
                             <Button onClick={this.cerrarModal} color="secondary">
                                 Cancelar
