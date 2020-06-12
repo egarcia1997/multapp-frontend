@@ -11,7 +11,7 @@ class LayoutSupervisor extends Component {
         return (
             <div className={estilos.Layout}>
                 <AppBar position="sticky">
-                    <Toolbar>
+                    <Toolbar variant="dense">
                         <IconButton edge="start" color="inherit" aria-label="menu">
                             <Menu />
                         </IconButton>
