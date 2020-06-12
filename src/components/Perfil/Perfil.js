@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import estilos from "./Perfil.module.css";
 import * as placeholder from "../../assets/placeholder-vault-boy.png";
-import {Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, DialogContentText, Avatar} from "@material-ui/core";
+import {Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, DialogContentText, Avatar, List, ListItemIcon, ListItem, ListItemText} from "@material-ui/core";
+import {Email, Lock, Home, Phone, Contacts} from "@material-ui/icons";
 
 class Perfil extends Component {
     state = {
@@ -27,31 +28,39 @@ class Perfil extends Component {
                         <h3>Supervisor</h3>
                     </div>
                 </div>
-                <div>
-                    <ul className={estilos.DatosPersonales}>
-                        <li>
-                            <span>DNI</span>
-                            <span>12.345.678</span>
-                        </li>
-                        <li>
-                            <span>Dirección</span>
-                            <span>Calle Falsa 123</span>
-                        </li>
-                        <li>
-                            <span>Teléfono</span>
-                            <span>362 4123456</span>
-                        </li>
-                        <li>
-                            <span>Correo electrónico</span>
-                            <span>juancito_kpo84@capitanichmail.com</span>
-                        </li>
-                        <li>
-                            <span>Contraseña</span>
-                            <span>·········</span>
-                        </li>
-                    </ul>
-                    <Button variant="contained" color="primary" onClick={this.cambiarContrasena}>Cambiar contraseña</Button>
-                </div>
+                <List>
+                    <ListItem>
+                        <ListItemIcon>
+                            <Contacts />
+                        </ListItemIcon>
+                        <ListItemText primary="DNI" secondary="12.345.678" />
+                    </ListItem>
+                    <ListItem>
+                        <ListItemIcon>
+                            <Home />
+                        </ListItemIcon>
+                        <ListItemText primary="Dirección" secondary="Calle Falsa 123" />
+                    </ListItem>
+                    <ListItem>
+                        <ListItemIcon>
+                            <Phone />
+                        </ListItemIcon>
+                        <ListItemText primary="Teléfono" secondary="362 4123456" />
+                    </ListItem>
+                    <ListItem>
+                        <ListItemIcon>
+                            <Email />
+                        </ListItemIcon>
+                        <ListItemText primary="Correo electrónico" secondary="juancitokpo_84@capitanichmail.com" />
+                    </ListItem>
+                    <ListItem>
+                        <ListItemIcon>
+                            <Lock />
+                        </ListItemIcon>
+                        <ListItemText primary="Contraseña" secondary="········" />
+                    </ListItem>
+                </List>
+                <Button variant="contained" color="primary" onClick={this.cambiarContrasena}>Cambiar contraseña</Button>
                 <Dialog open={this.state.cambiarContrasena} onClose={this.cerrarDialog}>
                     <DialogTitle>Cambiar contraseña</DialogTitle>
                     <DialogContent>
