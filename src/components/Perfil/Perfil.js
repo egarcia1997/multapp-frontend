@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import estilos from "./Perfil.module.css";
 import * as placeholder from "../../assets/placeholder-vault-boy.png";
-import {Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, DialogContentText} from "@material-ui/core";
+import {Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, DialogContentText, Avatar} from "@material-ui/core";
 
 class Perfil extends Component {
     state = {
@@ -13,7 +13,7 @@ class Perfil extends Component {
         this.setState({cambiarContrasena: true});
     }
 
-    cerrarModal = () => {
+    cerrarDialog = () => {
         this.setState({cambiarContrasena: false});
     }
 
@@ -21,7 +21,7 @@ class Perfil extends Component {
         return (
             <div className={estilos.Perfil}>
                 <div className={estilos.Cabecera}>
-                    <img className={estilos.Foto} src={placeholder} alt="Su foto de perfil" width="200" height="200" />
+                    <Avatar style={{width: "200px", height: "200px"}} src={placeholder} alt="Juan Pérez" />
                     <div style={{display: "flex", flexDirection: "column"}}>
                         <h1>Juan Pérez</h1>
                         <h3>Supervisor</h3>
@@ -52,7 +52,7 @@ class Perfil extends Component {
                     </ul>
                     <Button variant="contained" color="primary" onClick={this.cambiarContrasena}>Cambiar contraseña</Button>
                 </div>
-                <Dialog open={this.state.cambiarContrasena} onClose={this.cerrarModal}>
+                <Dialog open={this.state.cambiarContrasena} onClose={this.cerrarDialog}>
                     <DialogTitle>Cambiar contraseña</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
@@ -62,10 +62,10 @@ class Perfil extends Component {
                         <TextField type="password" label="Nueva contraseña" fullWidth={true} />
                         <TextField type="password" label="Repita la nueva contraseña" fullWidth={true} />
                         <DialogActions>
-                            <Button onClick={this.cerrarModal} color="secondary">
+                            <Button onClick={this.cerrarDialog} color="secondary">
                                 Cancelar
                             </Button>
-                            <Button onClick={this.cerrarModal} color="primary">
+                            <Button onClick={this.cerrarDialog} color="primary">
                                 Aceptar
                             </Button>
                         </DialogActions>
