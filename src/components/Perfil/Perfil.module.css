@@ -13,25 +13,3 @@
 .Cabecera * {
     margin: 0px;
 }
-
-.DatosPersonales {
-    list-style: none;
-    padding: 0px;
-    width: 50%;
-}
-
-.DatosPersonales li {
-    padding: 5px 0px 5px;
-}
-
-.DatosPersonales li span {
-    display: inline-block;
-    width: 50%;
-    text-align: center;
-}
-
-.DatosPersonales li:nth-child(odd) {
-    background-color: #eeeeee;
-    border: 1px solid;
-    border-color: grey #eeeeee grey;
-}
