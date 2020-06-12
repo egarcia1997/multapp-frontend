@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import estilos from "./Perfil.module.css";
 import * as placeholder from "../../assets/placeholder-vault-boy.png";
-import Modal from "../UI/Modal/Modal";
+import {Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions} from "@material-ui/core";
 
 class Perfil extends Component {
     state = {
@@ -50,16 +50,24 @@ class Perfil extends Component {
                             <span>·········</span>
                         </li>
                     </ul>
-                    <button onClick={this.cambiarContrasena}>Cambiar contraseña</button>
+                    <Button variant="contained" color="primary" onClick={this.cambiarContrasena}>Cambiar contraseña</Button>
                 </div>
-                <Modal mostrar={this.state.cambiarContrasena} modalClosed={this.cerrarModal}>
-                    <label for="contrasenaActual">Contraseña actual</label>
-                    <input type="password" id="contrasenaActual" />
-                    <label for="nuevaContrasena">Nueva contraseña</label>
-                    <input type="password" id="nuevaContrasena" />
-                    <label for="reingreseNuevaContrasena">Vuelva a ingresar la nueva contraseña</label>
-                    <input type="password" id="reingreseNuevaContrasena" />
-                </Modal>
+                <Dialog open={this.cambiarContrasena} onClose={this.cerrarModal}>
+                    <DialogTitle>Cambiar contraseña</DialogTitle>
+                    <DialogContent>
+                        <TextField autoFocus={true} type="password" label="Contraseña actual" />
+                        <TextField type="password" label="Nueva contraseña" />
+                        <TextField type="password" label="Repita la nueva contraseña" />
+                        <DialogActions>
+                            <Button onClick={this.cerrarModal} color="secondary">
+                                Cancelar
+                            </Button>
+                            <Button onClick={this.cerrarModal} color="primary">
+                                Aceptar
+                            </Button>
+                        </DialogActions>
+                    </DialogContent>
+                </Dialog>
             </div>
         );
     };
