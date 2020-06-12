@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import {Switch, Route, Redirect} from "react-router-dom";
-import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MultasResumidas from "../../components/MultasResumidas/MultasResumidas";
 import Perfil from "../../components/Perfil/Perfil";
 import estilos from "../Layout.module.css";
-import { AppBar, Toolbar, Typography, Button, IconButton } from "@material-ui/core";
+import { AppBar, Toolbar, Typography, IconButton } from "@material-ui/core";
 import { Menu, AccountCircle } from "@material-ui/icons";
 
 class LayoutSupervisor extends Component {
