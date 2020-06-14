@@ -11,7 +11,7 @@ class Filtro extends Component {
 
     render() {
         return (
-            <Dialog {...props}>
+            <Dialog {...this.props}>
                 <DialogTitle>Filtrar multas</DialogTitle>
                 <DialogContent>
                     <FormControl>
@@ -46,9 +46,9 @@ class Filtro extends Component {
                     </FormControl>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={props.borrar}>Borrar filtros</Button>
-                    <Button onClick={props.onClose}>Cancelar</Button>
-                    <Button onClick={props.aplicar} color="primary">Aceptar</Button>
+                    <Button onClick={this.props.borrar}>Borrar filtros</Button>
+                    <Button onClick={this.props.onClose}>Cancelar</Button>
+                    <Button onClick={this.props.aplicar} color="primary">Aceptar</Button>
                 </DialogActions>
             </Dialog>
         );
