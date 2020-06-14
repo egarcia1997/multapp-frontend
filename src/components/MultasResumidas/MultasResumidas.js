@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import axios from "axios";
 import {Route, withRouter} from "react-router-dom";
+import {Button, Typography} from "@material-ui/core";
 import estilos from './MultasResumidas.module.css';
 import Filtro from "../MultasResumidas/Filtro/Filtro";
 import MultaResumida from "./MultaResumida/MultaResumida";
@@ -68,8 +69,6 @@ class MultasResumidas extends Component {
     }
 
     // metodo para mostrar/ocultar las opciones de filtrado
-    // o sea, el componente Filtro
-    // se ejecuta al hacer clic en un boton mas abajo
     toggleFiltroHandler = () => {
         const nuevoEstado = !(this.state.mostrarFiltro);
         this.setState({mostrarFiltro: nuevoEstado});
@@ -77,6 +76,7 @@ class MultasResumidas extends Component {
 
     // metodo para aplicar los filtros seleccionados
     filtrarHandler = (estado, desde, hasta, dni) => {
+        this.toggleFiltroHandler();
         const fechaDesde = new Date(desde);
         const fechaHasta = new Date(hasta);
         return this.state.multas.map(multa => {
@@ -90,6 +90,11 @@ class MultasResumidas extends Component {
                 }
             }
         });
+    }
+
+    // metodo para borrar los filtros aplicados y mostrar todas las multas
+    borrarFiltrosHandler = () => {
+        this.toggleFiltroHandler();
     }
 
     // metodo que carga todos los datos de una multa
@@ -132,15 +137,22 @@ class MultasResumidas extends Component {
   
         return (
             <div>
-                <h1>Bienvenido, {this.props.nombreUsuario}</h1>
+                <Typography variant="h3">Bienvenido, {this.props.nombreUsuario}</Typography>
                 <div className={estilos.Cargando}></div>
                 <div className={estilos.Error} style={this.state.huboErrorAlCargarLasMultas ? {display: "block"} : null}>
-                    <h2>Ha ocurrido un error</h2>
-                    <h3>Intente recargar la página</h3>
+                    <Typography variant="h5">Ha ocurrido un error</Typography>
+                    <Typography variant="h6">Intente recargar la página</Typography>
                 </div>
-                <h2>{textoDeMultasSinResolver}</h2>
-                <button onClick={this.toggleFiltroHandler}>Filtrar</button>
-                <Filtro visible={this.state.mostrarFiltro} aplicar={this.filtrarHandler} />
+                <Typography variant="h5">{textoDeMultasSinResolver}</Typography>
+                <Button variant="contained" color="primary" onClick={this.toggleFiltroHandler}>
+                    Filtrar
+                </Button>
+                <Filtro
+                    open={this.state.mostrarFiltro}
+                    onClose={this.toggleFiltroHandler}
+                    aplicar={this.filtrarHandler}
+                    borrar={this.borrarFiltrosHandler}
+                />
                 {multasParaMostrar}
                 <Route path="/multas/:id" exact={true} render={() => <h1>se tendria que mostrar una multa</h1>} />
             </div>
