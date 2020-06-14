@@ -1,28 +1,50 @@
 import React from "react";
 import estilos from "./Filtro.module.css";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Checkbox, FormGroup, FormControlLabel, FormControl, FormLabel, TextField } from "@material-ui/core";
 
 const Filtro = (props) => {
-    if (props.visible) {
         return (
-            <div className={estilos.Filtro}>
-                <div id="estado">
-                    <label htmlFor="noResuelta">No Resuelta</label>
-                    <input type="checkbox" id="noResuelta" value="No Resuelta" />
-                    <label htmlFor="aceptada">Aceptada</label>
-                    <input type="checkbox" id="aceptada" value="Aceptada" />
-                    <label htmlFor="rechazada">Rechazada</label>
-                    <input type="checkbox" id="rechazada" value="Rechazada" />
-                </div>
-                <div id="fecha">
-                    <span>Desde</span><input type="date" />
-                    <span>Hasta</span><input type="date" />
-                </div>
-                <span>DNI</span><input type="number" />
-            </div>
+            <Dialog {...props}>
+                <DialogTitle>Filtrar multas</DialogTitle>
+                <DialogContent>
+                    <FormControl>
+                        <FormLabel>Estado</FormLabel>
+                        <FormGroup>
+                            <FormControlLabel
+                                control={<Checkbox color="primary" name="noResueltas" />}
+                                label="No resueltas"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox color="primary" name="aceptadas" />}
+                                label="Aceptadas"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox color="primary" name="rechazadas" />}
+                                label="Rechazadas"
+                            />
+                        </FormGroup>
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel>Fecha de creación</FormLabel>
+                        <FormGroup>
+                            <TextField id="desde" label="Desde" type="date" />
+                            <TextField id="hasta" label="Hasta" type="date" />
+                        </FormGroup>
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel>Otros</FormLabel>
+                        <FormGroup>
+                            <TextField id="dni" label="DNI" />
+                        </FormGroup>
+                    </FormControl>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={props.borrar}>Borrar filtros</Button>
+                    <Button onClick={props.onClose}>Cancelar</Button>
+                    <Button onClick={props.aplicar} color="primary">Aceptar</Button>
+                </DialogActions>
+            </Dialog>
         );
-    } else {
-        return null;
-    }
 }
 
 export default Filtro;
