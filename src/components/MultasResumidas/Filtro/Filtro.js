@@ -1,8 +1,15 @@
-import React from "react";
-import estilos from "./Filtro.module.css";
+import React, { Component } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Checkbox, FormGroup, FormControlLabel, FormControl, FormLabel, TextField } from "@material-ui/core";
 
-const Filtro = (props) => {
+class Filtro extends Component {
+    state ={
+        estado: [],
+        desde: null,
+        hasta: null,
+        dni: null,
+    }
+
+    render() {
         return (
             <Dialog {...props}>
                 <DialogTitle>Filtrar multas</DialogTitle>
@@ -45,6 +52,7 @@ const Filtro = (props) => {
                 </DialogActions>
             </Dialog>
         );
+    }
 }
 
 export default Filtro;
