@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import estilos from "./Perfil.module.css";
 import * as placeholder from "../../assets/placeholder-vault-boy.png";
-import {Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, DialogContentText, Avatar, List, ListItemIcon, ListItem, ListItemText, CircularProgress, Container} from "@material-ui/core";
+import {Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, DialogContentText, Avatar, List, ListItemIcon, ListItem, ListItemText, CircularProgress, Container, Typography} from "@material-ui/core";
 import {Email, Lock, Home, Phone, Contacts} from "@material-ui/icons";
 
 class Perfil extends Component {
@@ -59,7 +59,7 @@ class Perfil extends Component {
                 <div className={estilos.Cabecera}>
                     <Avatar style={{width: "200px", height: "200px"}} src={this.state.imagen} alt={this.state.nombre} />
                     <div style={{display: "flex", flexDirection: "column"}}>
-                        <h1>{this.state.nombre}</h1>
+                        <Typography variant="h5">{this.state.nombre}</Typography>
                         <h3>{this.state.rol}</h3>
                     </div>
                 </div>
