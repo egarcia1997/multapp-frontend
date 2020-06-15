@@ -3,22 +3,33 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Checkbox, Fo
 
 class Filtro extends Component {
     state = {
-        noResueltas: true,
-        aceptadas: true,
-        rechazadas: true,
-        desde: "2020-01-01",
-        hasta: new Date().toISOString().slice(0, 10),
-        dni: "",
+        noResueltas: null,
+        aceptadas: null,
+        rechazadas: null,
+        desde: null,
+        hasta: null,
+        dni: null,
+    }
+
+    componentDidMount = () => {
+        this.setState({
+            noResueltas: this.props.default.noResueltas,
+            aceptadas: this.props.default.aceptadas,
+            rechazadas: this.props.default.rechazadas,
+            desde: this.props.default.desde,
+            hasta: this.props.default.hasta,
+            dni: this.props.default.dni,
+        });
     }
 
     // carga lo que escribe el usuario en el state
     inputHandler = (event) => {
-        this.setState({[event.target.id]: event.target.value}, () => {console.log(this.state);});
+        this.setState({[event.target.id]: event.target.value});
     }
     
     // carga los checkbox que selecciona el usuario en el state
     checkboxHandler = (event) => {
-        this.setState({[event.target.id]: event.target.checked}, () => {console.log(this.state);});
+        this.setState({[event.target.id]: event.target.checked});
     }
 
     // metodo para borrar los filtros aplicados y mostrar todas las multas
