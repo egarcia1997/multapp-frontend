@@ -6,17 +6,21 @@ class Filtro extends Component {
         noResueltas: true,
         aceptadas: true,
         rechazadas: true,
-        desde: "",
-        hasta: "",
+        desde: "2020-01-01",
+        hasta: new Date().toISOString().slice(0, 10),
         dni: "",
     }
 
     // carga lo que escribe el usuario en el state
     inputHandler = (event) => {
-        this.setState({[event.target.id]: event.target.value});
-        console.log(this.state);
+        this.setState({[event.target.id]: event.target.value}, () => {console.log(this.state);});
     }
     
+    // carga los checkbox que selecciona el usuario en el state
+    checkboxHandler = (event) => {
+        this.setState({[event.target.id]: event.target.checked}, () => {console.log(this.state);});
+    }
+
     // metodo para borrar los filtros aplicados y mostrar todas las multas
     borrarFiltrosHandler = () => {
         // poner los controles como esta el estado
@@ -24,8 +28,8 @@ class Filtro extends Component {
             noResueltas: true,
             aceptadas: true,
             rechazadas: true,
-            desde: "",
-            hasta: "",
+            desde: "2020-01-01",
+            hasta: new Date().toISOString().slice(0, 10),
             dni: "",
         });
     }
@@ -39,15 +43,33 @@ class Filtro extends Component {
                         <FormLabel>Estado</FormLabel>
                         <FormGroup>
                             <FormControlLabel
-                                control={<Checkbox color="primary" id="noResueltas" onChange={this.inputHandler} />}
+                                control={
+                                    <Checkbox
+                                        color="primary"
+                                        id="noResueltas"
+                                        checked={this.state.noResueltas}
+                                        onChange={this.checkboxHandler}
+                                    />}
                                 label="No resueltas"
                             />
                             <FormControlLabel
-                                control={<Checkbox color="primary" id="aceptadas" onChange={this.inputHandler} />}
+                                control={
+                                    <Checkbox
+                                        color="primary"
+                                        id="aceptadas"
+                                        checked={this.state.aceptadas}
+                                        onChange={this.checkboxHandler}
+                                    />}
                                 label="Aceptadas"
                             />
                             <FormControlLabel
-                                control={<Checkbox color="primary" id="rechazadas" onChange={this.inputHandler} />}
+                                control={
+                                    <Checkbox
+                                        color="primary"
+                                        id="rechazadas"
+                                        checked={this.state.rechazadas}
+                                        onChange={this.checkboxHandler}
+                                    />}
                                 label="Rechazadas"
                             />
                         </FormGroup>
@@ -55,14 +77,32 @@ class Filtro extends Component {
                     <FormControl>
                         <FormLabel>Fecha de creación</FormLabel>
                         <FormGroup>
-                            <TextField id="desde" label="Desde" type="date" onChange={this.inputHandler} />
-                            <TextField id="hasta" label="Hasta" type="date" onChange={this.inputHandler} />
+                            <TextField
+                                id="desde"
+                                label="Desde"
+                                type="date"
+                                value={this.state.desde}
+                                onChange={this.inputHandler}
+                            />
+                            <TextField
+                                id="hasta"
+                                label="Hasta"
+                                type="date"
+                                value={this.state.hasta}
+                                onChange={this.inputHandler}
+                            />
                         </FormGroup>
                     </FormControl>
                     <FormControl>
                         <FormLabel>Otros</FormLabel>
                         <FormGroup>
-                            <TextField id="dni" label="DNI" onChange={this.inputHandler} />
+                            <TextField
+                                id="dni"
+                                label="DNI"
+                                type="number"
+                                value={this.state.dni}
+                                onChange={this.inputHandler}
+                            />
                         </FormGroup>
                     </FormControl>
                 </DialogContent>
