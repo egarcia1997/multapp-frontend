@@ -3,7 +3,7 @@ import {withRouter} from "react-router-dom";
 import Logo from "../../components/Logo/Logo";
 // aca hay conflicto, en /core e /icons hay un componente llamado Menu
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from "@material-ui/core";
-import { Menu as MenuIcon, AccountCircle } from "@material-ui/icons";
+import { AccountCircle } from "@material-ui/icons";
 
 
 class BarraSuperior extends Component {
