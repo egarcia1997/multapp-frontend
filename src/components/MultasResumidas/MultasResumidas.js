@@ -36,6 +36,14 @@ class MultasResumidas extends Component {
                 estado: "Rechazada",
             },
         ],
+        condicionesDeFiltrado: { // las condiciones de filtrado de las multas
+            noResueltas: true,
+            aceptadas: true,
+            rechazadas: true,
+            desde: "",
+            hasta: "",
+            dni: "",
+        },
         multasCargadas: false, // controla si ya se cargaron las multas o no
         mostrarFiltro: false, // controla si se muestran las opciones de filtros
         huboErrorAlCargarLasMultas: false, // controla si hubo un error al cargar las multas
