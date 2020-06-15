@@ -14,24 +14,24 @@ class MultasResumidas extends Component {
             {
                 id: "1",
                 nombreConductor: "Freeman Gordon",
-                dniConductor: "12.345.678",
-                fecha: "1/01/20",
+                dniConductor: "12345678",
+                fecha: "2020-01-01",
                 extracto: "Circular por encima de la velocidad máxima permitida",
                 estado: "No resuelta",
             },
             {
                 id: "2",
                 nombreConductor: "Jensen Adam",
-                dniConductor: "23.456.789",
-                fecha: "2/01/20",
+                dniConductor: "23456789",
+                fecha: "2020-01-02",
                 extracto: "Circular con RTO vencida al día de la fecha",
                 estado: "Aceptada",
             },
             {
                 id: "3",
                 nombreConductor: "Yu Morgan",
-                dniConductor: "34.567.890",
-                fecha: "3/01/20",
+                dniConductor: "34567890",
+                fecha: "2020-01-03",
                 extracto: "Estacionar sobre calzada amarilla",
                 estado: "Rechazada",
             },
@@ -99,23 +99,43 @@ class MultasResumidas extends Component {
         let textoDeMultasSinResolver = ""; // el texto que se va a mostrar debajo del h2 que da la bienvenida
 
         let multasParaMostrar = this.state.multas.map(multa => { // ejecuta por cada multa del estado
-            // ACA VAN LAS CONDICIONES DE FILTRADO
-            // if (cumpleConLasCondicionesDeFiltrado)
+            // primero controla si la multa cumple con las condiciones de filtrado
+            let seDebeMostrar = true;
+            if (!this.state.condicionesDeFiltrado.noResueltas && multa.estado === "No resuelta") {
+                seDebeMostrar = false;
+            }
+            if (!this.state.condicionesDeFiltrado.aceptadas && multa.estado === "Aceptada") {
+                seDebeMostrar = false;
+            }
+            if (!this.state.condicionesDeFiltrado.rechazadas && multa.estado === "Rechazada") {
+                seDebeMostrar = false;
+            }
+            if (this.state.condicionesDeFiltrado.desde > multa.fecha) {
+                seDebeMostrar = false;
+            }
+            if (this.state.condicionesDeFiltrado.hasta < multa.fecha) {
+                seDebeMostrar = false;
+            }
+            if (this.state.condicionesDeFiltrado.dni !== "" && this.state.condicionesDeFiltrado.dni !== multa.dniConductor) {
+                seDebeMostrar = false;
+            }
             if (multa.estado === "No resuelta") { // si la multa no fue resuelta
                 numeroDeMultasSinResolver++; // actualiza el contador de multas no resueltas
             }
-            return ( // crea el componente por cada multa que va a mostrar
-                <MultaResumida
-                    key={multa.id}
-                    id={multa.id}
-                    nombreConductor={multa.nombreConductor}
-                    dniConductor={multa.dniConductor}
-                    fecha={multa.fecha}
-                    extracto={multa.extracto}
-                    estado={multa.estado}
-                    click={() => this.multaSeleccionadaHandler(multa.id)}
-                />
-            );
+            if (seDebeMostrar) {
+                return ( // crea el componente por cada multa que va a mostrar
+                    <MultaResumida
+                        key={multa.id}
+                        id={multa.id}
+                        nombreConductor={multa.nombreConductor}
+                        dniConductor={multa.dniConductor}
+                        fecha={multa.fecha}
+                        extracto={multa.extracto}
+                        estado={multa.estado}
+                        click={() => this.multaSeleccionadaHandler(multa.id)}
+                    />
+                );    
+            }
         });
   
         if (numeroDeMultasSinResolver === 0) { // segun el numero de multas sin resolver, muestra un mensaje informando eso
