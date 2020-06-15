@@ -2,31 +2,52 @@ import React, { Component } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Checkbox, FormGroup, FormControlLabel, FormControl, FormLabel, TextField } from "@material-ui/core";
 
 class Filtro extends Component {
-    state ={
-        estado: [],
-        desde: null,
-        hasta: null,
-        dni: null,
+    state = {
+        noResueltas: true,
+        aceptadas: true,
+        rechazadas: true,
+        desde: "",
+        hasta: "",
+        dni: "",
+    }
+
+    // carga lo que escribe el usuario en el state
+    inputHandler = (event) => {
+        this.setState({[event.target.id]: event.target.value});
+        console.log(this.state);
+    }
+    
+    // metodo para borrar los filtros aplicados y mostrar todas las multas
+    borrarFiltrosHandler = () => {
+        // poner los controles como esta el estado
+        this.setState({
+            noResueltas: true,
+            aceptadas: true,
+            rechazadas: true,
+            desde: "",
+            hasta: "",
+            dni: "",
+        });
     }
 
     render() {
         return (
-            <Dialog {...this.props}>
+            <Dialog open={this.props.open} onClose={this.props.onClose}>
                 <DialogTitle>Filtrar multas</DialogTitle>
                 <DialogContent>
                     <FormControl>
                         <FormLabel>Estado</FormLabel>
                         <FormGroup>
                             <FormControlLabel
-                                control={<Checkbox color="primary" name="noResueltas" />}
+                                control={<Checkbox color="primary" id="noResueltas" onChange={this.inputHandler} />}
                                 label="No resueltas"
                             />
                             <FormControlLabel
-                                control={<Checkbox color="primary" name="aceptadas" />}
+                                control={<Checkbox color="primary" id="aceptadas" onChange={this.inputHandler} />}
                                 label="Aceptadas"
                             />
                             <FormControlLabel
-                                control={<Checkbox color="primary" name="rechazadas" />}
+                                control={<Checkbox color="primary" id="rechazadas" onChange={this.inputHandler} />}
                                 label="Rechazadas"
                             />
                         </FormGroup>
@@ -34,21 +55,21 @@ class Filtro extends Component {
                     <FormControl>
                         <FormLabel>Fecha de creación</FormLabel>
                         <FormGroup>
-                            <TextField id="desde" label="Desde" type="date" />
-                            <TextField id="hasta" label="Hasta" type="date" />
+                            <TextField id="desde" label="Desde" type="date" onChange={this.inputHandler} />
+                            <TextField id="hasta" label="Hasta" type="date" onChange={this.inputHandler} />
                         </FormGroup>
                     </FormControl>
                     <FormControl>
                         <FormLabel>Otros</FormLabel>
                         <FormGroup>
-                            <TextField id="dni" label="DNI" />
+                            <TextField id="dni" label="DNI" onChange={this.inputHandler} />
                         </FormGroup>
                     </FormControl>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={this.props.borrar}>Borrar filtros</Button>
+                    <Button onClick={this.borrarFiltrosHandler}>Borrar filtros</Button>
                     <Button onClick={this.props.onClose}>Cancelar</Button>
-                    <Button onClick={this.props.aplicar} color="primary">Aceptar</Button>
+                    <Button onClick={() => this.props.aplicar(this.state)} color="primary">Aceptar</Button>
                 </DialogActions>
             </Dialog>
         );

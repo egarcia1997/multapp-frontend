@@ -75,21 +75,9 @@ class MultasResumidas extends Component {
     }
 
     // metodo para aplicar los filtros seleccionados
-    filtrarHandler = (estado, desde, hasta, dni) => {
+    filtrarHandler = (condiciones) => {
+        this.setState({condicionesDeFiltrado: condiciones});
         this.toggleFiltroHandler();
-        const fechaDesde = new Date(desde);
-        const fechaHasta = new Date(hasta);
-        return this.state.multas.map(multa => {
-            if (dni == "" || dni == multa.dniConductor) {
-                if (desde == "" || desde <= multa.fecha) {
-                    if (hasta == "" || hasta >= multa.fecha) {
-                        if (multa.estado in estado) {
-                            return multa;
-                        }
-                    }
-                }
-            }
-        });
     }
 
     // metodo que carga todos los datos de una multa
