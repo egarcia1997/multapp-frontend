@@ -92,11 +92,6 @@ class MultasResumidas extends Component {
         });
     }
 
-    // metodo para borrar los filtros aplicados y mostrar todas las multas
-    borrarFiltrosHandler = () => {
-        this.toggleFiltroHandler();
-    }
-
     // metodo que carga todos los datos de una multa
     // se ejecuta al hacer clic en una multa
     multaSeleccionadaHandler = (id) => {
@@ -151,7 +146,6 @@ class MultasResumidas extends Component {
                     open={this.state.mostrarFiltro}
                     onClose={this.toggleFiltroHandler}
                     aplicar={this.filtrarHandler}
-                    borrar={this.borrarFiltrosHandler}
                 />
                 {multasParaMostrar}
                 <Route path="/multas/:id" exact={true} render={() => <h1>se tendria que mostrar una multa</h1>} />
