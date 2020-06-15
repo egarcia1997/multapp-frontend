@@ -40,8 +40,8 @@ class MultasResumidas extends Component {
             noResueltas: true,
             aceptadas: true,
             rechazadas: true,
-            desde: "",
-            hasta: "",
+            desde: "2020-01-01",
+            hasta: new Date().toISOString().slice(0, 10),
             dni: "",
         },
         multasCargadas: false, // controla si ya se cargaron las multas o no
@@ -141,6 +141,7 @@ class MultasResumidas extends Component {
                 <Filtro
                     open={this.state.mostrarFiltro}
                     onClose={this.toggleFiltroHandler}
+                    default={this.state.condicionesDeFiltrado}
                     aplicar={this.filtrarHandler}
                 />
                 {multasParaMostrar}
