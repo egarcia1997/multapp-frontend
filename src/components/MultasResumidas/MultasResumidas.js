@@ -94,7 +94,7 @@ class MultasResumidas extends Component {
     // metodo que carga todos los datos de una multa
     // se ejecuta al hacer clic en una multa
     multaSeleccionadaHandler = (id) => {
-        this.props.history.push("/multas/" + id); // NO ANDA
+        this.props.history.push("/multas/" + id);
     }
 
     render() {
@@ -200,7 +200,6 @@ class MultasResumidas extends Component {
                         </TableContainer>
                     </Fragment>
                 : null}
-                <Route path="/multas/:id" exact={true} render={() => <h1>se tendria que mostrar una multa</h1>} />
             </Container>
         );
     }
