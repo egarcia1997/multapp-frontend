@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import axios from "axios";
 import {Route, withRouter} from "react-router-dom";
-import {Button, Typography} from "@material-ui/core";
+import {Button, Typography, TableHead, TableRow, TableCell, Table, TableContainer, Paper, TableBody} from "@material-ui/core";
 import estilos from './MultasResumidas.module.css';
 import Filtro from "../MultasResumidas/Filtro/Filtro";
 import MultaResumida from "./MultaResumida/MultaResumida";
@@ -124,16 +124,23 @@ class MultasResumidas extends Component {
             }
             if (seDebeMostrar) {
                 return ( // crea el componente por cada multa que va a mostrar
-                    <MultaResumida
-                        key={multa.id}
-                        id={multa.id}
-                        nombreConductor={multa.nombreConductor}
-                        dniConductor={multa.dniConductor}
-                        fecha={multa.fecha}
-                        extracto={multa.extracto}
-                        estado={multa.estado}
-                        click={() => this.multaSeleccionadaHandler(multa.id)}
-                    />
+                    <TableRow key={multa.id} onClick={() => this.multaSeleccionadaHandler(multa.id)}>
+                        <TableCell>{multa.id}</TableCell>
+                        <TableCell>{multa.nombreConductor}</TableCell>
+                        <TableCell>{multa.dniConductor}</TableCell>
+                        <TableCell>{multa.fecha}</TableCell>
+                        <TableCell>{multa.extracto}</TableCell>
+                    </TableRow>
+                    // <MultaResumida
+                    //     key={multa.id}
+                    //     id={multa.id}
+                    //     nombreConductor={multa.nombreConductor}
+                    //     dniConductor={multa.dniConductor}
+                    //     fecha={multa.fecha}
+                    //     extracto={multa.extracto}
+                    //     estado={multa.estado}
+                    //     click={() => this.multaSeleccionadaHandler(multa.id)}
+                    // />
                 );    
             }
         });
@@ -164,7 +171,22 @@ class MultasResumidas extends Component {
                     default={this.state.condicionesDeFiltrado}
                     aplicar={this.filtrarHandler}
                 />
-                {multasParaMostrar}
+                <TableContainer component={Paper}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>ID</TableCell>
+                                <TableCell>DNI del conductor</TableCell>
+                                <TableCell>Nombre del conductor</TableCell>
+                                <TableCell>Fecha</TableCell>
+                                <TableCell>Extracto</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {multasParaMostrar}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
                 <Route path="/multas/:id" exact={true} render={() => <h1>se tendria que mostrar una multa</h1>} />
             </div>
         );
