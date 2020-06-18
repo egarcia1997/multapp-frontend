@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import PropTypes from "prop-types";
 import axios from "axios";
 import {Route, withRouter} from "react-router-dom";
-import {Button, Typography, TableHead, TableRow, TableCell, Table, TableContainer, Paper, TableBody, CircularProgress} from "@material-ui/core";
+import {Button, Typography, TableHead, TableRow, TableCell, Table, TableContainer, Paper, TableBody, CircularProgress, Container} from "@material-ui/core";
 import estilos from './MultasResumidas.module.css';
 import Filtro from "../MultasResumidas/Filtro/Filtro";
 import MultaResumida from "./MultaResumida/MultaResumida";
@@ -98,12 +98,6 @@ class MultasResumidas extends Component {
     }
 
     render() {
-        let cargando = (
-            <Fragment>
-                <CircularProgress />
-                <Typography>Cargando multas</Typography>
-            </Fragment>
-        );
         let numeroDeMultasSinResolver = 0; // el numero total de multas que estan sin resolver
         let textoDeMultasSinResolver = ""; // el texto que se va a mostrar debajo del h2 que da la bienvenida
 
@@ -140,7 +134,7 @@ class MultasResumidas extends Component {
                         <TableCell>{multa.fecha}</TableCell>
                         <TableCell>{multa.extracto}</TableCell>
                     </TableRow>
-                );    
+                );
             }
         });
   
@@ -153,11 +147,16 @@ class MultasResumidas extends Component {
         }
   
         return (
-            <div>
+            <Container>
                 <Typography variant="h3">Bienvenido, {this.props.nombreUsuario}</Typography>
-                {this.state.multasCargadas ? null : cargando}
+                {!this.state.multasCargadas ?
+                    <Fragment>
+                        <CircularProgress />
+                        <Typography>Cargando multas</Typography>
+                    </Fragment>
+                : null}
                 {this.state.huboErrorAlCargarLasMultas ? 
-                    <div>
+                    <Fragment>
                         <Typography variant="h5" color="error">
                             Ha ocurrido un error. Intente recargar la página.
                         </Typography>
@@ -167,37 +166,42 @@ class MultasResumidas extends Component {
                         <Typography variant="caption" color="error">
                             {this.state.textoDeError.toString()}
                         </Typography>
-                    </div>
+                    </Fragment>
                 : null}
-                
-                <Typography variant="h5">{textoDeMultasSinResolver}</Typography>
-                <Button variant="contained" color="primary" onClick={this.toggleFiltroHandler}>
-                    Filtrar
-                </Button>
-                <Filtro
-                    open={this.state.mostrarFiltro}
-                    onClose={this.toggleFiltroHandler}
-                    default={this.state.condicionesDeFiltrado}
-                    aplicar={this.filtrarHandler}
-                />
-                <TableContainer component={Paper}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>ID</TableCell>
-                                <TableCell>DNI del conductor</TableCell>
-                                <TableCell>Nombre del conductor</TableCell>
-                                <TableCell>Fecha</TableCell>
-                                <TableCell>Extracto</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {multasParaMostrar}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                {/* descomentar esta linea cuando arreglen la base de datos */}
+                {/* {this.state.multasCargadas && !this.state.huboErrorAlCargarLasMultas ?  */}
+                {this.state.multasCargadas ? 
+                    <Fragment>
+                        <Typography variant="h5">{textoDeMultasSinResolver}</Typography>
+                        <Button variant="contained" color="primary" onClick={this.toggleFiltroHandler}>
+                            Filtrar
+                        </Button>
+                        <Filtro
+                            open={this.state.mostrarFiltro}
+                            onClose={this.toggleFiltroHandler}
+                            default={this.state.condicionesDeFiltrado}
+                            aplicar={this.filtrarHandler}
+                        />
+                        <TableContainer component={Paper}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>ID</TableCell>
+                                        <TableCell>DNI del conductor</TableCell>
+                                        <TableCell>Nombre del conductor</TableCell>
+                                        <TableCell>Fecha</TableCell>
+                                        <TableCell>Extracto</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {multasParaMostrar}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Fragment>
+                : null}
                 <Route path="/multas/:id" exact={true} render={() => <h1>se tendria que mostrar una multa</h1>} />
-            </div>
+            </Container>
         );
     }
 }
