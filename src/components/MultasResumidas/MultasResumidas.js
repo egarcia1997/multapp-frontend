@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import PropTypes from "prop-types";
 import axios from "axios";
 import {Route, withRouter} from "react-router-dom";
-import {Button, Typography, TableHead, TableRow, TableCell, Table, TableContainer, Paper, TableBody} from "@material-ui/core";
+import {Button, Typography, TableHead, TableRow, TableCell, Table, TableContainer, Paper, TableBody, CircularProgress} from "@material-ui/core";
 import estilos from './MultasResumidas.module.css';
 import Filtro from "../MultasResumidas/Filtro/Filtro";
 import MultaResumida from "./MultaResumida/MultaResumida";
@@ -72,6 +72,7 @@ class MultasResumidas extends Component {
                 }).catch(error => { // si hubo error hace esto
                     console.log(error); // muestra por consola el error
                     this.setState({huboErrorAlCargarLasMultas: true}); // actualiza el state para decir que hubo error
+                    this.setState({multasCargadas: true}); // actualiza el state para que no se vuelva a hacer la peticion al servidor
                 });
         //}
     }
@@ -95,6 +96,12 @@ class MultasResumidas extends Component {
     }
 
     render() {
+        let cargando = (
+            <Fragment>
+                <CircularProgress />
+                <Typography>Cargando multas</Typography>
+            </Fragment>
+        )
         let numeroDeMultasSinResolver = 0; // el numero total de multas que estan sin resolver
         let textoDeMultasSinResolver = ""; // el texto que se va a mostrar debajo del h2 que da la bienvenida
 
@@ -146,7 +153,7 @@ class MultasResumidas extends Component {
         return (
             <div>
                 <Typography variant="h3">Bienvenido, {this.props.nombreUsuario}</Typography>
-                <div className={estilos.Cargando}></div>
+                {this.state.multasCargadas ? null : cargando}
                 <div className={estilos.Error} style={this.state.huboErrorAlCargarLasMultas ? {display: "block"} : null}>
                     <Typography variant="h5">Ha ocurrido un error</Typography>
                     <Typography variant="h6">Intente recargar la página</Typography>
