@@ -47,6 +47,7 @@ class MultasResumidas extends Component {
         multasCargadas: false, // controla si ya se cargaron las multas o no
         mostrarFiltro: false, // controla si se muestran las opciones de filtros
         huboErrorAlCargarLasMultas: false, // controla si hubo un error al cargar las multas
+        textoDeError: "",
     }
 
     // hook del ciclo de vida en el que recupero el listado de todas las multas del servidor
@@ -73,6 +74,7 @@ class MultasResumidas extends Component {
                     console.log(error); // muestra por consola el error
                     this.setState({huboErrorAlCargarLasMultas: true}); // actualiza el state para decir que hubo error
                     this.setState({multasCargadas: true}); // actualiza el state para que no se vuelva a hacer la peticion al servidor
+                    this.setState({textoDeError: error});
                 });
         //}
     }
@@ -101,7 +103,7 @@ class MultasResumidas extends Component {
                 <CircularProgress />
                 <Typography>Cargando multas</Typography>
             </Fragment>
-        )
+        );
         let numeroDeMultasSinResolver = 0; // el numero total de multas que estan sin resolver
         let textoDeMultasSinResolver = ""; // el texto que se va a mostrar debajo del h2 que da la bienvenida
 
@@ -154,10 +156,20 @@ class MultasResumidas extends Component {
             <div>
                 <Typography variant="h3">Bienvenido, {this.props.nombreUsuario}</Typography>
                 {this.state.multasCargadas ? null : cargando}
-                <div className={estilos.Error} style={this.state.huboErrorAlCargarLasMultas ? {display: "block"} : null}>
-                    <Typography variant="h5">Ha ocurrido un error</Typography>
-                    <Typography variant="h6">Intente recargar la página</Typography>
-                </div>
+                {this.state.huboErrorAlCargarLasMultas ? 
+                    <div>
+                        <Typography variant="h5" color="error">
+                            Ha ocurrido un error. Intente recargar la página.
+                        </Typography>
+                        <Typography variant="h6" color="error">
+                            Si el problema persiste, contacte con un administrador.
+                        </Typography>
+                        <Typography variant="caption" color="error">
+                            {this.state.textoDeError.toString()}
+                        </Typography>
+                    </div>
+                : null}
+                
                 <Typography variant="h5">{textoDeMultasSinResolver}</Typography>
                 <Button variant="contained" color="primary" onClick={this.toggleFiltroHandler}>
                     Filtrar
