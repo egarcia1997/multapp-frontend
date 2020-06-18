@@ -131,16 +131,6 @@ class MultasResumidas extends Component {
                         <TableCell>{multa.fecha}</TableCell>
                         <TableCell>{multa.extracto}</TableCell>
                     </TableRow>
-                    // <MultaResumida
-                    //     key={multa.id}
-                    //     id={multa.id}
-                    //     nombreConductor={multa.nombreConductor}
-                    //     dniConductor={multa.dniConductor}
-                    //     fecha={multa.fecha}
-                    //     extracto={multa.extracto}
-                    //     estado={multa.estado}
-                    //     click={() => this.multaSeleccionadaHandler(multa.id)}
-                    // />
                 );    
             }
         });
