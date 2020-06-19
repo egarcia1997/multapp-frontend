@@ -101,7 +101,7 @@ class MultasResumidas extends Component {
         let numeroDeMultasSinResolver = 0; // el numero total de multas que estan sin resolver
         let textoDeMultasSinResolver = ""; // el texto que se va a mostrar debajo del h2 que da la bienvenida
 
-        let multasParaMostrar = this.state.multas.map(multa => { // ejecuta por cada multa del estado
+        let multasFiltradas = this.state.multas.filter(multa => { // ejecuta por cada multa del estado
             // primero controla si la multa cumple con las condiciones de filtrado
             let seDebeMostrar = true;
             if (!this.state.condicionesDeFiltrado.noResueltas && multa.estado === "No resuelta") {
@@ -125,19 +125,19 @@ class MultasResumidas extends Component {
             if (multa.estado === "No resuelta") { // si la multa no fue resuelta
                 numeroDeMultasSinResolver++; // actualiza el contador de multas no resueltas
             }
-            if (seDebeMostrar) {
-                return ( // crea el componente por cada multa que va a mostrar
-                    <TableRow key={multa.id} onClick={() => this.multaSeleccionadaHandler(multa.id)}>
-                        <TableCell>{multa.id}</TableCell>
-                        <TableCell>{multa.nombreConductor}</TableCell>
-                        <TableCell>{multa.dniConductor}</TableCell>
-                        <TableCell>{multa.fecha}</TableCell>
-                        <TableCell>{multa.extracto}</TableCell>
-                    </TableRow>
-                );
-            }
+            return seDebeMostrar;
         });
   
+        let multasParaMostrar = multasFiltradas.map(multa => (
+            <TableRow key={multa.id} onClick={() => this.multaSeleccionadaHandler(multa.id)}>
+                <TableCell>{multa.id}</TableCell>
+                <TableCell>{multa.nombreConductor}</TableCell>
+                <TableCell>{multa.dniConductor}</TableCell>
+                <TableCell>{multa.fecha}</TableCell>
+                <TableCell>{multa.extracto}</TableCell>
+            </TableRow>
+        ));
+        
         if (numeroDeMultasSinResolver === 0) { // segun el numero de multas sin resolver, muestra un mensaje informando eso
             textoDeMultasSinResolver = "No quedan multas sin resolver";
         } else if (numeroDeMultasSinResolver === 1) {
