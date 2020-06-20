@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import axios from "axios";
-import { Container, Typography, Grid, Paper } from "@material-ui/core";
+import { Container, Typography, Grid, Paper, Button } from "@material-ui/core";
+import { Check, Close } from "@material-ui/icons";
 import estilos from "./MultaDetallada.module.css";
 
 class MultaDetallada extends Component {
@@ -250,12 +251,16 @@ class MultaDetallada extends Component {
                                     <Typography variant="overline">Extracto</Typography>
                                     <Typography variant="body2">{this.state.extracto}</Typography>
                                 </Grid>
+                                <Grid item={true}>
+                                    <Typography variant="overline">Observaciones</Typography>
+                                    <Typography variant="body2">{this.state.observaciones}</Typography>
+                                </Grid>
                             </Grid>
                         </Paper>
                     </Grid>
                     <Grid item={true} xs={12}>
                         <Paper elevation={3} className={estilos.GridItem}>
-                            <Typography variant="h6">Inspector</Typography>
+                            <Typography variant="h6">Funcionario interviniente</Typography>
                             <Grid container={true} spacing={3}>
                                 <Grid item={true}>
                                     <Typography variant="overline">Nombre</Typography>
@@ -278,7 +283,34 @@ class MultaDetallada extends Component {
                             : <Typography variant="body2">El inspector no adjuntó pruebas fotográficas</Typography>}
                         </Paper>
                     </Grid>
+                    <Grid item={true} xs={12}>
+                        <Paper elevation={3} className={estilos.GridItem}>
+                            <Typography variant="h6">Vencimientos</Typography>
+                            <Grid container={true} spacing={3}>
+                                <Grid item={true} xs={6}>
+                                    <Typography variant="overline">Primer vencimiento</Typography>
+                                    <Typography variant="body2">{this.state.fechaPrimerVencimiento}</Typography>
+                                </Grid>
+                                <Grid item={true} xs={6}>
+                                    <Typography variant="overline">Monto</Typography>
+                                    <Typography variant="body2">{this.state.montoPrimerVencimiento}</Typography>
+                                </Grid>
+                                <Grid item={true} xs={6}>
+                                    <Typography variant="overline">Segundo vencimiento</Typography>
+                                    <Typography variant="body2">{this.state.fechaSegundoVencimiento}</Typography>
+                                </Grid>
+                                <Grid item={true} xs={6}>
+                                    <Typography variant="overline">Monto</Typography>
+                                    <Typography variant="body2">{this.state.montoSegundoVencimiento}</Typography>
+                                </Grid>
+                            </Grid>
+                        </Paper>
+                    </Grid>
                 </Grid>
+                <Typography>Estado de la multa: </Typography>
+                <Typography>{this.estado}</Typography>
+                <Button variant="contained" color="primary" startIcon={<Check />}>Aceptar multa</Button>
+                <Button variant="contained" color="secondary" startIcon={<Close />}>Rechazar multa</Button>
             </Container>
         );
     }
