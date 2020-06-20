@@ -1,11 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from "prop-types";
 import axios from "axios";
-import {Route, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import {Button, Typography, TableHead, TableRow, TableCell, Table, TableContainer, Paper, TableBody, CircularProgress, Container} from "@material-ui/core";
-import estilos from './MultasResumidas.module.css';
 import Filtro from "../MultasResumidas/Filtro/Filtro";
-import MultaResumida from "./MultaResumida/MultaResumida";
 
 class MultasResumidas extends Component {
     state = {
