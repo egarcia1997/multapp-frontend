@@ -327,7 +327,7 @@ class MultaDetallada extends Component {
                     variant="contained"
                     color="primary"
                     startIcon={<Check />}
-                    onClick={() => toggleDialogHandler("aceptar")}
+                    onClick={() => this.toggleDialogHandler("aceptar")}
                 >
                     Aceptar multa
                 </Button>
@@ -335,7 +335,7 @@ class MultaDetallada extends Component {
                     variant="contained"
                     color="secondary"
                     startIcon={<Close />}
-                    onClick={() => toggleDialogHandler("rechazar")}
+                    onClick={() => this.toggleDialogHandler("rechazar")}
                 >
                     Rechazar multa
                 </Button>
