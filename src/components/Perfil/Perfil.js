@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import estilos from "./Perfil.module.css";
 import * as placeholder from "../../assets/placeholder-vault-boy.png";
-import {Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, DialogContentText, Avatar, List, ListItemIcon, ListItem, ListItemText, CircularProgress, Container, Typography} from "@material-ui/core";
+import {Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, DialogContentText, Avatar, List, ListItemIcon, ListItem, ListItemText, CircularProgress, Container, Typography, Grid} from "@material-ui/core";
 import {Email, Lock, Home, Phone, Contacts} from "@material-ui/icons";
 
 class Perfil extends Component {
@@ -14,7 +14,7 @@ class Perfil extends Component {
         direccion: "Calle Falsa 123",
         telefono: "362 4123456",
         email: "juancitokpo_84@capitanichmail.com",
-        cargando: false,
+        cargando: true,
         huboError: false,
         cambiarContrasena: false,
     }
@@ -56,13 +56,17 @@ class Perfil extends Component {
         let progress = this.state.cargando ? <CircularProgress /> : null;
         return (
             <Container>
-                <div className={estilos.Cabecera}>
-                    <Avatar style={{width: "200px", height: "200px"}} src={this.state.imagen} alt={this.state.nombre} />
-                    <div style={{display: "flex", flexDirection: "column"}}>
-                        <Typography variant="h5">{this.state.nombre}</Typography>
-                        <h3>{this.state.rol}</h3>
-                    </div>
-                </div>
+                <Grid container={true} direction="row">
+                    <Grid item={true}>
+                        <Avatar style={{width: "200px", height: "200px"}} src={this.state.imagen} alt={this.state.nombre} />
+                    </Grid>
+                    <Grid item={true} container={true} direction="column">
+                        <Grid item={true}>
+                            <Typography variant="h5">{this.state.nombre}</Typography>
+                            <Typography>{this.state.rol}</Typography>
+                        </Grid>
+                    </Grid>
+                </Grid>
                 {progress}
                 <List>
                     <ListItem>
