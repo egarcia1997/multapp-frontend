@@ -9,6 +9,8 @@ class MultaDetallada extends Component {
     state = {
         cargando: true,
         huboError: false,
+        mostrarDialogAceptar: false,
+        mostrarDialogRechazar: false,
         multa: {},
         fecha: "2020-01-01",
         hora: "12:24",
@@ -32,6 +34,18 @@ class MultaDetallada extends Component {
                     huboError: true,
                 })
             });
+    }
+
+    toggleDialogHandler = (accion) => {
+        let nuevoEstado;
+        if (accion === "aceptar") {
+            nuevoEstado = !this.state.mostrarDialogAceptar;
+            this.setState({mostrarDialogAceptar: nuevoEstado});
+        }
+        if (accion === "rechazar") {
+            nuevoEstado = !this.state.mostrarDialogRechazar;
+            this.setState({mostrarDialogRechazar: nuevoEstado});
+        }
     }
 
     render() {
@@ -309,8 +323,22 @@ class MultaDetallada extends Component {
                 </Grid>
                 <Typography>Estado de la multa: </Typography>
                 <Typography>{this.estado}</Typography>
-                <Button variant="contained" color="primary" startIcon={<Check />}>Aceptar multa</Button>
-                <Button variant="contained" color="secondary" startIcon={<Close />}>Rechazar multa</Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<Check />}
+                    onClick={() => toggleDialogHandler("aceptar")}
+                >
+                    Aceptar multa
+                </Button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    startIcon={<Close />}
+                    onClick={() => toggleDialogHandler("rechazar")}
+                >
+                    Rechazar multa
+                </Button>
             </Container>
         );
     }
