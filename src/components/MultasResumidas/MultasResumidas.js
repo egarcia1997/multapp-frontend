@@ -127,7 +127,7 @@ class MultasResumidas extends Component {
         });
   
         let multasParaMostrar = multasFiltradas.map(multa => (
-            <TableRow key={multa.id} onClick={() => this.multaSeleccionadaHandler(multa.id)}>
+            <TableRow key={multa.id} hover={true} onClick={() => this.multaSeleccionadaHandler(multa.id)}>
                 <TableCell>{multa.id}</TableCell>
                 <TableCell>{multa.nombreConductor}</TableCell>
                 <TableCell>{multa.dniConductor}</TableCell>
