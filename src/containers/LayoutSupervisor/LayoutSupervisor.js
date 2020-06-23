@@ -6,6 +6,7 @@ import estilos from "../Layout.module.css";
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import { Container, Box } from "@material-ui/core";
 import MultaDetallada from "../../components/MultaDetallada/MultaDetallada";
+import Usuarios from "../../components/Usuarios/Usuarios";
 
 class LayoutSupervisor extends Component {
 
@@ -18,6 +19,7 @@ class LayoutSupervisor extends Component {
                         <Route path="/multas/:id" exact={true} component={MultaDetallada} />
                         <Route path="/multas" render={() => <MultasResumidas nombreUsuario={this.props.usuario.nombre} />} />
                         <Route path="/perfil" component={Perfil} />
+                        <Route path="/usuarios" component={Usuarios} />
                         {/* esto es temporal, esta para probar nomas */}
                         <Redirect from="/" to="/multas" />
                     </Switch>

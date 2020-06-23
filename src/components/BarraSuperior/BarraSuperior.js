@@ -33,6 +33,12 @@ class BarraSuperior extends Component {
         this.props.history.push("/perfil");
     }
 
+    // metodo que te manda a la pagina para administrar usuarios
+    usuariosHandler = () => {
+        this.cerrarMenuHandler();
+        this.props.history.push("/usuarios");
+    }
+
     // metodo para cerrar sesion
     cerrarSesionHandler = () => {
         this.cerrarMenuHandler();
@@ -51,6 +57,7 @@ class BarraSuperior extends Component {
                     </IconButton>
                     <Menu id="menu" open={this.state.mostrarMenu} onClose={this.cerrarMenuHandler}>
                         <MenuItem onClick={this.multasHandler}>Administrar multas</MenuItem>
+                        <MenuItem onClick={this.usuariosHandler}>Administrar usuarios</MenuItem>
                         <MenuItem onClick={this.perfilHandler}>Mi perfil</MenuItem>
                         <MenuItem onClick={this.cerrarSesionHandler}>Cerrar sesión</MenuItem>
                     </Menu>
