@@ -54,7 +54,7 @@ class Perfil extends Component {
     render() {
         let progress = this.state.cargando ? <CircularProgress /> : null;
         return (
-            <Container maxWidth="sm">
+            <Container maxWidth="md">
                 <Grid container={true} direction="row">
                     <Grid item={true}>
                         <Avatar style={{width: "200px", height: "200px"}} src={this.state.imagen} alt={this.state.nombre} />
