@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import estilos from "./Perfil.module.css";
 import * as placeholder from "../../assets/placeholder-vault-boy.png";
-import {Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, DialogContentText, Avatar, List, ListItemIcon, ListItem, ListItemText, CircularProgress, Container, Typography, Grid} from "@material-ui/core";
+import {Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, DialogContentText, Avatar, List, ListItemIcon, ListItem, ListItemText, CircularProgress, Container, Typography, Grid, Divider} from "@material-ui/core";
 import {Email, Lock, Home, Phone, Contacts} from "@material-ui/icons";
 
 class Perfil extends Component {
@@ -55,16 +54,14 @@ class Perfil extends Component {
     render() {
         let progress = this.state.cargando ? <CircularProgress /> : null;
         return (
-            <Container>
+            <Container maxWidth="sm">
                 <Grid container={true} direction="row">
                     <Grid item={true}>
                         <Avatar style={{width: "200px", height: "200px"}} src={this.state.imagen} alt={this.state.nombre} />
                     </Grid>
-                    <Grid item={true} container={true} direction="column">
-                        <Grid item={true}>
-                            <Typography variant="h5">{this.state.nombre}</Typography>
-                            <Typography>{this.state.rol}</Typography>
-                        </Grid>
+                    <Grid item={true} style={{verticalAlign: "center"}}>
+                        <Typography variant="h2">{this.state.nombre}</Typography>
+                        <Typography variant="h4">{this.state.rol}</Typography>
                     </Grid>
                 </Grid>
                 {progress}
@@ -75,24 +72,28 @@ class Perfil extends Component {
                         </ListItemIcon>
                         <ListItemText primary="DNI" secondary={this.state.dni} />
                     </ListItem>
+                    <Divider />
                     <ListItem>
                         <ListItemIcon>
                             <Home />
                         </ListItemIcon>
                         <ListItemText primary="Dirección" secondary={this.state.direccion} />
                     </ListItem>
+                    <Divider />
                     <ListItem>
                         <ListItemIcon>
                             <Phone />
                         </ListItemIcon>
                         <ListItemText primary="Teléfono" secondary={this.state.telefono} />
                     </ListItem>
+                    <Divider />
                     <ListItem>
                         <ListItemIcon>
                             <Email />
                         </ListItemIcon>
                         <ListItemText primary="Correo electrónico" secondary={this.state.email} />
                     </ListItem>
+                    <Divider />
                     <ListItem>
                         <ListItemIcon>
                             <Lock />
