@@ -1,9 +1,28 @@
 import React, { Component } from "react";
-import { Box, Container, Typography, Tabs, Tab } from "@material-ui/core";
+import axios from "axios";
+import { Box, Container, Typography, Tabs, Tab, CircularProgress, TableContainer, Paper, Table, TableHead, TableBody, TableRow, TableCell, List, ListItem, Divider, ListItemAvatar, Avatar, ListItemText } from "@material-ui/core";
 
 class Usuarios extends Component {
     state = {
         pestanaActual: 0,
+        cargando: true,
+        huboError: false,
+        textoDeError: "",
+    }
+
+    componentDidMount = () => {
+        // axios.get("/")
+        //     .then(response => {
+
+        //     })
+        //     .catch(error => {
+        //         console.log(error);
+        //         this.setState({
+        //             cargando: false,
+        //             huboError: true,
+        //             textoDeError: error,
+        //         })
+        //     })
     }
 
     // esta funcion fue copiada de la pagina de https://material-ui.com/components/tabs/#simple-tabs
@@ -26,7 +45,8 @@ class Usuarios extends Component {
             </div>
         );
     }
-  
+
+    // metodo para cambiar de pestañas
     tabChangeHandler = (event, newValue) => {
         this.setState({pestanaActual: newValue});
     }
@@ -41,9 +61,20 @@ class Usuarios extends Component {
                     <Tab label="Multados" />
                 </Tabs>
                 <this.TabPanel value={this.state.pestanaActual} index={0}>
-                    Coso de inspectores
+                    {this.state.cargando ?
+                        <CircularProgress />
+                    : "Coso de inspectores"}
                 </this.TabPanel>
                 <this.TabPanel value={this.state.pestanaActual} index={1}>
+                    <List>
+                        <ListItem button={true}>
+                            <ListItemAvatar>
+                                <Avatar />
+                            </ListItemAvatar>
+                            <ListItemText primary="Juan Pérez" secondary="64ghf8shj23" />
+                        </ListItem>
+                        <Divider />
+                    </List>
                     Coso de supervisores
                 </this.TabPanel>
                 <this.TabPanel value={this.state.pestanaActual} index={2}>
