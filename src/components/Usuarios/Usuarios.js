@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
-import { Box, Container, Typography, Tabs, Tab, CircularProgress, TableContainer, Paper, Table, TableHead, TableBody, TableRow, TableCell, List, ListItem, Divider, ListItemAvatar, Avatar, ListItemText, Fab } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
+import { Box, Container, Typography, Tabs, Tab, CircularProgress, TableContainer, Paper, Table, TableHead, TableBody, TableRow, TableCell, List, ListItem, Divider, ListItemAvatar, Avatar, ListItemText, Fab, ListItemSecondaryAction, IconButton } from "@material-ui/core";
+import { Add, Delete } from "@material-ui/icons";
 import AgregarUsuario from "./AgregarUsuario/AgregarUsuario";
+import EliminarUsuario from "./EliminarUsuario/EliminarUsuario";
 
 class Usuarios extends Component {
     state = {
@@ -11,6 +12,7 @@ class Usuarios extends Component {
         huboError: false,
         textoDeError: "",
         agregarUsuario: false,
+        eliminarUsuario: false,
     }
 
     componentDidMount = () => {
@@ -59,6 +61,11 @@ class Usuarios extends Component {
         this.setState({agregarUsuario: nuevoEstado});
     }
 
+    deleteUserHandler = () => {
+        const nuevoEstado = !this.state.eliminarUsuario;
+        this.setState({eliminarUsuario: nuevoEstado});
+    }
+
     render() {
         return (
             <Fragment>
@@ -81,6 +88,11 @@ class Usuarios extends Component {
                                     <Avatar />
                                 </ListItemAvatar>
                                 <ListItemText primary="Juan Pérez" secondary="64ghf8shj23" />
+                                <ListItemSecondaryAction>
+                                    <IconButton onClick={this.deleteUserHandler}>
+                                        <Delete />
+                                    </IconButton>
+                                </ListItemSecondaryAction>
                             </ListItem>
                             <Divider />
                         </List>
@@ -97,6 +109,7 @@ class Usuarios extends Component {
                     </Fab>
                 </Container>
                 <AgregarUsuario open={this.state.agregarUsuario} onClose={this.addUserHandler} />
+                <EliminarUsuario open={this.state.eliminarUsuario} onClose={this.deleteUserHandler} />
             </Fragment>
         );
     }
