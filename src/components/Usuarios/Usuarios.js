@@ -67,6 +67,24 @@ class Usuarios extends Component {
     }
 
     render() {
+        // hacer esto mismo para supervisores, administradores y multados
+        // let inspectores = this.state.inspectores.map(usuario => (
+        //     <ListItem key={usuario.id} button={true}>
+        //         <ListItemAvatar>
+        //             <Avatar alt={"Foto de " + usuario.nombre} src={usuario.foto} />
+        //         </ListItemAvatar>
+        //         <ListItemText
+        //             primary={usuario.apellido + " " + usuario.nombre}
+        //             secondary={usuario.id}
+        //         />
+        //         <ListItemSecondaryAction>
+        //             <IconButton onClick={this.deleteUserHandler}>
+        //                 <Delete />
+        //             </IconButton>
+        //         </ListItemSecondaryAction>
+        //     </ListItem>
+        // ));
+
         return (
             <Fragment>
                 <Container maxWidth="lg">
@@ -83,6 +101,7 @@ class Usuarios extends Component {
                     </this.TabPanel>
                     <this.TabPanel value={this.state.pestanaActual} index={1}>
                         <List>
+                            {/* {usuarios} */}
                             <ListItem button={true}>
                                 <ListItemAvatar>
                                     <Avatar />
