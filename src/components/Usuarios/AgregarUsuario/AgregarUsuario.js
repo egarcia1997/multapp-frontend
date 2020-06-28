@@ -15,6 +15,7 @@ class AgregarUsuario extends Component {
         departamento: "",
         localidad: "",
         provincia: "",
+        email: "",
         foto: null,
     }
 
@@ -146,7 +147,15 @@ class AgregarUsuario extends Component {
                         </Grid>
                         <Grid item={true} xs={4}>
                             <FormControl fullWidth={true}>
-                                <FormLabel>Foto</FormLabel>
+                                <FormLabel>Cuenta</FormLabel>
+                                <TextField
+                                    id="email"
+                                    type="email"
+                                    label="Correo electrónico"
+                                    required={true}
+                                    value={this.state.email}
+                                    onChange={this.inputHandler}
+                                />
                             </FormControl>
                         </Grid>
                     </Grid>
