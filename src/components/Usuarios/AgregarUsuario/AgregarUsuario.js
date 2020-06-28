@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Typography, Radio, RadioGroup, FormLabel, FormControlLabel, FormControl, Grid, DialogContentText } from "@material-ui/core";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Typography, Radio, RadioGroup, FormLabel, FormControlLabel, FormControl, Grid, DialogContentText, Select, MenuItem, InputLabel } from "@material-ui/core";
 
 class AgregarUsuario extends Component {
     state = {
+        rol: "",
         dni: "",
         apellido: "",
         nombre: "",
@@ -27,6 +28,11 @@ class AgregarUsuario extends Component {
         this.setState({sexo: event.target.value});
     }
 
+    // carga lo que selecciona el usuario en el select en el state
+    selectHandler = (event) => {
+        this.setState({rol: event.target.value});
+    }
+
     render() {
         return (
             <Dialog open={this.props.open} onClose={this.props.onClose} maxWidth="xl" fullWidth={true}>
@@ -36,6 +42,16 @@ class AgregarUsuario extends Component {
                 <DialogContent>
                     <DialogContentText>* Campos obligatorios</DialogContentText>
                     <Grid container={true} spacing={2}>
+                        <Grid item={true} xs={12}>
+                            <FormControl required={true} fullWidth={true}>
+                                <InputLabel>Rol</InputLabel>
+                                <Select id="rol" value={this.state.rol} onChange={this.selectHandler}>
+                                    <MenuItem value="administrador">Administrador</MenuItem>
+                                    <MenuItem value="inspector">Inspector</MenuItem>
+                                    <MenuItem value="supervisor">Supervisor</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
                         <Grid item={true} xs={4}>
                             <FormControl fullWidth={true}>
                                 <FormLabel>Datos personales</FormLabel>
