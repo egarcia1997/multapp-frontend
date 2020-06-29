@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Typography, Radio, RadioGroup, FormLabel, FormControlLabel, FormControl, Grid, DialogContentText, Select, MenuItem, InputLabel } from "@material-ui/core";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Radio, RadioGroup, FormLabel, FormControlLabel, FormControl, Grid, DialogContentText, Select, MenuItem, InputLabel } from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
 
 class AgregarUsuario extends Component {
