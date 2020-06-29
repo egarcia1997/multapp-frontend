@@ -17,7 +17,7 @@ class AgregarUsuario extends Component {
         localidad: "",
         provincia: "",
         email: "",
-        foto: null,
+        foto: [],
     }
 
     // carga lo que escribe el usuario en el state
@@ -33,6 +33,13 @@ class AgregarUsuario extends Component {
     // carga lo que selecciona el usuario en el select en el state
     selectHandler = (event) => {
         this.setState({rol: event.target.value});
+    }
+
+    // carga la foto subida en el state
+    imageUploadHandler = (files) => {
+        this.setState({foto: files}, () => {
+            console.log(this.state);
+        });
     }
 
     render() {
@@ -159,8 +166,10 @@ class AgregarUsuario extends Component {
                                 />
                                 <FormLabel component="legend">Foto</FormLabel>
                                 <DropzoneArea
-                                    acceptedFiles={["image/*"]}
                                     dropzoneText="No se cargó foto"
+                                    acceptedFiles={["image/*"]}
+                                    filesLimit={1}
+                                    onChange={this.imageUploadHandler.bind(this)}
                                 />
                             </FormControl>
                         </Grid>
