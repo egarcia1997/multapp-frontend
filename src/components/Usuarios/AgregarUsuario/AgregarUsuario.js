@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Typography, Radio, RadioGroup, FormLabel, FormControlLabel, FormControl, Grid, DialogContentText, Select, MenuItem, InputLabel } from "@material-ui/core";
+import { DropzoneArea } from "material-ui-dropzone";
 
 class AgregarUsuario extends Component {
     state = {
@@ -88,10 +89,10 @@ class AgregarUsuario extends Component {
                                     value={this.state.fechaNacimiento}
                                     onChange={this.inputHandler}
                                 />
-                                <FormLabel>Sexo</FormLabel>
+                                <FormLabel component="legend">Sexo</FormLabel>                                
                                 <RadioGroup value={this.state.sexo} onChange={this.radioHandler}>
-                                    <FormControlLabel value="masculino" label="Masculino" control={<Radio />} />
-                                    <FormControlLabel value="femenino" label="Femenino" control={<Radio />} />
+                                    <FormControlLabel value="masculino" label="Masculino" control={<Radio color="primary" />} />
+                                    <FormControlLabel value="femenino" label="Femenino" control={<Radio color="primary" />} />
                                 </RadioGroup>
                             </FormControl>
                         </Grid>
@@ -155,6 +156,11 @@ class AgregarUsuario extends Component {
                                     required={true}
                                     value={this.state.email}
                                     onChange={this.inputHandler}
+                                />
+                                <FormLabel component="legend">Foto</FormLabel>
+                                <DropzoneArea
+                                    acceptedFiles={["image/*"]}
+                                    dropzoneText="No se cargó foto"
                                 />
                             </FormControl>
                         </Grid>
