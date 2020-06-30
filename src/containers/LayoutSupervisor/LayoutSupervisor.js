@@ -20,7 +20,7 @@ class LayoutSupervisor extends Component {
                         <Route path="/multas/:id" exact={true} component={MultaDetallada} />
                         <Route path="/multas" render={() => <MultasResumidas nombreUsuario={this.props.usuario.nombre} />} />
                         <Route path="/perfil" component={Perfil} />
-                        <Route path="/usuarios/:id" component={Usuario} />
+                        <Route path="/usuarios/:id" exact={true} component={Usuario} />
                         <Route path="/usuarios" component={Usuarios} />
                         {/* esto es temporal, esta para probar nomas */}
                         <Redirect from="/" to="/multas" />
