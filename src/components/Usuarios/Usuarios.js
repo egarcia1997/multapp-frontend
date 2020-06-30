@@ -4,6 +4,7 @@ import { Box, Container, Typography, Tabs, Tab, CircularProgress, List, ListItem
 import { Add, Delete } from "@material-ui/icons";
 import AgregarUsuario from "./AgregarUsuario/AgregarUsuario";
 import EliminarUsuario from "./EliminarUsuario/EliminarUsuario";
+import { withRouter } from "react-router";
 
 class Usuarios extends Component {
     state = {
@@ -66,10 +67,14 @@ class Usuarios extends Component {
         this.setState({eliminarUsuario: nuevoEstado});
     }
 
+    userSelectedHandler = (id) => {
+        this.props.history.push("/usuarios/" + id);
+    }
+
     render() {
         // hacer esto mismo para supervisores, administradores y multados
         // let inspectores = this.state.inspectores.map(usuario => (
-        //     <ListItem key={usuario.id} button={true}>
+        //     <ListItem key={usuario.id} button={true} onClick={() => this.userSelectedHandler(usuario.id)}>
         //         <ListItemAvatar>
         //             <Avatar alt={"Foto de " + usuario.nombre} src={usuario.foto} />
         //         </ListItemAvatar>
@@ -102,7 +107,7 @@ class Usuarios extends Component {
                     <this.TabPanel value={this.state.pestanaActual} index={1}>
                         <List>
                             {/* {usuarios} */}
-                            <ListItem button={true}>
+                            <ListItem button={true} onClick={() => this.userSelectedHandler(1)}>
                                 <ListItemAvatar>
                                     <Avatar />
                                 </ListItemAvatar>
@@ -134,4 +139,4 @@ class Usuarios extends Component {
     }
 }
 
-export default Usuarios;
+export default withRouter(Usuarios);
