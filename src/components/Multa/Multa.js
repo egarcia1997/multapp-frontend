@@ -3,9 +3,9 @@ import { withRouter } from "react-router";
 import axios from "axios";
 import { Container, Typography, Grid, Paper, Button } from "@material-ui/core";
 import { Check, Close } from "@material-ui/icons";
-import estilos from "./MultaDetallada.module.css";
+import estilos from "./Multa.module.css";
 
-class MultaDetallada extends Component {
+class Multa extends Component {
     state = {
         cargando: true,
         huboError: false,

@@ -5,7 +5,7 @@ import Perfil from "../../components/Perfil/Perfil";
 import estilos from "../Layout.module.css";
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import { Container, Box } from "@material-ui/core";
-import MultaDetallada from "../../components/MultaDetallada/MultaDetallada";
+import Multa from "../../components/Multa/Multa";
 import Usuarios from "../../components/Usuarios/Usuarios";
 import Usuario from "../../components/Usuario/Usuario";
 
@@ -17,7 +17,7 @@ class LayoutSupervisor extends Component {
                 <BarraSuperior />
                 <Container className={estilos.Contenido}>
                     <Switch>
-                        <Route path="/multas/:id" exact={true} component={MultaDetallada} />
+                        <Route path="/multas/:id" exact={true} component={Multa} />
                         <Route path="/multas" render={() => <Multas nombreUsuario={this.props.usuario.nombre} />} />
                         <Route path="/perfil" component={Perfil} />
                         <Route path="/usuarios/:id" exact={true} component={Usuario} />
