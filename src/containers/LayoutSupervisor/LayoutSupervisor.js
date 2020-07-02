@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {Switch, Route, Redirect, withRouter} from "react-router-dom";
-import MultasResumidas from "../../components/MultasResumidas/MultasResumidas";
+import Multas from "../../components/MultasResumidas/Multas";
 import Perfil from "../../components/Perfil/Perfil";
 import estilos from "../Layout.module.css";
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
@@ -18,7 +18,7 @@ class LayoutSupervisor extends Component {
                 <Container className={estilos.Contenido}>
                     <Switch>
                         <Route path="/multas/:id" exact={true} component={MultaDetallada} />
-                        <Route path="/multas" render={() => <MultasResumidas nombreUsuario={this.props.usuario.nombre} />} />
+                        <Route path="/multas" render={() => <Multas nombreUsuario={this.props.usuario.nombre} />} />
                         <Route path="/perfil" component={Perfil} />
                         <Route path="/usuarios/:id" exact={true} component={Usuario} />
                         <Route path="/usuarios" component={Usuarios} />

@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import {withRouter} from "react-router-dom";
 import {Button, Typography, TableHead, TableRow, TableCell, Table, TableContainer, Paper, TableBody, CircularProgress, Container} from "@material-ui/core";
-import Filtro from "../MultasResumidas/Filtro/Filtro";
+import Filtro from "./Filtro/Filtro";
 
-class MultasResumidas extends Component {
+class Multas extends Component {
     state = {
         multas: [ // esto contiene los resumenes de todas las multas sacado directamente de la db
             // lo que esta aca cargado es a modo de ejemplo, se saca al tener acceso a la db
@@ -42,7 +42,7 @@ class MultasResumidas extends Component {
             hasta: new Date().toISOString().slice(0, 10),
             dni: "",
         },
-        multasCargadas: false, // controla si ya se cargaron las multas o no
+        cargando: true, // controla si ya se cargaron las multas o no
         mostrarFiltro: false, // controla si se muestran las opciones de filtros
         huboErrorAlCargarLasMultas: false, // controla si hubo un error al cargar las multas
         textoDeError: "",
@@ -51,30 +51,36 @@ class MultasResumidas extends Component {
     // hook del ciclo de vida en el que recupero el listado de todas las multas del servidor
     // y lo meto en el estado (pero solo los datos mas importantes)
     componentDidMount() {
-        //if (!this.state.multasCargadas) { // si no se cargaron las multas ejecuta esto
-            axios.get("/getAll") // hace la peticion al servidor
-                .then(response => { // una vez que llegue todo hace esto
-                    console.log(response); // muestra por consola la respuesta
-                    const multasIDs = Object.keys(response.data).map(multaID => { // itera sobre los id de las multas para ir cargando las multas resumidas
-                        const multa = { // crea una multa resumida. los datos los saca de response.data
-                            id: multaID,
-                            nombreConductor: response.data[multaID]["apellidoInfractor"] + response.data[multaID]["nombresInfractor"],
-                            dniConductor: response.data[multaID]["NroDoc"],
-                            fecha: response.data[multaID]["FechaEmision"],
-                            extracto: "falta agregar a la db",
-                            estado: "tambien falta agregar a la db",
-                        }
-                        return multa; // mete esa multa en el array de multas resumidas
-                    });
-                    this.setState({multas: multasIDs}); // actualiza el state con el array de las multas resumidas sacadas de la db
-                    this.setState({multasCargadas: true}); // actualiza el state para que no se vuelva a hacer la peticion al servidor
-                }).catch(error => { // si hubo error hace esto
-                    console.log(error); // muestra por consola el error
-                    this.setState({huboErrorAlCargarLasMultas: true}); // actualiza el state para decir que hubo error
-                    this.setState({multasCargadas: true}); // actualiza el state para que no se vuelva a hacer la peticion al servidor
-                    this.setState({textoDeError: error});
+        const headers = {
+            "content-type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+        };
+        axios.get("/getAll", {headers})
+            .then(response => { // una vez que llegue todo hace esto
+                console.log(response); // muestra por consola la respuesta
+                const multasIDs = Object.keys(response.data).map(multaID => { // itera sobre los id de las multas para ir cargando las multas resumidas
+                    const multa = { // crea una multa resumida. los datos los saca de response.data
+                        id: multaID,
+                        nombreConductor: response.data[multaID]["apellidoInfractor"] + response.data[multaID]["nombresInfractor"],
+                        dniConductor: response.data[multaID]["NroDoc"],
+                        fecha: response.data[multaID]["FechaEmision"],
+                        extracto: "falta agregar a la db",
+                        estado: "tambien falta agregar a la db",
+                    }
+                    return multa; // mete esa multa en el array de multas resumidas
                 });
-        //}
+                this.setState({
+                    multas: multasIDs,
+                    cargando: false,
+                });
+            }).catch(error => { // si hubo error hace esto
+                console.log(error); // muestra por consola el error
+                this.setState({
+                    huboErrorAlCargarLasMultas: true,
+                    cargando: false,
+                    textoDeError: error,
+                });
+            });
     }
 
     // metodo para mostrar/ocultar las opciones de filtrado
@@ -145,9 +151,9 @@ class MultasResumidas extends Component {
         }
   
         return (
-            <Container>
+            <Container maxWidth="lg">
                 <Typography variant="h3">Bienvenido, {this.props.nombreUsuario}</Typography>
-                {!this.state.multasCargadas ?
+                {this.state.cargando ?
                     <Fragment>
                         <CircularProgress />
                         <Typography>Cargando multas</Typography>
@@ -167,8 +173,8 @@ class MultasResumidas extends Component {
                     </Fragment>
                 : null}
                 {/* descomentar esta linea cuando arreglen la base de datos */}
-                {/* {this.state.multasCargadas && !this.state.huboErrorAlCargarLasMultas ?  */}
-                {this.state.multasCargadas ? 
+                {/* {!this.state.cargando && !this.state.huboErrorAlCargarLasMultas ?  */}
+                {!this.state.cargando ? 
                     <Fragment>
                         <Typography variant="h5">{textoDeMultasSinResolver}</Typography>
                         <Button variant="contained" color="primary" onClick={this.toggleFiltroHandler}>
