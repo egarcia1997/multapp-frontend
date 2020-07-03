@@ -4,6 +4,8 @@ import axios from "axios";
 import {withRouter} from "react-router-dom";
 import {Button, Typography, TableHead, TableRow, TableCell, Table, TableContainer, Paper, TableBody, CircularProgress, Container} from "@material-ui/core";
 import Filtro from "./Filtro/Filtro";
+import {cargarMultas} from "../../store/actions/multas";
+import { connect } from 'react-redux';
 
 class Multas extends Component {
     state = {
@@ -209,8 +211,22 @@ class Multas extends Component {
     }
 }
   
-MultasResumidas.propTypes = {
+Multas.propTypes = {
     nombreUsuario: PropTypes.string.isRequired,
 }
 
-export default withRouter(MultasResumidas);
+const mapStateToProps = state => {
+    return {
+        multas: state.multas,
+        cargando: state.cargando,
+        error: state.error,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        cargarMultas: () => dispatch(cargarMultas()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Multas));
