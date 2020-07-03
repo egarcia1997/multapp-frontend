@@ -344,4 +344,4 @@ class Multa extends Component {
     }
 }
 
-export default withRouter(MultaDetallada);
+export default withRouter(Multa);
