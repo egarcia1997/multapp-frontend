@@ -29,14 +29,14 @@ export const cargarMulta = (id) => {
 
 const cambiarEstadoConExito = (id) => {
     return {
-        type: actionTypes.CARGAR_MULTA_CON_EXITO,
+        type: actionTypes.CAMBIAR_ESTADO_CON_EXITO,
         id: id,
     }
 }
 
 const cambiarEstadoConError = (error) => {
     return {
-        type: actionTypes.CARGAR_MULTA_CON_ERROR,
+        type: actionTypes.CAMBIAR_ESTADO_CON_ERROR,
         error: error,
     }
 }
