@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {Switch, Route, Redirect, withRouter} from "react-router-dom";
-import Multas from "../../components/MultasResumidas/Multas";
+import Multas from "../../components/Multas/Multas";
 import Perfil from "../../components/Perfil/Perfil";
 import estilos from "../Layout.module.css";
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
