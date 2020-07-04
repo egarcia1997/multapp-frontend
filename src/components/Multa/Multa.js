@@ -5,7 +5,7 @@ import { Container, Typography, Grid, Paper, Button, Dialog, DialogTitle, Dialog
 import { Check, Close } from "@material-ui/icons";
 import estilos from "./Multa.module.css";
 import { connect } from "react-redux";
-import { cargarMulta } from "../../store/actions/multa";
+import { cargarMulta, cambiarEstado } from "../../store/actions/multa";
 
 class Multa extends Component {
     state = {
@@ -13,6 +13,8 @@ class Multa extends Component {
         huboError: false,
         mostrarDialogAceptar: false,
         mostrarDialogRechazar: false,
+        razonAceptar: "",
+        razonRechazar: "",
         multa: {},
         fecha: "2020-01-01",
         hora: "12:24",
@@ -48,6 +50,10 @@ class Multa extends Component {
             nuevoEstado = !this.state.mostrarDialogRechazar;
             this.setState({mostrarDialogRechazar: nuevoEstado});
         }
+    }
+
+    inputHandler = (event) => {
+        this.setState({[event.target.id]: event.target.value});
     }
 
     render() {
@@ -367,11 +373,19 @@ class Multa extends Component {
                             multiline={true}
                             rows={4}
                             fullWidth={true}
+                            value={this.state.razonAceptar}
+                            onChange={this.inputHandler}
                         />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => this.toggleDialogHandler("aceptar")}>Cancelar</Button>
-                        <Button color="primary">Aceptar multa</Button>
+                        <Button
+                            color="primary"
+                            disabled={this.state.razonRechazar === ""}
+                            onClick={() => this.props.cambiarEstado(this.props.multa.id, "Aceptada", this.state.razonAceptar)}
+                        >
+                            Aceptar multa
+                        </Button>
                     </DialogActions>
                 </Dialog>
                 <Dialog open={this.state.mostrarDialogRechazar} onClose={() => this.toggleDialogHandler("rechazar")}>
@@ -388,11 +402,19 @@ class Multa extends Component {
                             multiline={true}
                             rows={4}
                             fullWidth={true}
+                            value={this.state.razonRechazar}
+                            onChange={this.inputHandler}
                         />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => this.toggleDialogHandler("rechazar")}>Cancelar</Button>
-                        <Button color="primary">Rechazar multa</Button>
+                        <Button
+                            color="primary"
+                            disabled={this.state.razonRechazar === ""}
+                            onClick={() => this.props.cambiarEstado(this.props.multa.id, "Rechazada", this.state.razonRechazar)}
+                        >
+                            Rechazar multa
+                        </Button>
                     </DialogActions>
                 </Dialog>
             </Fragment>
