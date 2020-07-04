@@ -7,13 +7,18 @@ import thunk from "redux-thunk";
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import multas from "./store/reducers/multas";
-import usuarios from "./store/reducers/usuarios";
-import multa from "./store/reducers/multa";
+import multasReducer from "./store/reducers/multas";
+import usuariosReducer from "./store/reducers/usuarios";
+import multaReducer from "./store/reducers/multa";
 
 Axios.defaults.baseURL = "https://multa-app.herokuapp.com"; // esto es para usar la misma url en todas las peticiones http sin tener que andar escribiendo
 
-const reducers = combineReducers(multas, usuarios, multa);
+const reducers = combineReducers({
+    multas: multasReducer,
+    usuarios: usuariosReducer,
+    multa: multaReducer,
+});
+
 const store = createStore(reducers, applyMiddleware(thunk));
 
 ReactDOM.render(

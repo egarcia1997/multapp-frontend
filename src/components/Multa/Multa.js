@@ -22,6 +22,8 @@ class Multa extends Component {
     };
 
     componentDidMount = () => {
+        //console.log(this.props.location.pathname.splice(0, 8));
+        //this.props.cargarMulta();
         axios.get("/getAll/" + this.props.id)
             .then(response => {
                 console.log(response);
@@ -424,9 +426,9 @@ class Multa extends Component {
 
 const mapStateToProps = state => {
     return {
-        multa: state.multa,
-        cargando: state.cargando,
-        error: state.error,
+        multa: state.multa.multa,
+        cargando: state.multa.cargando,
+        error: state.multa.error,
     }
 }
 

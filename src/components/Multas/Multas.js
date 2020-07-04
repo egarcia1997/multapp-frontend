@@ -217,9 +217,9 @@ Multas.propTypes = {
 
 const mapStateToProps = state => {
     return {
-        multas: state.multas,
-        cargando: state.cargando,
-        error: state.error,
+        multas: state.multas.multas,
+        cargando: state.multas.cargando,
+        error: state.multas.error,
     }
 }
 
