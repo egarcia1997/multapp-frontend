@@ -22,8 +22,8 @@ class Multa extends Component {
     };
 
     componentDidMount = () => {
-        //console.log(this.props.location.pathname.splice(0, 8));
-        //this.props.cargarMulta();
+        // const id = this.props.location.pathname.concat("").split("/")[2];
+        // this.props.cargarMulta(id);
         axios.get("/getAll/" + this.props.id)
             .then(response => {
                 console.log(response);
