@@ -323,22 +323,32 @@ class Multa extends Component {
                 </Grid>
                 <Typography>Estado de la multa: </Typography>
                 <Typography>{this.estado}</Typography>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    startIcon={<Check />}
-                    onClick={() => this.toggleDialogHandler("aceptar")}
-                >
-                    Aceptar multa
-                </Button>
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    startIcon={<Close />}
-                    onClick={() => this.toggleDialogHandler("rechazar")}
-                >
-                    Rechazar multa
-                </Button>
+                <Grid container={true}>
+                    <Grid item={true} xs={6}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            fullWidth={true}
+                            size="large"
+                            startIcon={<Check />}
+                            onClick={() => this.toggleDialogHandler("aceptar")}
+                        >
+                            Aceptar multa
+                        </Button>
+                    </Grid>
+                    <Grid item={true} xs={6}>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            fullWidth={true}
+                            size="large"
+                            startIcon={<Close />}
+                            onClick={() => this.toggleDialogHandler("rechazar")}
+                        >
+                            Rechazar multa
+                        </Button>
+                    </Grid>
+                </Grid>
             </Container>
         );
     }
