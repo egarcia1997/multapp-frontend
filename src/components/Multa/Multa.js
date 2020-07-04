@@ -4,6 +4,8 @@ import axios from "axios";
 import { Container, Typography, Grid, Paper, Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, TextField } from "@material-ui/core";
 import { Check, Close } from "@material-ui/icons";
 import estilos from "./Multa.module.css";
+import { connect } from "react-redux";
+import { cargarMulta } from "../../store/actions/multa";
 
 class Multa extends Component {
     state = {
@@ -398,4 +400,19 @@ class Multa extends Component {
     }
 }
 
-export default withRouter(Multa);
+const mapStateToProps = state => {
+    return {
+        multa: state.multa,
+        cargando: state.cargando,
+        error: state.error,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        cargarMulta: (id) => {dispatch(cargarMulta(id))},
+        cambiarEstado: (id, estado, razon) => {dispatch(cambiarEstado(id, estado, razon))},
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Multa));
