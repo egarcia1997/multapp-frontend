@@ -1,41 +1,12 @@
-import React, {Component, Fragment} from 'react';
-import PropTypes from "prop-types";
-import axios from "axios";
-import {withRouter} from "react-router-dom";
-import {Button, Typography, TableHead, TableRow, TableCell, Table, TableContainer, Paper, TableBody, CircularProgress, Container} from "@material-ui/core";
+import React, { Component, Fragment } from 'react';
+import { withRouter } from "react-router-dom";
+import { Button, Typography, TableHead, TableRow, TableCell, Table, TableContainer, Paper, TableBody, CircularProgress, Container } from "@material-ui/core";
 import Filtro from "./Filtro/Filtro";
-import {cargarMultas} from "../../store/actions/multas";
+import { cargarMultas } from "../../store/actions/multas";
 import { connect } from 'react-redux';
 
 class Multas extends Component {
     state = {
-        multas: [ // esto contiene los resumenes de todas las multas sacado directamente de la db
-            // lo que esta aca cargado es a modo de ejemplo, se saca al tener acceso a la db
-            {
-                id: "1",
-                nombreConductor: "Freeman Gordon",
-                dniConductor: "12345678",
-                fecha: "2020-01-01",
-                extracto: "Circular por encima de la velocidad máxima permitida",
-                estado: "No resuelta",
-            },
-            {
-                id: "2",
-                nombreConductor: "Jensen Adam",
-                dniConductor: "23456789",
-                fecha: "2020-01-02",
-                extracto: "Circular con RTO vencida al día de la fecha",
-                estado: "Aceptada",
-            },
-            {
-                id: "3",
-                nombreConductor: "Yu Morgan",
-                dniConductor: "34567890",
-                fecha: "2020-01-03",
-                extracto: "Estacionar sobre calzada amarilla",
-                estado: "Rechazada",
-            },
-        ],
         condicionesDeFiltrado: { // las condiciones de filtrado de las multas
             noResueltas: true,
             aceptadas: true,
@@ -46,43 +17,12 @@ class Multas extends Component {
         },
         cargando: true, // controla si ya se cargaron las multas o no
         mostrarFiltro: false, // controla si se muestran las opciones de filtros
-        huboErrorAlCargarLasMultas: false, // controla si hubo un error al cargar las multas
-        textoDeError: "",
     }
 
     // hook del ciclo de vida en el que recupero el listado de todas las multas del servidor
     // y lo meto en el estado (pero solo los datos mas importantes)
     componentDidMount() {
-        const headers = {
-            "content-type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-        };
-        axios.get("/getAll", {headers})
-            .then(response => { // una vez que llegue todo hace esto
-                console.log(response); // muestra por consola la respuesta
-                const multasIDs = Object.keys(response.data).map(multaID => { // itera sobre los id de las multas para ir cargando las multas resumidas
-                    const multa = { // crea una multa resumida. los datos los saca de response.data
-                        id: multaID,
-                        nombreConductor: response.data[multaID]["apellidoInfractor"] + response.data[multaID]["nombresInfractor"],
-                        dniConductor: response.data[multaID]["NroDoc"],
-                        fecha: response.data[multaID]["FechaEmision"],
-                        extracto: "falta agregar a la db",
-                        estado: "tambien falta agregar a la db",
-                    }
-                    return multa; // mete esa multa en el array de multas resumidas
-                });
-                this.setState({
-                    multas: multasIDs,
-                    cargando: false,
-                });
-            }).catch(error => { // si hubo error hace esto
-                console.log(error); // muestra por consola el error
-                this.setState({
-                    huboErrorAlCargarLasMultas: true,
-                    cargando: false,
-                    textoDeError: error,
-                });
-            });
+        this.props.cargarMultas();
     }
 
     // metodo para mostrar/ocultar las opciones de filtrado
@@ -107,7 +47,7 @@ class Multas extends Component {
         let numeroDeMultasSinResolver = 0; // el numero total de multas que estan sin resolver
         let textoDeMultasSinResolver = ""; // el texto que se va a mostrar debajo del h2 que da la bienvenida
 
-        let multasFiltradas = this.state.multas.filter(multa => { // ejecuta por cada multa del estado
+        let multasFiltradas = this.props.multas.filter(multa => { // ejecuta por cada multa del estado
             // primero controla si la multa cumple con las condiciones de filtrado
             let seDebeMostrar = true;
             if (!this.state.condicionesDeFiltrado.noResueltas && multa.estado === "No resuelta") {
@@ -155,13 +95,13 @@ class Multas extends Component {
         return (
             <Container maxWidth="lg">
                 <Typography variant="h3">Bienvenido, {this.props.nombreUsuario}</Typography>
-                {this.state.cargando ?
+                {this.props.cargando ?
                     <Fragment>
                         <CircularProgress />
                         <Typography>Cargando multas</Typography>
                     </Fragment>
                 : null}
-                {this.state.huboErrorAlCargarLasMultas ? 
+                {this.props.error ? 
                     <Fragment>
                         <Typography variant="h5" color="error">
                             Ha ocurrido un error. Intente recargar la página.
@@ -170,13 +110,13 @@ class Multas extends Component {
                             Si el problema persiste, contacte con un administrador.
                         </Typography>
                         <Typography variant="caption" color="error">
-                            {this.state.textoDeError.toString()}
+                            {this.props.error.toString()}
                         </Typography>
                     </Fragment>
                 : null}
                 {/* descomentar esta linea cuando arreglen la base de datos */}
-                {/* {!this.state.cargando && !this.state.huboErrorAlCargarLasMultas ?  */}
-                {!this.state.cargando ? 
+                {/* {!this.props.cargando && !this.props.error ?  */}
+                {!this.props.cargando ? 
                     <Fragment>
                         <Typography variant="h5">{textoDeMultasSinResolver}</Typography>
                         <Button variant="contained" color="primary" onClick={this.toggleFiltroHandler}>
@@ -209,10 +149,6 @@ class Multas extends Component {
             </Container>
         );
     }
-}
-  
-Multas.propTypes = {
-    nombreUsuario: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = state => {
