@@ -93,7 +93,7 @@ class Multas extends Component {
         }
   
         return (
-            <Container maxWidth="lg">
+            <Container maxWidth="lg" style={{minHeight: "100vh"}}>
                 <Typography variant="h3">Bienvenido, {this.props.nombreUsuario}</Typography>
                 {this.props.cargando ?
                     <Fragment>
