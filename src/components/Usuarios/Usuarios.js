@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
-import { Box, Container, Typography, Tabs, Tab, CircularProgress, List, ListItem, Divider, ListItemAvatar, Avatar, ListItemText, Fab, ListItemSecondaryAction, IconButton } from "@material-ui/core";
+import { Box, Container, Typography, Tabs, Tab, CircularProgress, List, ListItem, Divider, ListItemAvatar, Avatar, ListItemText, Fab, ListItemSecondaryAction, IconButton, createMuiTheme } from "@material-ui/core";
 import { Add, Delete } from "@material-ui/icons";
 import AgregarUsuario from "./AgregarUsuario/AgregarUsuario";
 import EliminarUsuario from "./EliminarUsuario/EliminarUsuario";
@@ -90,9 +90,11 @@ class Usuarios extends Component {
         //     </ListItem>
         // ));
 
+        const theme = createMuiTheme();
+
         return (
             <Fragment>
-                <Container maxWidth="lg">
+                <Container maxWidth="lg" style={{minHeight: "100vh"}}>
                     <Tabs value={this.state.pestanaActual} centered={true} onChange={this.tabChangeHandler} indicatorColor="primary" textColor="primary">
                         <Tab label="Inspectores" />
                         <Tab label="Supervisores" />
@@ -128,7 +130,7 @@ class Usuarios extends Component {
                     <this.TabPanel value={this.state.pestanaActual} index={3}>
                         Coso de multados
                     </this.TabPanel>
-                    <Fab color="primary" onClick={this.addUserHandler}>
+                    <Fab color="primary" onClick={this.addUserHandler} style={{position: "fixed", bottom: theme.spacing(5), right: theme.spacing(5)}}>
                         <Add />
                     </Fab>
                 </Container>
