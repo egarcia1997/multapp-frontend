@@ -33,6 +33,7 @@ export const cargarMultas = () => {
                         dniConductor: response.data[id].conductor.nroDocumento,
                         fecha: response.data[id].ubicacion.fecha,
                         extracto: response.data[id].infraccion.extracto,
+                        estado: response.data[id].estado,
                     }
                 });
                 /////////////////////////////////////////
