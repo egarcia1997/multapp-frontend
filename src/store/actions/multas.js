@@ -16,12 +16,29 @@ const cargarMultasConError = (error) => {
 }
 
 export const cargarMultas = () => {
+    const headers = {
+        "content-type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+    };
     return dispatch => {
-        Axios.get("/multas")
+        Axios.get("/getAll", headers)
             .then(response => {
-                // ACA MANIPULAR LA RESPUESTA PARA METER EL ID DENTRO DE LA MULTA
-                dispatch(cargarMultasConExito(response.data));
+                console.log(response);
+                // ESTO ESTARIA PARA HACER EN EL BACKEND
+                // NO ACA
+                const multasArregladas = Object.keys(response.data).map(id => {
+                    return {
+                        id: id,
+                        nombreConductor: response.data[id].conductor.nombre,
+                        dniConductor: response.data[id].conductor.nroDocumento,
+                        fecha: response.data[id].ubicacion.fecha,
+                        extracto: response.data[id].infraccion.extracto,
+                    }
+                });
+                /////////////////////////////////////////
+                dispatch(cargarMultasConExito(multasArregladas));
             }).catch(error => {
+                console.log(error);
                 dispatch(cargarMultasConError(error));
             });
     }
