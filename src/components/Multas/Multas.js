@@ -20,8 +20,7 @@ class Multas extends Component {
         mostrarFiltro: false, // controla si se muestran las opciones de filtros
     }
 
-    // hook del ciclo de vida en el que recupero el listado de todas las multas del servidor
-    // y lo meto en el estado (pero solo los datos mas importantes)
+    // recupero el listado de todas las multas del servidor y lo meto en el estado
     componentDidMount() {
         this.props.cargarMultas();
     }
@@ -38,8 +37,7 @@ class Multas extends Component {
         this.toggleFiltroHandler();
     }
 
-    // metodo que carga todos los datos de una multa
-    // se ejecuta al hacer clic en una multa
+    // metodo que carga todos los datos de una multa al hacer clic en una
     multaSeleccionadaHandler = (id) => {
         this.props.history.push("/multas/" + id);
     }
@@ -48,8 +46,7 @@ class Multas extends Component {
         let numeroDeMultasSinResolver = 0; // el numero total de multas que estan sin resolver
         let textoDeMultasSinResolver = ""; // el texto que se va a mostrar debajo del h2 que da la bienvenida
 
-        let multasFiltradas = this.props.multas.filter(multa => { // ejecuta por cada multa del estado
-            // primero controla si la multa cumple con las condiciones de filtrado
+        let multasFiltradas = this.props.multas.filter(multa => {
             let seDebeMostrar = true;
             if (!this.state.condicionesDeFiltrado.noResueltas && multa.estado === "No resuelta") {
                 seDebeMostrar = false;
@@ -69,8 +66,8 @@ class Multas extends Component {
             if (this.state.condicionesDeFiltrado.dni !== "" && this.state.condicionesDeFiltrado.dni !== multa.dniConductor) {
                 seDebeMostrar = false;
             }
-            if (multa.estado === "No resuelta") { // si la multa no fue resuelta
-                numeroDeMultasSinResolver++; // actualiza el contador de multas no resueltas
+            if (multa.estado === "No resuelta") {
+                numeroDeMultasSinResolver++;
             }
             return seDebeMostrar;
         });
@@ -85,7 +82,7 @@ class Multas extends Component {
             </TableRow>
         ));
         
-        if (numeroDeMultasSinResolver === 0) { // segun el numero de multas sin resolver, muestra un mensaje informando eso
+        if (numeroDeMultasSinResolver === 0) {
             textoDeMultasSinResolver = "No quedan multas sin resolver";
         } else if (numeroDeMultasSinResolver === 1) {
             textoDeMultasSinResolver = "Tiene 1 multa sin resolver";
