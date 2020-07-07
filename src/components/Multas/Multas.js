@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter } from "react-router-dom";
-import { Button, Typography, TableHead, TableRow, TableCell, Table, TableContainer, Paper, TableBody, CircularProgress, Container } from "@material-ui/core";
+import { Button, Typography, TableHead, TableRow, TableCell, Table, TableContainer, Paper, TableBody, CircularProgress, Container, Snackbar } from "@material-ui/core";
+import MuiAlert from '@material-ui/lab/Alert';
 import Filtro from "./Filtro/Filtro";
 import { cargarMultas } from "../../store/actions/multas";
 import { connect } from 'react-redux';
@@ -94,29 +95,12 @@ class Multas extends Component {
   
         return (
             <Container maxWidth="lg" style={{minHeight: "100vh"}}>
+                <Snackbar open={this.props.error}>
+                    <Alert severity="error">{this.props.error.toString()}</Alert>
+                </Snackbar>
                 <Typography variant="h3">Bienvenido, {this.props.nombreUsuario}</Typography>
-                {this.props.cargando ?
-                    <Fragment>
-                        <CircularProgress />
-                        <Typography>Cargando multas</Typography>
-                    </Fragment>
-                : null}
-                {this.props.error ? 
-                    <Fragment>
-                        <Typography variant="h5" color="error">
-                            Ha ocurrido un error. Intente recargar la página.
-                        </Typography>
-                        <Typography variant="h6" color="error">
-                            Si el problema persiste, contacte con un administrador.
-                        </Typography>
-                        <Typography variant="caption" color="error">
-                            {this.props.error.toString()}
-                        </Typography>
-                    </Fragment>
-                : null}
-                {/* descomentar esta linea cuando arreglen la base de datos */}
-                {/* {!this.props.cargando && !this.props.error ?  */}
-                {!this.props.cargando ? 
+                {this.props.cargando ? <CircularProgress /> : null}
+                {!this.props.cargando && !this.props.error ?
                     <Fragment>
                         <Typography variant="h5">{textoDeMultasSinResolver}</Typography>
                         <Button variant="contained" color="primary" onClick={this.toggleFiltroHandler}>
@@ -149,6 +133,10 @@ class Multas extends Component {
             </Container>
         );
     }
+}
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 const mapStateToProps = state => {
