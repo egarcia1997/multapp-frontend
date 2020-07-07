@@ -22,9 +22,9 @@ class Multa extends Component {
     };
 
     componentDidMount = () => {
-        // const id = this.props.location.pathname.concat("").split("/")[2];
+        const id = this.props.location.pathname.concat("").split("/")[2];
         // this.props.cargarMulta(id);
-        axios.get("/getAll/" + this.props.id)
+        axios.get("/getAll/" + id)
             .then(response => {
                 console.log(response);
                 this.setState({
@@ -59,62 +59,6 @@ class Multa extends Component {
     }
 
     render() {
-        const ubicacion = [
-            "Fecha",
-            "Hora",
-            "Lugar de constatación"
-        ];
-        const licencia = [
-            "Número de licencia",
-            "Única provincial",
-            "Clase",
-            "Vencimiento",
-            "Licencia retenida",
-            "País",
-            "Provincia",
-            "Departamento",
-            "Localidad",
-        ];
-        const conductor = [
-            "Apellido",
-            "Nombre",
-            "Sexo",
-            "Fecha de nacimiento",
-            "Tipo de documento",
-            "Número de documento",
-            "Calle",
-            "Número",
-            "Piso",
-            "Departamento",
-            "Localidad",
-            "Código postal",
-            "Provincia",
-            "País",
-        ];
-        const vehiculo = [
-            "Dominio",
-            "Marca",
-            "Modelo",
-            "Tipo",
-            "Titular",
-            "Tipo de documento",
-            "Número de documento",
-            "Calle",
-            "Número",
-            "Piso",
-            "Departamento",
-            "Localidad",
-            "Código postal",
-            "Provincia",
-            "País",
-        ];
-        const infraccion = [
-            "Código de infracción",
-            "Artículo nº",
-            "Inciso nº",
-            "Extracto",
-            "Observaciones",
-        ];
         return (
             <Fragment>
                 <Container>
@@ -124,16 +68,6 @@ class Multa extends Component {
                             <Paper elevation={3} className={estilos.GridItem}>
                                 <Typography variant="h6">Ubicación</Typography>
                                 <Grid container={true} spacing={3}>
-                                    {/* {ubicacion.map(item => {
-                                        return this.props.multa.ubicacion.map(item2 => {
-                                            return (
-                                                <Grid item={true}>
-                                                    <Typography variant="overline">{item}</Typography>
-                                                    <Typography variant="body2">{item2}</Typography>
-                                                </Grid>
-                                            );
-                                        })
-                                    })} */}
                                     <Grid item={true}>
                                         <Typography variant="overline">Fecha</Typography>
                                         <Typography variant="body2">{this.state.fecha}</Typography>
