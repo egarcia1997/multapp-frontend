@@ -5,6 +5,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import Filtro from "./Filtro/Filtro";
 import { cargarMultas } from "../../store/actions/multas";
 import { connect } from 'react-redux';
+import ErrorSnackbar from '../UI/ErrorSnackbar';
 
 class Multas extends Component {
     state = {
@@ -92,9 +93,7 @@ class Multas extends Component {
   
         return (
             <Container maxWidth="lg" style={{minHeight: "100vh"}}>
-                <Snackbar open={this.props.error}>
-                    <Alert severity="error">{this.props.error.toString()}</Alert>
-                </Snackbar>
+                <ErrorSnackbar open={this.props.error} message={this.props.error.toString()} />
                 <Typography variant="h3">Bienvenido, {this.props.nombreUsuario}</Typography>
                 {this.props.cargando ? <CircularProgress /> : null}
                 {!this.props.cargando && !this.props.error ?
@@ -130,10 +129,6 @@ class Multas extends Component {
             </Container>
         );
     }
-}
-
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 const mapStateToProps = state => {
