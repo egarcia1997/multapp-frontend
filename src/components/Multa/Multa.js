@@ -5,41 +5,20 @@ import { Container, Typography, Grid, Paper, Button, Dialog, DialogTitle, Dialog
 import { Check, Close } from "@material-ui/icons";
 import estilos from "./Multa.module.css";
 import { connect } from "react-redux";
+import ErrorSnackbar from "../UI/ErrorSnackbar";
 import { cargarMulta, cambiarEstado } from "../../store/actions/multa";
 
 class Multa extends Component {
     state = {
-        cargando: true,
-        huboError: false,
         mostrarDialogAceptar: false,
         mostrarDialogRechazar: false,
         razonAceptar: "",
         razonRechazar: "",
-        multa: {},
-        fecha: "2020-01-01",
-        hora: "12:24",
-        lugar: "Plaza 25 de mayo"
     };
 
     componentDidMount = () => {
         const id = this.props.location.pathname.concat("").split("/")[2];
-        // this.props.cargarMulta(id);
-        axios.get("/getAll/" + id)
-            .then(response => {
-                console.log(response);
-                this.setState({
-                    cargando: false,
-                    huboError: false,
-                    multa: response.data,
-                })
-            })
-            .catch(error => {
-                console.log(error);
-                this.setState({
-                    cargando: false,
-                    huboError: true,
-                })
-            });
+        this.props.cargarMulta(id);
     }
 
     toggleDialogHandler = (accion) => {
@@ -61,8 +40,9 @@ class Multa extends Component {
     render() {
         return (
             <Fragment>
+                <ErrorSnackbar open={this.props.error} message={this.props.error.toString()} />
                 <Container>
-                    <Typography variant="h3">Detalles de la multa {this.props.id}</Typography>
+                    <Typography variant="h3">Detalles de la multa {this.props.multa.id}</Typography>
                     <Grid container={true} spacing={1}>
                         <Grid item={true} xs={12}>
                             <Paper elevation={3} className={estilos.GridItem}>
@@ -70,15 +50,15 @@ class Multa extends Component {
                                 <Grid container={true} spacing={3}>
                                     <Grid item={true}>
                                         <Typography variant="overline">Fecha</Typography>
-                                        <Typography variant="body2">{this.state.fecha}</Typography>
+                                        <Typography variant="body2">{this.props.multa.ubicacion.fecha}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Hora</Typography>
-                                        <Typography variant="body2">{this.state.hora}</Typography>
+                                        <Typography variant="body2">{this.props.multa.ubicacion.hora}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Lugar de constatación</Typography>
-                                        <Typography variant="body2">{this.state.lugar}</Typography>
+                                        <Typography variant="body2">{this.props.multa.ubicacion.lugar}</Typography>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -89,39 +69,39 @@ class Multa extends Component {
                                 <Grid container={true} spacing={3}>
                                     <Grid item={true}>
                                         <Typography variant="overline">Número de licencia</Typography>
-                                        <Typography variant="body2">{this.state.nroLicencia}</Typography>
+                                        <Typography variant="body2">{this.props.multa.licencia.nroLicencia}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Única provincial</Typography>
-                                        <Typography variant="body2">{this.state.unicaProvincial}</Typography>
+                                        <Typography variant="body2">{this.props.multa.licencia.unicaProvincial}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Clase</Typography>
-                                        <Typography variant="body2">{this.state.clase}</Typography>
+                                        <Typography variant="body2">{this.props.multa.licencia.clase}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Vencimiento</Typography>
-                                        <Typography variant="body2">{this.state.vencimiento}</Typography>
+                                        <Typography variant="body2">{this.props.multa.licencia.vencimiento}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Licencia retenida</Typography>
-                                        <Typography variant="body2">{this.state.retenida}</Typography>
+                                        <Typography variant="body2">{this.props.multa.licencia.retenida}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">País</Typography>
-                                        <Typography variant="body2">{this.state.paisLicencia}</Typography>
+                                        <Typography variant="body2">{this.props.multa.licencia.pais}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Provincia</Typography>
-                                        <Typography variant="body2">{this.state.provinciaLicencia}</Typography>
+                                        <Typography variant="body2">{this.props.multa.licencia.provincia}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Departamento</Typography>
-                                        <Typography variant="body2">{this.state.departamentoLicencia}</Typography>
+                                        <Typography variant="body2">{this.props.multa.licencia.departamento}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Localidad</Typography>
-                                        <Typography variant="body2">{this.state.localidadLicencia}</Typography>
+                                        <Typography variant="body2">{this.props.multa.licencia.localidad}</Typography>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -132,59 +112,59 @@ class Multa extends Component {
                                 <Grid container={true} spacing={3}>
                                     <Grid item={true}>
                                         <Typography variant="overline">Apellido</Typography>
-                                        <Typography variant="body2">{this.state.apellidoConductor}</Typography>
+                                        <Typography variant="body2">{this.props.multa.conductor.apellido}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Nombre</Typography>
-                                        <Typography variant="body2">{this.state.nombreConductor}</Typography>
+                                        <Typography variant="body2">{this.props.multa.conductor.nombre}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Sexo</Typography>
-                                        <Typography variant="body2">{this.state.sexoConductor}</Typography>
+                                        <Typography variant="body2">{this.props.multa.conductor.sexo}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Fecha de nacimiento</Typography>
-                                        <Typography variant="body2">{this.state.fechaNacimiento}</Typography>
+                                        <Typography variant="body2">{this.props.multa.conductor.fechaNacimiento}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Tipo de documento</Typography>
-                                        <Typography variant="body2">{this.state.tipoDocumentoConductor}</Typography>
+                                        <Typography variant="body2">{this.props.multa.conductor.tipoDocumento}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Número de documento</Typography>
-                                        <Typography variant="body2">{this.state.nroDocumentoConductor}</Typography>
+                                        <Typography variant="body2">{this.props.multa.conductor.nroDocumento}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Calle</Typography>
-                                        <Typography variant="body2">{this.state.calleConductor}</Typography>
+                                        <Typography variant="body2">{this.props.multa.conductor.calle}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Número</Typography>
-                                        <Typography variant="body2">{this.state.numeroConductor}</Typography>
+                                        <Typography variant="body2">{this.props.multa.conductor.numero}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Piso</Typography>
-                                        <Typography variant="body2">{this.state.pisoConductor}</Typography>
+                                        <Typography variant="body2">{this.props.multa.conductor.piso}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Departamento</Typography>
-                                        <Typography variant="body2">{this.state.departamentoConductor}</Typography>
+                                        <Typography variant="body2">{this.props.multa.conductor.departamento}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Localidad</Typography>
-                                        <Typography variant="body2">{this.state.localidadConductor}</Typography>
+                                        <Typography variant="body2">{this.props.multa.conductor.localidad}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Código postal</Typography>
-                                        <Typography variant="body2">{this.state.codigoPostalConductor}</Typography>
+                                        <Typography variant="body2">{this.props.multa.conductor.codigoPostal}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Provincia</Typography>
-                                        <Typography variant="body2">{this.state.provinciaConductor}</Typography>
+                                        <Typography variant="body2">{this.props.multa.conductor.provincia}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">País</Typography>
-                                        <Typography variant="body2">{this.state.paisConductor}</Typography>
+                                        <Typography variant="body2">{this.props.multa.conductor.pais}</Typography>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -195,63 +175,63 @@ class Multa extends Component {
                                 <Grid container={true} spacing={3}>
                                     <Grid item={true}>
                                         <Typography variant="overline">Dominio</Typography>
-                                        <Typography variant="body2">{this.state.dominio}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vehiculo.dominio}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Marca</Typography>
-                                        <Typography variant="body2">{this.state.marca}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vehiculo.marca}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Modelo</Typography>
-                                        <Typography variant="body2">{this.state.modelo}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vehiculo.modelo}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Tipo</Typography>
-                                        <Typography variant="body2">{this.state.tipo}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vehiculo.tipo}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Titular</Typography>
-                                        <Typography variant="body2">{this.state.titular}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vehiculo.titular}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Tipo de documento</Typography>
-                                        <Typography variant="body2">{this.state.tipoDocumentoTitular}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vehiculo.tipoDocumento}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Número de documento</Typography>
-                                        <Typography variant="body2">{this.state.nroDocumentoTitular}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vehiculo.nroDocumento}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Calle</Typography>
-                                        <Typography variant="body2">{this.state.calleTitular}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vehiculo.calle}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Número</Typography>
-                                        <Typography variant="body2">{this.state.numeroTitular}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vehiculo.numero}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Piso</Typography>
-                                        <Typography variant="body2">{this.state.pisoTitular}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vehiculo.piso}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Departamento</Typography>
-                                        <Typography variant="body2">{this.state.departamentoTitular}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vehiculo.departamento}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Localidad</Typography>
-                                        <Typography variant="body2">{this.state.localidadTitular}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vehiculo.localidad}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Código postal</Typography>
-                                        <Typography variant="body2">{this.state.codigoPostalTitular}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vehiculo.codigoPostal}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Provincia</Typography>
-                                        <Typography variant="body2">{this.state.provinciaTitular}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vehiculo.provincia}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">País</Typography>
-                                        <Typography variant="body2">{this.state.paisTitular}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vehiculo.pais}</Typography>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -262,23 +242,23 @@ class Multa extends Component {
                                 <Grid container={true} spacing={3}>
                                     <Grid item={true}>
                                         <Typography variant="overline">Código de infracción</Typography>
-                                        <Typography variant="body2">{this.state.codigoInfraccion}</Typography>
+                                        <Typography variant="body2">{this.props.multa.infraccion.codigo}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Artículo nº</Typography>
-                                        <Typography variant="body2">{this.state.articulo}</Typography>
+                                        <Typography variant="body2">{this.props.multa.infraccion.articulo}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Inciso nº</Typography>
-                                        <Typography variant="body2">{this.state.inciso}</Typography>
+                                        <Typography variant="body2">{this.props.multa.infraccion.inciso}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Extracto</Typography>
-                                        <Typography variant="body2">{this.state.extracto}</Typography>
+                                        <Typography variant="body2">{this.props.multa.infraccion.extracto}</Typography>
                                     </Grid>
                                     <Grid item={true}>
                                         <Typography variant="overline">Observaciones</Typography>
-                                        <Typography variant="body2">{this.state.observaciones}</Typography>
+                                        <Typography variant="body2">{this.props.multa.infraccion.observaciones}</Typography>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -289,7 +269,7 @@ class Multa extends Component {
                                 <Grid container={true} spacing={3}>
                                     <Grid item={true}>
                                         <Typography variant="overline">Nombre</Typography>
-                                        <Typography variant="body2">{this.state.nombreInspector}</Typography>
+                                        <Typography variant="body2">{this.props.multa.idInspector}</Typography>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -297,11 +277,11 @@ class Multa extends Component {
                         <Grid item={true} xs={12}>
                             <Paper elevation={3} className={estilos.GridItem}>
                                 <Typography variant="h6">Pruebas fotográficas</Typography>
-                                {this.state.imagenes ? 
+                                {this.props.multa.fotos.length > 0 ? 
                                     <Grid container={true} spacing={1}>
-                                        {this.state.imagenes.map(imagen => (
+                                        {this.props.multa.fotos.map(foto => (
                                             <Grid item={true}>
-                                                <img src={imagen} />
+                                                <img src={foto} />
                                             </Grid>
                                         ))}
                                     </Grid>
@@ -314,26 +294,26 @@ class Multa extends Component {
                                 <Grid container={true} spacing={3}>
                                     <Grid item={true} xs={6}>
                                         <Typography variant="overline">Primer vencimiento</Typography>
-                                        <Typography variant="body2">{this.state.fechaPrimerVencimiento}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vencimientos.fechaPrimerVencimiento}</Typography>
                                     </Grid>
                                     <Grid item={true} xs={6}>
                                         <Typography variant="overline">Monto</Typography>
-                                        <Typography variant="body2">{this.state.montoPrimerVencimiento}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vencimientos.montoPrimerVencimiento}</Typography>
                                     </Grid>
                                     <Grid item={true} xs={6}>
                                         <Typography variant="overline">Segundo vencimiento</Typography>
-                                        <Typography variant="body2">{this.state.fechaSegundoVencimiento}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vencimientos.fechaSegundoVencimiento}</Typography>
                                     </Grid>
                                     <Grid item={true} xs={6}>
                                         <Typography variant="overline">Monto</Typography>
-                                        <Typography variant="body2">{this.state.montoSegundoVencimiento}</Typography>
+                                        <Typography variant="body2">{this.props.multa.vencimientos.montoSegundoVencimiento}</Typography>
                                     </Grid>
                                 </Grid>
                             </Paper>
                         </Grid>
                     </Grid>
                     <Typography>Estado de la multa: </Typography>
-                    <Typography>{this.estado}</Typography>
+                    <Typography>{this.props.multa.estado}</Typography>
                     <Grid container={true}>
                         <Grid item={true} xs={6}>
                             <Button
