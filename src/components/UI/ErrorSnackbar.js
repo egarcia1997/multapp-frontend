@@ -9,7 +9,7 @@ const Alert = props => {
 const ErrorSnackbar = props => (
     <Snackbar open={props.open} onClose={props.onClose}>
         <Alert severity="error" action={
-            <Button color="primary" onClick={() => window.location.reload()}>Recargar</Button>
+            <Button onClick={() => window.location.reload()}>Recargar</Button>
         }>
             {props.message}
         </Alert>
