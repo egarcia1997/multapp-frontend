@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import './App.css';
 import * as placeholder from "./assets/placeholder-vault-boy.png";
 import Login from "./containers/Login/Login";
 import LayoutSupervisor from './containers/LayoutSupervisor/LayoutSupervisor';
