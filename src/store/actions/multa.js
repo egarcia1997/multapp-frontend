@@ -16,10 +16,14 @@ const cargarMultaConError = (error) => {
 }
 
 export const cargarMulta = (id) => {
+    const params = {
+        params: {
+            id: id,
+        },
+    };
     return dispatch => {
-        Axios.get("/multas/" + id)
+        Axios.get("/getMulta", params)
             .then(response => {
-                // ACA MANIPULAR LA RESPUESTA PARA METER EL ID DENTRO DE LA MULTA
                 dispatch(cargarMultaConExito(response.data));
             }).catch(error => {
                 dispatch(cargarMultaConError(error));
@@ -43,15 +47,17 @@ const cambiarEstadoConError = (error) => {
 
 export const cambiarEstado = (id, estado, razon) => {
     const data = {
+        id: id,
         estado: estado,
         razon: razon,
-    }
+    };
     return dispatch => {
-        Axios.patch("/multas/" + id, data)
+        Axios.patch("/actualizarEstado", data)
             .then(response => {
-                // ACA MANIPULAR LA RESPUESTA PARA METER EL ID DENTRO DE LA MULTA
+                console.log(response);
                 dispatch(cambiarEstadoConExito(id));
             }).catch(error => {
+                console.log(error);
                 dispatch(cambiarEstadoConError(error));
             });
     }
