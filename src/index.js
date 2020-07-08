@@ -11,7 +11,7 @@ import multasReducer from "./store/reducers/multas";
 import usuariosReducer from "./store/reducers/usuarios";
 import multaReducer from "./store/reducers/multa";
 
-Axios.defaults.baseURL = "http://multa.herokuapp.com/api"; // esto es para usar la misma url en todas las peticiones http sin tener que andar escribiendo
+Axios.defaults.baseURL = "https://multa-app.herokuapp.com/api"; // esto es para usar la misma url en todas las peticiones http sin tener que andar escribiendo
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
