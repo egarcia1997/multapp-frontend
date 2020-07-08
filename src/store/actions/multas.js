@@ -21,23 +21,10 @@ export const cargarMultas = () => {
         "Access-Control-Allow-Origin": "*",
     };
     return dispatch => {
-        Axios.get("/getAll", headers)
+        Axios.get("/getMultas", headers)
             .then(response => {
                 console.log(response);
-                // ESTO ESTARIA PARA HACER EN EL BACKEND
-                // NO ACA
-                const multasArregladas = Object.keys(response.data).map(id => {
-                    return {
-                        id: id,
-                        nombreConductor: response.data[id].conductor.nombre,
-                        dniConductor: response.data[id].conductor.nroDocumento,
-                        fecha: response.data[id].ubicacion.fecha,
-                        extracto: response.data[id].infraccion.extracto,
-                        estado: response.data[id].estado,
-                    }
-                });
-                /////////////////////////////////////////
-                dispatch(cargarMultasConExito(multasArregladas));
+                dispatch(cargarMultasConExito(response.data));
             }).catch(error => {
                 console.log(error);
                 dispatch(cargarMultasConError(error));
