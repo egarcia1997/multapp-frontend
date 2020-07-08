@@ -4,6 +4,7 @@ const initialState = {
     multas: [],
     cargando: true,
     error: false,
+    textoDeError: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -19,7 +20,8 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 cargando: false,
-                error: action.error,
+                error: true,
+                textoDeError: action.error,
             };
         default:
             return state;

@@ -92,7 +92,7 @@ class Multas extends Component {
   
         return (
             <Container maxWidth="lg" style={{minHeight: "100vh"}}>
-                <ErrorSnackbar open={this.props.error} message={this.props.error.toString()} />
+                <ErrorSnackbar open={this.props.error} message={this.props.textoDeError.toString()} />
                 <Typography variant="h3">Bienvenido, {this.props.nombreUsuario}</Typography>
                 {this.props.cargando ? <CircularProgress /> : null}
                 {!this.props.cargando && !this.props.error ?
@@ -135,6 +135,7 @@ const mapStateToProps = state => {
         multas: state.multas.multas,
         cargando: state.multas.cargando,
         error: state.multas.error,
+        textoDeError: state.multas.textoDeError,
     }
 }
 
