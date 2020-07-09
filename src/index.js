@@ -4,6 +4,7 @@ import Axios from "axios";
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunk from "redux-thunk";
+import { SnackbarProvider } from "notistack";
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -26,7 +27,9 @@ const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <App />
+            <SnackbarProvider>
+                <App />
+            </SnackbarProvider>
         </Provider>
     </React.StrictMode>,
     document.getElementById('root')
