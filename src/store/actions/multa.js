@@ -52,13 +52,19 @@ const cambiarEstadoConError = (error) => {
 }
 
 export const cambiarEstado = (id, estado, razon) => {
-    const data = {
-        id: id,
-        estado: estado,
-        razon: razon,
+    const params = {
+        headers: {
+            "content-type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+        },
+        params: {
+            id: id,
+            estado: estado,
+            razon: razon,
+        },
     };
     return dispatch => {
-        Axios.patch("/actualizarEstado", data)
+        Axios.patch("/actualizarEstado", params)
             .then(response => {
                 console.log(response);
                 dispatch(cambiarEstadoConExito(id));
