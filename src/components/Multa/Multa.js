@@ -376,7 +376,7 @@ class Multa extends Component {
                                 <Button onClick={() => this.toggleDialogHandler("aceptar")}>Cancelar</Button>
                                 <Button
                                     color="primary"
-                                    disabled={this.state.razonRechazar === ""}
+                                    disabled={this.state.razonAceptar.trim() === ""}
                                     onClick={() => this.props.cambiarEstado(this.props.multa.id, "Aceptada", this.state.razonAceptar)}
                                 >
                                     Aceptar multa
@@ -405,7 +405,7 @@ class Multa extends Component {
                                 <Button onClick={() => this.toggleDialogHandler("rechazar")}>Cancelar</Button>
                                 <Button
                                     color="primary"
-                                    disabled={this.state.razonRechazar === ""}
+                                    disabled={this.state.razonRechazar.trim() === ""}
                                     onClick={() => this.props.cambiarEstado(this.props.multa.id, "Rechazada", this.state.razonRechazar)}
                                 >
                                     Rechazar multa
