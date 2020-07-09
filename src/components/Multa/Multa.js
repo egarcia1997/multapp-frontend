@@ -4,8 +4,8 @@ import { Container, Typography, Grid, Paper, Button, Dialog, DialogTitle, Dialog
 import { Check, Close } from "@material-ui/icons";
 import estilos from "./Multa.module.css";
 import { connect } from "react-redux";
-import ErrorSnackbar from "../UI/ErrorSnackbar";
 import { cargarMulta, cambiarEstado } from "../../store/actions/multa";
+import { withSnackbar } from "notistack";
 
 class Multa extends Component {
     state = {
@@ -18,6 +18,18 @@ class Multa extends Component {
     componentDidMount = () => {
         const id = this.props.location.pathname.concat("").split("/")[2];
         this.props.cargarMulta(id);
+    }
+
+    componentDidUpdate = () => {
+        if (this.props.errorAlCargar) {
+            this.props.enqueueSnackbar(this.props.textoDeErrorAlCargar.toString(), {variant: "error"});
+        }
+        if (this.props.estadoCambiado) {
+            this.props.enqueueSnackbar("Estado cambiado exitosamente", {variant: "success"});
+        }
+        if (this.props.errorAlCambiarDeEstado) {
+            this.props.enqueueSnackbar(this.props.textoDeErrorAlCambiarDeEstado.toString(), {variant: "error"});
+        }
     }
 
     toggleDialogHandler = (accion) => {
@@ -39,9 +51,8 @@ class Multa extends Component {
     render() {
         return (
             <Fragment>
-                <ErrorSnackbar open={this.props.error} message={this.props.textoDeError.toString()} />
                 {this.props.cargando ? <CircularProgress /> : null}
-                {!this.props.cargando && !this.props.error ?
+                {!this.props.cargando && !this.props.errorAlCargar ?
                     <Fragment>
                         <Container>
                             <Typography variant="h3">Detalles de la multa {this.props.multa.id}</Typography>
@@ -412,8 +423,11 @@ const mapStateToProps = state => {
     return {
         multa: state.multa.multa,
         cargando: state.multa.cargando,
-        error: state.multa.error,
-        textoDeError: state.multa.textoDeError,
+        errorAlCargar: state.multa.errorAlCargar,
+        textoDeErrorAlCargar: state.multa.textoDeErrorAlCargar,
+        estadoCambiado: state.multa.estadoCambiado,
+        errorAlCambiarDeEstado: state.multa.errorAlCambiarDeEstado,
+        textoDeErrorAlCambiarDeEstado: state.multa.textoDeErrorAlCambiarDeEstado,
     }
 }
 
@@ -424,4 +438,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Multa));
+export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(withRouter(Multa)));
