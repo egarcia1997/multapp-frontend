@@ -3,8 +3,11 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
     multa: null,
     cargando: true,
-    error: false,
-    textoDeError: false,
+    errorAlCargar: false,
+    textoDeErrorAlCargar: false,
+    estadoCambiado: false,
+    errorAlCambiarDeEstado: false,
+    textoDeErrorAlCambiarDeEstado: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,19 +17,28 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 multa: action.multa,
                 cargando: false,
-                error: false,
+                errorAlCargar: false,
             };
         case actionTypes.CARGAR_MULTA_CON_ERROR:
             return {
                 ...state,
                 cargando: false,
-                error: true,
-                textoDeError: action.error,
+                errorAlCargar: true,
+                textoDeErrorAlCargar: action.error,
             };
         case actionTypes.CAMBIAR_ESTADO_CON_EXITO:
-            return {};
+            return {
+                ...state,
+                estadoCambiado: true,
+                errorAlCambiarDeEstado: false,
+            };
         case actionTypes.CAMBIAR_ESTADO_CON_ERROR:
-            return {};
+            return {
+                ...state,
+                estadoCambiado: false,
+                errorAlCambiarDeEstado: true,
+                textoDeErrorAlCambiarDeEstado: action.error,
+            };
         default:
             return state;
     }
