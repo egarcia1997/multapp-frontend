@@ -4,7 +4,7 @@ import { Button, Typography, TableHead, TableRow, TableCell, Table, TableContain
 import Filtro from "./Filtro/Filtro";
 import { cargarMultas } from "../../store/actions/multas";
 import { connect } from 'react-redux';
-import ErrorSnackbar from '../UI/ErrorSnackbar';
+import { withSnackbar } from "notistack";
 
 class Multas extends Component {
     state = {
@@ -23,6 +23,12 @@ class Multas extends Component {
     // recupero el listado de todas las multas del servidor y lo meto en el estado
     componentDidMount() {
         this.props.cargarMultas();
+    }
+
+    componentDidUpdate = () => {
+        if (this.props.error) {
+            this.props.enqueueSnackbar(this.props.textoDeError.toString(), {variant: "error"});
+        }
     }
 
     // metodo para mostrar/ocultar las opciones de filtrado
@@ -92,7 +98,6 @@ class Multas extends Component {
   
         return (
             <Container maxWidth="lg" style={{minHeight: "100vh"}}>
-                <ErrorSnackbar open={this.props.error} message={this.props.textoDeError.toString()} />
                 <Typography variant="h3">Bienvenido, {this.props.nombreUsuario}</Typography>
                 {this.props.cargando ? <CircularProgress /> : null}
                 {!this.props.cargando && !this.props.error ?
@@ -145,4 +150,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Multas));
+export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(withRouter(Multas)));
