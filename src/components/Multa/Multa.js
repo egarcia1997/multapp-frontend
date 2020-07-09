@@ -39,7 +39,7 @@ class Multa extends Component {
     render() {
         return (
             <Fragment>
-                <ErrorSnackbar open={this.props.error} message={this.props.error.toString()} />
+                <ErrorSnackbar open={this.props.error} message={this.props.textoDeError.toString()} />
                 {this.props.cargando ? <CircularProgress /> : null}
                 {!this.props.cargando && !this.props.error ?
                     <Fragment>
@@ -413,6 +413,7 @@ const mapStateToProps = state => {
         multa: state.multa.multa,
         cargando: state.multa.cargando,
         error: state.multa.error,
+        textoDeError: state.multa.textoDeError,
     }
 }
 
