@@ -18,7 +18,7 @@ class LayoutSupervisor extends Component {
                 <Container className={estilos.Contenido}>
                     <Switch>
                         <Route path="/multas/:id" exact={true} component={Multa} />
-                        <Route path="/multas" render={() => <Multas nombreUsuario={this.props.usuario.nombre} />} />
+                        <Route path="/multas" component={Multas} />
                         <Route path="/perfil" component={Perfil} />
                         <Route path="/usuarios/:id" exact={true} component={Usuario} />
                         <Route path="/usuarios" component={Usuarios} />
