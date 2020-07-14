@@ -1,5 +1,5 @@
 // funcion a la que se le mete un error que da firebase y devuelve algo entendible
-const traducirError = (error) => {
+export const traducirError = (error) => {
     switch (error) {
         case "INVALID_PASSWORD":
             return "La contraseña es incorrecta";
