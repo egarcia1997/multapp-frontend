@@ -7,6 +7,7 @@ import thunk from "redux-thunk";
 import { SnackbarProvider } from "notistack";
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import loginReducer from "./store/reducers/login";
 import multasReducer from "./store/reducers/multas";
 import usuariosReducer from "./store/reducers/usuarios";
 import multaReducer from "./store/reducers/multa";
@@ -16,6 +17,7 @@ Axios.defaults.baseURL = "https://multa-app.herokuapp.com/api"; // esto es para 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducers = combineReducers({
+    login: loginReducer,
     multas: multasReducer,
     usuarios: usuariosReducer,
     multa: multaReducer,
