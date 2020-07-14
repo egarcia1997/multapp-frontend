@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Logo from "../../components/Logo/Logo";
-import { Box, Container, Typography, FormControl, TextField, Button, Grid, Paper } from "@material-ui/core";
+import { Container, Typography, FormControl, TextField, Button, Grid, Paper } from "@material-ui/core";
 import Axios from "axios";
 
 class Login extends Component {
@@ -50,19 +50,15 @@ class Login extends Component {
             });
     }
 
-    // metodo para mostrar el cuadro de recuperar contraseña
+    // metodo para mostrar/ocultar el cuadro de recuperar contraseña
     olvidarContrasenaHandler = () => {
-        this.setState({mostrarIniciarSesion: false});
+        const nuevoEstado = !this.state.mostrarIniciarSesion;
+        this.setState({mostrarIniciarSesion: nuevoEstado});
     }
 
     // metodo para recuperar la contraseña
     recuperarContrasenaHandler = () => {
         // aca va el codigo para mandar el mail
-    }
-
-    // metood para volver a mostrar el cuadro de iniciar sesión
-    cancelarOlvidoHandler = () => {
-        this.setState({mostrarIniciarSesion: true});
     }
 
     // carga lo que escribe el usuario en el state
@@ -71,6 +67,59 @@ class Login extends Component {
     }
 
     render() {
+        const iniciarSesion = (
+            <Fragment>
+                <Grid item={true} xs={12}>
+                    <Typography align="center">Iniciar sesión en MultApp</Typography>
+                </Grid>
+                <Grid item={true} xs={12}>
+                    <FormControl fullWidth>
+                        <TextField
+                            id="email"
+                            type="email"
+                            label="Correo electrónico"
+                            value={this.state.email}
+                            onChange={this.inputHandler}
+                        />
+                        <TextField
+                            id="contrasena"
+                            type="password"
+                            label="Contraseña"
+                            value={this.state.contrasena}
+                            onChange={this.inputHandler}
+                        />
+                    </FormControl>
+                </Grid>
+                <Grid item={true} xs={12}>
+                    <Button fullWidth ={true} variant="contained" color="primary" onClick={this.loginHandler}>Iniciar sesión</Button>
+                    <Button fullWidth={true} color="primary" onClick={this.olvidarContrasenaHandler}>Olvidé mi contraseña</Button>
+                </Grid>
+            </Fragment>
+        );
+        const recuperarContrasena = (
+            <Fragment>
+                <Grid item={true} xs={12}>
+                    <Typography align="center">
+                        Si no recuerda su contraseña, ingrese su correo electrónico y le enviaremos una nueva para que pueda iniciar sesión
+                    </Typography>
+                </Grid>
+                <Grid item={true} xs={12}>
+                    <FormControl fullWidth={true}>
+                        <TextField
+                            id="email"
+                            type="email"
+                            label="Correo electrónico"
+                            value={this.state.email}
+                            onChange={this.inputHandler}
+                        />
+                    </FormControl>
+                </Grid>
+                <Grid item={true} xs={12}>
+                    <Button fullWidth ={true} variant="contained" color="primary" onClick={this.loginHandler}>Recuperar contraseña</Button>
+                    <Button fullWidth={true} color="primary" onClick={this.olvidarContrasenaHandler}>Cancelar</Button>
+                </Grid>
+            </Fragment>
+        );
         return (
             <Container>
                 <Grid
@@ -86,9 +135,6 @@ class Login extends Component {
                                 <Grid item={true} xs={12}>
                                     <Logo width={100} height={100} />
                                 </Grid>
-                                <Grid item={true} xs={12}>
-                                    <Typography align="center">Iniciar sesión en MultApp</Typography>
-                                </Grid>
                                 {this.state.error !== "" ?
                                     <Grid item={true} xs={12}>
                                         <Typography align="center" variant="body2" color="error">
@@ -96,29 +142,7 @@ class Login extends Component {
                                         </Typography>
                                     </Grid>
                                 : null}
-                                <Grid item={true} xs={12}>
-                                    <FormControl fullWidth>
-                                        <TextField
-                                            id="email"
-                                            type="email"
-                                            label="Correo electrónico"
-                                            value={this.state.email}
-                                            onChange={this.inputHandler}
-                                        />
-                                        <TextField
-                                            id="contrasena"
-                                            type="password"
-                                            label="Contraseña"
-                                            value={this.state.contrasena}
-                                            onChange={this.inputHandler}
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item={true} xs={12}>
-                                    <Button fullWidth ={true} variant="contained" color="primary" onClick={this.loginHandler}>Iniciar sesión</Button>
-                                    <Button fullWidth={true} color="primary" onClick={this.olvidarContrasenaHandler}>Olvidé mi contraseña</Button>
-                                </Grid>
-                                <Grid item={true}></Grid>
+                                {this.state.mostrarIniciarSesion ? iniciarSesion : recuperarContrasena}
                             </Grid>
                         </Paper>
                     </Grid>
