@@ -1,21 +1,53 @@
 import React, { Component, Fragment } from "react";
 import Logo from "../../components/Logo/Logo";
 import { Box, Container, Typography, FormControl, TextField, Button, Grid, Paper } from "@material-ui/core";
+import Axios from "axios";
 
 class Login extends Component {
     state = {
+        email: "",
+        contrasena: "",
         mostrarIniciarSesion: true,
         contrasenaIncorrecta: false,
-        cuentaBloqueada: false,
+        error: "",
     }
 
     // metodo para hacer el login
     loginHandler = () => {
-        // mandar al server usuario y contraseña
-        // si es incorrecto hacer visible el div de clase estilos.Error
-        // si es correcto hacer un if
-        //     si el usuario es un supervisor cargar el componente LayoutSupervisor
-        //     si el usuario es un administrador cargar el componente LayoutAdministrador
+        const data = {
+            email: this.state.email,
+            password: this.state.contrasena,
+            returnSecureToken: true,
+        }
+        const headers = {
+            "content-type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+        }
+        Axios.post("aca meto el endpoint del backend que se va a hacer despues", data, headers)
+            .then(response => {
+                console.log(response);
+                // localStorage.setItem("idToken", response.data.idToken);
+                // localStorage.setItem("expirationDate", response.data.expiresIn);
+                // localStorage.setItem("localId", response.data.localId);
+            }).catch(error => {
+                console.log(error.response.data.error.message)
+                switch (error.response.data.error.message) {
+                    case "INVALID_PASSWORD":
+                        this.setState({error: "La contraseña es incorrecta"});
+                        break;
+                    case "EMAIL_NOT_FOUND":
+                        this.setState({error: "El correo electrónico no está cargado en nuestros sistemas"});
+                        break;
+                    case "INVALID_EMAIL":
+                        this.setState({error: "El correo electrónico ingresado no es válido"});
+                        break;
+                    case "USER_DISABLED":
+                        this.setState({error: "Su cuenta fue bloqueada. Contacte con un administrador"});
+                        break;
+                    default:
+                        this.setState({error: "Ocurrió un error. Intente nuevamente"});
+                }
+            });
     }
 
     // metodo para mostrar el cuadro de recuperar contraseña
@@ -31,6 +63,11 @@ class Login extends Component {
     // metood para volver a mostrar el cuadro de iniciar sesión
     cancelarOlvidoHandler = () => {
         this.setState({mostrarIniciarSesion: true});
+    }
+
+    // carga lo que escribe el usuario en el state
+    inputHandler = (event) => {
+        this.setState({[event.target.id]: event.target.value});
     }
 
     render() {
@@ -54,8 +91,20 @@ class Login extends Component {
                                 </Grid>
                                 <Grid item={true} xs={12}>
                                     <FormControl fullWidth>
-                                        <TextField type="email" label="Correo electrónico" />
-                                        <TextField type="password" label="Contraseña" />
+                                        <TextField
+                                            id="email"
+                                            type="email"
+                                            label="Correo electrónico"
+                                            value={this.state.email}
+                                            onChange={this.inputHandler}
+                                        />
+                                        <TextField
+                                            id="contrasena"
+                                            type="password"
+                                            label="Contraseña"
+                                            value={this.state.contrasena}
+                                            onChange={this.inputHandler}
+                                        />
                                     </FormControl>
                                 </Grid>
                                 <Grid item={true} xs={12}>
