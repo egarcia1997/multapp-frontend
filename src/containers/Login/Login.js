@@ -1,9 +1,6 @@
 import React, { Component, Fragment } from "react";
-import estilos from "./Login.module.css";
-
 import Logo from "../../components/Logo/Logo";
-import IniciarSesion from "./IniciarSesion/IniciarSesion";
-import RecuperarContrasena from "./RecuperarContrasena/RecuperarContrasena";
+import { Box, Container, Typography, FormControl, TextField, Button, Grid, Paper } from "@material-ui/core";
 
 class Login extends Component {
     state = {
@@ -37,50 +34,40 @@ class Login extends Component {
     }
 
     render() {
-        let componenteParaMostrar = (
-            <IniciarSesion
-                iniciar={this.loginHandler}
-                olvidar={this.olvidarContrasenaHandler}
-            />
-        );
-        if (!this.state.mostrarIniciarSesion) {
-            componenteParaMostrar = (
-                <RecuperarContrasena
-                    recuperar={this.recuperarContrasenaHandler}
-                    cancelar={this.cancelarOlvidoHandler}
-                />
-            );
-        }
-
-        let errorParaMostrar = null;
-        if (this.state.contrasenaIncorrecta) {
-            errorParaMostrar = (
-                <div className={estilos.Error}>
-                    El correo electrónico o la contraseña son incorrectos
-                </div>
-            );
-        }
-        if (this.state.cuentaBloqueada) {
-            errorParaMostrar = (
-                <div className={estilos.Error}>
-                    Ha ingresado una contraseña incorrecta 3 veces seguidas
-                </div>
-            );
-        }
-
         return (
-            <Fragment>
-                <div className={estilos.Background}></div>
-                <div className={estilos.Controles}>
-                    <Logo width={90} height={90} />
-                    <h1>MultApp</h1>
-                    {errorParaMostrar}
-                    {componenteParaMostrar}
-                </div>
-                <div className={estilos.Footer}>
-                    © 2020 El grupo de Acosta, Cardozo, García, Ibáñez y Mansilla. Todos los derechos reservados.
-                </div>
-            </Fragment>
+            <Container>
+                <Grid
+                    container={true}
+                    spacing={0}
+                    alignContent="center"
+                    justify="center"
+                    style={{ minHeight: '100vh' }}
+                >
+                    <Grid item={true} xs={3}>
+                        <Paper elevation={3} style={{padding: "8px"}}>
+                            <Grid container={true} spacing={1} direction="column">
+                                <Grid item={true} xs={12}>
+                                    <Logo width={100} height={100} />
+                                </Grid>
+                                <Grid item={true} xs={12}>
+                                    <Typography align="center">Iniciar sesión en MultApp</Typography>
+                                </Grid>
+                                <Grid item={true} xs={12}>
+                                    <FormControl fullWidth>
+                                        <TextField type="email" label="Correo electrónico" />
+                                        <TextField type="password" label="Contraseña" />
+                                    </FormControl>
+                                </Grid>
+                                <Grid item={true} xs={12}>
+                                    <Button fullWidth ={true} variant="contained" color="primary" onClick={this.loginHandler}>Iniciar sesión</Button>
+                                    <Button fullWidth={true} color="primary" onClick={this.olvidarContrasenaHandler}>Olvidé mi contraseña</Button>
+                                </Grid>
+                                <Grid item={true}></Grid>
+                            </Grid>
+                        </Paper>
+                    </Grid>
+                </Grid>
+            </Container>
         );
     }
 }
