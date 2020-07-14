@@ -19,7 +19,7 @@ class App extends Component{
                 <Redirect to="/" />
             </Switch>
         );
-        if (sessionStorage.getItem("localId")) {
+        if (localStorage.getItem("localId")) {
             rutas = (
                 <Switch>
                     <Route path="/" component={LayoutSupervisor} />

@@ -26,9 +26,9 @@ class Login extends Component {
         Axios.post("aca meto el endpoint del backend que se va a hacer despues", data, headers)
             .then(response => {
                 console.log(response);
-                sessionStorage.setItem("idToken", response.data.idToken);
-                sessionStorage.setItem("expirationDate", response.data.expiresIn);
-                sessionStorage.setItem("localId", response.data.localId);
+                localStorage.setItem("idToken", response.data.idToken);
+                localStorage.setItem("expirationDate", response.data.expiresIn);
+                localStorage.setItem("localId", response.data.localId);
                 // esta solucion NO ME GUSTA, pero no se me ocurre otra mejor (capaz usando redux)
                 window.location.reload();
             }).catch(error => {
