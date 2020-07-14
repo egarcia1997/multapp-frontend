@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
 import * as placeholder from "./assets/placeholder-vault-boy.png";
 import Login from "./containers/Login/Login";
 import LayoutSupervisor from './containers/LayoutSupervisor/LayoutSupervisor';
@@ -13,10 +13,23 @@ class App extends Component{
     }
 
     render() {
+        let rutas = (
+            <Switch>
+                <Route path="/" component={Login} />
+                <Redirect to="/" />
+            </Switch>
+        );
+        if (sessionStorage.getItem("localId")) {
+            rutas = (
+                <Switch>
+                    <Route path="/" component={LayoutSupervisor} />
+                </Switch>
+            );
+        }
+
         return (
             <BrowserRouter>
-                {/* <Login /> */}
-                <LayoutSupervisor usuario={this.state.usuario} />
+                {rutas}
             </BrowserRouter>
         );
     }
