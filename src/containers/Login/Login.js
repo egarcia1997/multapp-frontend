@@ -89,6 +89,13 @@ class Login extends Component {
                                 <Grid item={true} xs={12}>
                                     <Typography align="center">Iniciar sesión en MultApp</Typography>
                                 </Grid>
+                                {this.state.error !== "" ?
+                                    <Grid item={true} xs={12}>
+                                        <Typography align="center" variant="body2" color="error">
+                                            {this.state.error}
+                                        </Typography>
+                                    </Grid>
+                                : null}
                                 <Grid item={true} xs={12}>
                                     <FormControl fullWidth>
                                         <TextField
