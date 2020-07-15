@@ -15,13 +15,14 @@ class App extends Component{
     render() {
         let rutas = (
             <Switch>
-                <Route path="/" component={Login} />
-                <Redirect to="/" />
+                <Route path="/login" component={Login} />
+                <Redirect to="/login" />
             </Switch>
         );
         if (localStorage.getItem("localId")) {
             rutas = (
                 <Switch>
+                    <Route path="/login" component={Login} />
                     <Route path="/" component={LayoutSupervisor} />
                 </Switch>
             );

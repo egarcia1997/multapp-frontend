@@ -4,6 +4,7 @@ import { Container, Typography, FormControl, TextField, Button, Grid, Paper } fr
 import { login, recuperarContrasena } from "../../store/actions/login";
 import { connect } from "react-redux";
 import { traducirError } from "../../share/traducirError";
+import { Redirect } from "react-router";
 
 class Login extends Component {
     state = {
@@ -104,6 +105,7 @@ class Login extends Component {
                 </Grid>
             </Fragment>
         );
+        const redirect = this.props.sesionIniciada ? <Redirect to="/" /> : null;
         return (
             <Container>
                 <Grid
@@ -131,6 +133,7 @@ class Login extends Component {
                         </Paper>
                     </Grid>
                 </Grid>
+                {redirect}
             </Container>
         );
     }
@@ -140,6 +143,7 @@ const mapStateToProps = state => {
     return {
         cargando: state.login.cargando,
         error: state.login.error,
+        sesionIniciada: state.login.idToken !== "",
     }
 }
 
