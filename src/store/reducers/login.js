@@ -6,6 +6,7 @@ const initialState = {
     idToken: "",
     expirationDate: "",
     localId: "",
+    contrasenaRecuperada: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -30,6 +31,13 @@ const reducer = (state = initialState, action) => {
                 cargando: false,
                 error: action.error,
             }
+        case actionTypes.RECUPERAR_CONTRASENA_CON_EXITO: {
+            return {
+                ...state,
+                cargando: false,
+                contrasenaRecuperada: true,
+            }
+        }
         default:
             return state;
     }
