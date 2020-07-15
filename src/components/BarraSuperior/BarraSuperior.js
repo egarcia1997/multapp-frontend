@@ -4,6 +4,7 @@ import Logo from "../../components/Logo/Logo";
 // aca hay conflicto, en /core e /icons hay un componente llamado Menu
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
+import {cerrarSesion} from "../../share/cerrarSesion";
 
 
 class BarraSuperior extends Component {
@@ -42,6 +43,7 @@ class BarraSuperior extends Component {
     // metodo para cerrar sesion
     cerrarSesionHandler = () => {
         this.cerrarMenuHandler();
+        cerrarSesion();
     }
 
     render() {
