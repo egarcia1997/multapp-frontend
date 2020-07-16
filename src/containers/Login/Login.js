@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Logo from "../../components/Logo/Logo";
-import { Container, Typography, FormControl, TextField, Button, Grid, Paper } from "@material-ui/core";
+import { Container, Typography, FormControl, TextField, Button, Grid, Paper, CircularProgress } from "@material-ui/core";
 import { login, recuperarContrasena } from "../../store/actions/login";
 import { connect } from "react-redux";
 import { traducirError } from "../../share/traducirError";
@@ -105,7 +105,10 @@ class Login extends Component {
                 </Grid>
             </Fragment>
         );
+
         const redirect = this.props.sesionIniciada ? <Redirect to="/" /> : null;
+
+        const imagen = this.props.cargando ? <CircularProgress size={80} /> : <Logo width={80} height={80} />;
         return (
             <Container>
                 <Grid
@@ -118,8 +121,8 @@ class Login extends Component {
                     <Grid item={true} xs={3}>
                         <Paper elevation={3} style={{padding: "8px"}}>
                             <Grid container={true} spacing={1} direction="column">
-                                <Grid item={true} xs={12}>
-                                    <Logo width={100} height={100} />
+                                <Grid item={true} xs={12} style={{textAlign: "center"}}>
+                                    {imagen}
                                 </Grid>
                                 {this.props.error !== "" ?
                                     <Grid item={true} xs={12}>
