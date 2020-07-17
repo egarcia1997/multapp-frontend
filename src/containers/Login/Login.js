@@ -14,13 +14,6 @@ class Login extends Component {
         contrasenaIncorrecta: false,
     }
 
-    // si el tipo inicio sesion lo redirecciona
-    componentDidUpdate = () => {
-        if (localStorage.getItem("idToken")) {
-            this.props.history.push("/");
-        }
-    }
-
     // metodo para mostrar/ocultar el cuadro de recuperar contraseña
     olvidarContrasenaHandler = () => {
         const nuevoEstado = !this.state.mostrarIniciarSesion;
@@ -46,6 +39,7 @@ class Login extends Component {
                             label="Correo electrónico"
                             value={this.state.email}
                             onChange={this.inputHandler}
+                            autoFocus={true}
                         />
                         <TextField
                             id="contrasena"
@@ -115,6 +109,11 @@ class Login extends Component {
 
         const imagen = this.props.cargando ? <CircularProgress size={80} /> : <Logo width={80} height={80} />;
         
+        let redirect = null;
+        if (localStorage.getItem("idToken")) {
+            redirect = <Redirect to="/" />
+        }
+        
         return (
             <Container>
                 <Grid
@@ -142,6 +141,7 @@ class Login extends Component {
                         </Paper>
                     </Grid>
                 </Grid>
+                {redirect}
             </Container>
         );
     }

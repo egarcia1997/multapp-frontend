@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
 import Login from "./containers/Login/Login";
 import LayoutSupervisor from './containers/LayoutSupervisor/LayoutSupervisor';
+import { connect } from 'react-redux';
 
 class App extends Component {
     render() {
@@ -11,7 +12,7 @@ class App extends Component {
                 <Redirect to="/login" />
             </Switch>
         );
-        if (localStorage.getItem("idToken")) {
+        if (this.props.sesionIniciada) {
             rutas = (
                 <Switch>
                     <Route path="/login" component={Login} />
@@ -28,4 +29,9 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapStateToProps = state => {
+    return {
+        sesionIniciada: state.login.idToken !== "" || localStorage.getItem("idToken"),
+    }
+}
+export default connect(mapStateToProps)(App);
