@@ -4,7 +4,7 @@ import { Container, Typography, FormControl, TextField, Button, Grid, Paper, Cir
 import { login, recuperarContrasena } from "../../store/actions/login";
 import { connect } from "react-redux";
 import { traducirError } from "../../share/traducirError";
-import { Redirect } from "react-router";
+import { Redirect, withRouter } from "react-router";
 
 class Login extends Component {
     state = {
@@ -12,6 +12,13 @@ class Login extends Component {
         contrasena: "",
         mostrarIniciarSesion: true,
         contrasenaIncorrecta: false,
+    }
+
+    // si el tipo inicio sesion lo redirecciona
+    componentDidUpdate = () => {
+        if (localStorage.getItem("idToken")) {
+            this.props.history.push("/");
+        }
     }
 
     // metodo para mostrar/ocultar el cuadro de recuperar contraseña
@@ -106,9 +113,8 @@ class Login extends Component {
             </Fragment>
         );
 
-        const redirect = this.props.sesionIniciada ? <Redirect to="/" /> : null;
-
         const imagen = this.props.cargando ? <CircularProgress size={80} /> : <Logo width={80} height={80} />;
+        
         return (
             <Container>
                 <Grid
@@ -136,7 +142,6 @@ class Login extends Component {
                         </Paper>
                     </Grid>
                 </Grid>
-                {redirect}
             </Container>
         );
     }
@@ -146,15 +151,14 @@ const mapStateToProps = state => {
     return {
         cargando: state.login.cargando,
         error: state.login.error,
-        sesionIniciada: state.login.idToken !== "",
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        login: (email, contrasena) => dispatch(login(email, contrasena)),
-        recuperarContrasena: (email) => dispatch(recuperarContrasena(email)),
+        login: (email, contrasena) => {dispatch(login(email, contrasena))},
+        recuperarContrasena: (email) => {dispatch(recuperarContrasena(email))},
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));
