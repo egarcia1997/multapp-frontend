@@ -11,7 +11,7 @@ class App extends Component {
                 <Redirect to="/login" />
             </Switch>
         );
-        if (localStorage.getItem("localId")) {
+        if (localStorage.getItem("idToken")) {
             rutas = (
                 <Switch>
                     <Route path="/login" component={Login} />
