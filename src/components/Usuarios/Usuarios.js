@@ -7,6 +7,7 @@ import EliminarUsuario from "./EliminarUsuario/EliminarUsuario";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { cargarUsuarios, crearUsuario } from "../../store/actions/usuarios";
+import { withSnackbar } from "notistack";
 
 class Usuarios extends Component {
     state = {
@@ -179,6 +180,7 @@ const mapStateToProps = state => {
         usuarios: state.usuarios.usuarios,
         cargando: state.usuarios.cargando,
         error: state.usuarios.error,
+        textoDeError: state.usuarios.textoDeError,
     }
 }
 
