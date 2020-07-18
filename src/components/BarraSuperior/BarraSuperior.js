@@ -9,17 +9,17 @@ import {cerrarSesion} from "../../share/cerrarSesion";
 
 class BarraSuperior extends Component {
     state = {
-        mostrarMenu: false,
+        anchorEl: null,
     }
 
     // metodo para abrir el menu
-    abrirMenuHandler = () => {
-        this.setState({mostrarMenu: true});
+    abrirMenuHandler = (event) => {
+        this.setState({anchorEl: event.currentTarget});
     }
 
     // metodo para cerrar el menu
     cerrarMenuHandler = () => {
-        this.setState({mostrarMenu: false});
+        this.setState({anchorEl: null});
     }
 
     // metodo que te manda a la pagina para administrar las multas
@@ -57,7 +57,7 @@ class BarraSuperior extends Component {
                     <IconButton edge="end" color="inherit" aria-label="menu" aria-haspopup="true" onClick={this.abrirMenuHandler}>
                         <AccountCircle />
                     </IconButton>
-                    <Menu id="menu" open={this.state.mostrarMenu} onClose={this.cerrarMenuHandler}>
+                    <Menu id="menu" anchorEl={this.state.anchorEl} open={Boolean(this.state.anchorEl)} onClose={this.cerrarMenuHandler}>
                         <MenuItem onClick={this.multasHandler}>Administrar multas</MenuItem>
                         <MenuItem onClick={this.usuariosHandler}>Administrar usuarios</MenuItem>
                         <MenuItem onClick={this.perfilHandler}>Mi perfil</MenuItem>
