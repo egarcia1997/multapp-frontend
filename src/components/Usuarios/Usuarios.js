@@ -5,6 +5,8 @@ import { Add, Delete } from "@material-ui/icons";
 import AgregarUsuario from "./AgregarUsuario/AgregarUsuario";
 import EliminarUsuario from "./EliminarUsuario/EliminarUsuario";
 import { withRouter } from "react-router";
+import { connect } from "react-redux";
+import { cargarUsuarios, crearUsuario } from "../../store/actions/usuarios";
 
 class Usuarios extends Component {
     state = {
@@ -141,4 +143,19 @@ class Usuarios extends Component {
     }
 }
 
-export default withRouter(Usuarios);
+const mapStateToProps = state => {
+    return {
+        usuarios: state.usuarios.usuarios,
+        cargando: state.usuarios.cargando,
+        error: state.usuarios.error,
+    }
+}
+
+const mapDispatchToProps = dispatch => { 
+    return {
+        cargarUsuarios: () => {dispatch(cargarUsuarios())},
+        crearUsuario: () => {dispatch(crearUsuario())},
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Usuarios));
