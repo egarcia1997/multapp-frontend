@@ -18,7 +18,7 @@ const cargarUsuariosConError = (error) => {
 // esta es la accion que se va a usar en el componente Usuarios
 export const cargarUsuarios = () => {
     return dispatch => {
-        Axios.get("/usuarios")
+        Axios.get("/getUsuarios")
             .then(response => {
                 dispatch(cargarUsuariosConExito(response.data));
             }).catch(error => {
@@ -43,7 +43,7 @@ const crearUsuarioConError = (error) => {
 // esta es la accion que se va a usar en el componente AgregarUsuario
 export const crearUsuario = (usuario) => {
     return dispatch => {
-        Axios.post("/usuarios", usuario)
+        Axios.post("/addUsuario", usuario)
             .then(response => {
                 dispatch(crearUsuarioConExito());
             }).catch(error => {
