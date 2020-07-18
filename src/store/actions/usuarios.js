@@ -18,9 +18,8 @@ const cargarUsuariosConError = (error) => {
 // esta es la accion que se va a usar en el componente Usuarios
 export const cargarUsuarios = () => {
     return dispatch => {
-        Axios.get("/usuairos")
+        Axios.get("/usuarios")
             .then(response => {
-                // ACA MANIPULAR LA RESPUESTA PARA METER EL ID DENTRO DEL USUARIO
                 dispatch(cargarUsuariosConExito(response.data));
             }).catch(error => {
                 dispatch(cargarUsuariosConError(error));
