@@ -19,6 +19,12 @@ class Usuarios extends Component {
         this.props.cargarUsuarios();
     }
 
+    componentDidUpdate = () => {
+        if (this.props.error) {
+            this.props.enqueueSnackbar(this.props.textoDeError.toString(), {variant: "error"});
+        }
+    }
+
     // esta funcion fue copiada de la pagina de https://material-ui.com/components/tabs/#simple-tabs
     // porque importar TabPanel de @material-ui/lab NO ANDA
     TabPanel = (props) => {
@@ -183,4 +189,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Usuarios));
+export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(withRouter(Usuarios)));
