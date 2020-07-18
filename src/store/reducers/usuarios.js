@@ -4,6 +4,7 @@ const initialState = {
     usuarios: [],
     cargando: true,
     error: false,
+    textoDeError: "",
 }
 
 const reducer = (state = initialState, action) => {
@@ -14,12 +15,14 @@ const reducer = (state = initialState, action) => {
                 usuarios: action.usuarios,
                 cargando: false,
                 error: false,
+                textoDeError: "",
             };
         case actionTypes.CARGAR_USUARIOS_CON_ERROR:
             return {
                 ...state,
                 cargando: false,
-                error: action.error,
+                error: true,
+                textoDeError: action.error,
             };
         case actionTypes.CREAR_USUARIO_CON_EXITO:
             return {
