@@ -82,7 +82,7 @@ class Multa extends Component {
                                         <Grid container={true} spacing={3}>
                                             <Grid item={true}>
                                                 <Typography variant="overline">Número de licencia</Typography>
-                                                <Typography variant="body2">{this.props.multa.licencia.nroLicencia}</Typography>
+                                                <Typography variant="body2">{this.props.multa.licencia.numero}</Typography>
                                             </Grid>
                                             <Grid item={true}>
                                                 <Typography variant="overline">Única provincial</Typography>
