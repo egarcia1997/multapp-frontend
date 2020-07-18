@@ -11,26 +11,12 @@ import { cargarUsuarios, crearUsuario } from "../../store/actions/usuarios";
 class Usuarios extends Component {
     state = {
         pestanaActual: 0,
-        cargando: true,
-        huboError: false,
-        textoDeError: "",
         agregarUsuario: false,
         eliminarUsuario: false,
     }
 
     componentDidMount = () => {
-        // axios.get("/")
-        //     .then(response => {
-
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //         this.setState({
-        //             cargando: false,
-        //             huboError: true,
-        //             textoDeError: error,
-        //         })
-        //     })
+        this.props.cargarUsuarios();
     }
 
     // esta funcion fue copiada de la pagina de https://material-ui.com/components/tabs/#simple-tabs
@@ -74,23 +60,62 @@ class Usuarios extends Component {
     }
 
     render() {
-        // hacer esto mismo para supervisores, administradores y multados
-        // let inspectores = this.state.inspectores.map(usuario => (
-        //     <ListItem key={usuario.id} button={true} onClick={() => this.userSelectedHandler(usuario.id)}>
-        //         <ListItemAvatar>
-        //             <Avatar alt={"Foto de " + usuario.nombre} src={usuario.foto} />
-        //         </ListItemAvatar>
-        //         <ListItemText
-        //             primary={usuario.apellido + " " + usuario.nombre}
-        //             secondary={usuario.id}
-        //         />
-        //         <ListItemSecondaryAction>
-        //             <IconButton onClick={this.deleteUserHandler}>
-        //                 <Delete />
-        //             </IconButton>
-        //         </ListItemSecondaryAction>
-        //     </ListItem>
-        // ));
+        let inspectores = this.props.usuarios.filter(usuario => {
+            return usuario.rol === "Inspector" ? true : false;
+        }).map(inspector => (
+            <ListItem key={inspector.id} button={true} onClick={() => this.userSelectedHandler(inspector.id)}>
+                <ListItemAvatar>
+                    <Avatar alt={"Foto de " + inspector.nombre} src={inspector.foto} />
+                </ListItemAvatar>
+                <ListItemText
+                    primary={inspector.apellido + " " + inspector.nombre}
+                    secondary={inspector.id}
+                />
+                <ListItemSecondaryAction>
+                    <IconButton onClick={this.deleteUserHandler}>
+                        <Delete />
+                    </IconButton>
+                </ListItemSecondaryAction>
+            </ListItem>
+        ));
+
+        let supervisores = this.props.usuarios.filter(usuario => {
+            return usuario.rol === "Supervisor" ? true : false;
+        }).map(supervisor => (
+            <ListItem key={supervisor.id} button={true} onClick={() => this.userSelectedHandler(supervisor.id)}>
+                <ListItemAvatar>
+                    <Avatar alt={"Foto de " + supervisor.nombre} src={supervisor.foto} />
+                </ListItemAvatar>
+                <ListItemText
+                    primary={supervisor.apellido + " " + supervisor.nombre}
+                    secondary={supervisor.id}
+                />
+                <ListItemSecondaryAction>
+                    <IconButton onClick={this.deleteUserHandler}>
+                        <Delete />
+                    </IconButton>
+                </ListItemSecondaryAction>
+            </ListItem>
+        ));
+
+        let administradores = this.props.usuarios.filter(usuario => {
+            return usuario.rol === "Administrador" ? true : false;
+        }).map(administrador => (
+            <ListItem key={administrador.id} button={true} onClick={() => this.userSelectedHandler(administrador.id)}>
+                <ListItemAvatar>
+                    <Avatar alt={"Foto de " + administrador.nombre} src={administrador.foto} />
+                </ListItemAvatar>
+                <ListItemText
+                    primary={administrador.apellido + " " + administrador.nombre}
+                    secondary={administrador.id}
+                />
+                <ListItemSecondaryAction>
+                    <IconButton onClick={this.deleteUserHandler}>
+                        <Delete />
+                    </IconButton>
+                </ListItemSecondaryAction>
+            </ListItem>
+        ));
 
         const theme = createMuiTheme();
 
@@ -104,7 +129,7 @@ class Usuarios extends Component {
                         <Tab label="Multados" />
                     </Tabs>
                     <this.TabPanel value={this.state.pestanaActual} index={0}>
-                        {this.state.cargando ?
+                        {this.props.cargando ?
                             <CircularProgress />
                         : "Coso de inspectores"}
                     </this.TabPanel>
