@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Radio, RadioGroup, FormLabel, FormControlLabel, FormControl, Grid, DialogContentText, Select, MenuItem, InputLabel } from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
+import { connect } from "react-redux";
+import { crearUsuario } from "../../../store/actions/agregarUsuario";
 
 class AgregarUsuario extends Component {
     state = {
@@ -184,4 +186,19 @@ class AgregarUsuario extends Component {
     }
 }
 
-export default AgregarUsuario;
+const mapStateToProps = state => {
+    return {
+        cargando: state.agregarUsuario.cargando,
+        exito: state.agregarUsuario.exito,
+        error: state.agregarUsuario.error,
+        textoDeError: state.agregarUsuario.textoDeError,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        crearUsuario: (usuario, foto) => dispatch(crearUsuario(usuario, foto)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AgregarUsuario);
