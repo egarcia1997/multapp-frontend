@@ -24,14 +24,6 @@ const reducer = (state = initialState, action) => {
                 error: true,
                 textoDeError: action.error,
             };
-        case actionTypes.CREAR_USUARIO_CON_EXITO:
-            return {
-                ...state,
-            };
-        case actionTypes.CREAR_USUARIO_CON_ERROR:
-            return {
-                ...state,
-            };
         default:
             return state;
     }
