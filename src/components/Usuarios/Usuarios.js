@@ -1,12 +1,11 @@
 import React, { Component, Fragment } from "react";
-import axios from "axios";
 import { Box, Container, Typography, Tabs, Tab, CircularProgress, List, ListItem, Divider, ListItemAvatar, Avatar, ListItemText, Fab, ListItemSecondaryAction, IconButton, createMuiTheme } from "@material-ui/core";
 import { Add, Delete } from "@material-ui/icons";
 import AgregarUsuario from "./AgregarUsuario/AgregarUsuario";
 import EliminarUsuario from "./EliminarUsuario/EliminarUsuario";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
-import { cargarUsuarios, crearUsuario } from "../../store/actions/usuarios";
+import { cargarUsuarios } from "../../store/actions/usuarios";
 import { withSnackbar } from "notistack";
 
 class Usuarios extends Component {
@@ -136,9 +135,11 @@ class Usuarios extends Component {
                         <Tab label="Multados" />
                     </Tabs>
                     <this.TabPanel value={this.state.pestanaActual} index={0}>
-                        {this.props.cargando ?
-                            <CircularProgress />
-                        : "Coso de inspectores"}
+                        {this.props.cargando ? <CircularProgress /> : 
+                            <List>
+                                {inspectores}
+                            </List>
+                        }
                     </this.TabPanel>
                     <this.TabPanel value={this.state.pestanaActual} index={1}>
                         <List>
@@ -156,10 +157,13 @@ class Usuarios extends Component {
                             </ListItem>
                             <Divider />
                         </List>
-                        Coso de supervisores
                     </this.TabPanel>
                     <this.TabPanel value={this.state.pestanaActual} index={2}>
-                        Coso de administradores
+                        {this.props.cargando ? <CircularProgress /> : 
+                            <List>
+                                {administradores}
+                            </List>
+                        }
                     </this.TabPanel>
                     <this.TabPanel value={this.state.pestanaActual} index={3}>
                         Coso de multados
@@ -187,7 +191,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => { 
     return {
         cargarUsuarios: () => {dispatch(cargarUsuarios())},
-        crearUsuario: () => {dispatch(crearUsuario())},
     }
 }
 
