@@ -44,6 +44,14 @@ class AgregarUsuario extends Component {
         });
     }
 
+    agregarUsuarioHandler = () => {
+        const usuario = {
+            ...this.state,
+        };
+        delete usuario.foto;
+        crearUsuario(usuario, this.state.foto[0]);
+    }
+
     render() {
         return (
             <Dialog open={this.props.open} onClose={this.props.onClose} maxWidth="xl" fullWidth={true}>
@@ -179,7 +187,7 @@ class AgregarUsuario extends Component {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.props.onClose}>Cancelar</Button>
-                    <Button onClick={this.agregarUsuario} color="primary">Agregar</Button>
+                    <Button onClick={this.agregarUsuarioHandler} color="primary">Agregar</Button>
                 </DialogActions>
             </Dialog>
         )
