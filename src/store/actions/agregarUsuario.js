@@ -20,14 +20,18 @@ const crearUsuarioConError = (error) => {
     }
 }
 
-export const crearUsuario = (usuario) => {
+export const crearUsuario = (usuario, foto) => {
     return dispatch => {
         dispatch(crearUsuarioStart());
+        const data = {
+            usuario: usuario,
+            foto: foto,
+        };
         const headers = {
             "content-type": "application/json",
             "Access-Control-Allow-Origin": "*",
         };
-        Axios.post("/addUsuario", usuario, headers)
+        Axios.post("/addUsuario", data, headers)
             .then(response => {
                 dispatch(crearUsuarioConExito());
             }).catch(error => {
