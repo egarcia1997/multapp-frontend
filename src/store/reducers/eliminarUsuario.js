@@ -11,6 +11,12 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.SET_USUARIO_A_ELIMINAR:
+            return {
+                ...state,
+                id: action.id,
+                nombre: action.nombre,
+            };
         case actionTypes.ELIMINAR_USUARIO_START:
             return {
                 ...state,
