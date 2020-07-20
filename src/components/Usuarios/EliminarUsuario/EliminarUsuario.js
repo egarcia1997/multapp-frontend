@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from "@material-ui/core";
+import { eliminarUsuario } from "../../../store/actions/eliminarUsuario";
+import { connect } from "react-redux";
 
 class EliminarUsuario extends Component {
     render() {
@@ -16,11 +18,28 @@ class EliminarUsuario extends Component {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.props.onClose}>Cancelar</Button>
-                    <Button color="primary">Eliminar</Button>
+                    <Button color="primary" onClick={() => this.props.eliminarUsuario(this.props.id)}>Eliminar</Button>
                 </DialogActions>
             </Dialog>
         )
     }
 }
 
-export default EliminarUsuario;
+const mapStateToProps = state => {
+    return {
+        id: state.eliminarUsuario.id,
+        nombre: state.eliminarUsuario.nombre,
+        cargando: state.eliminarUsuario.cargando,
+        exito: state.eliminarUsuario.exito,
+        error: state.eliminarUsuario.error,
+        textoDeError: state.eliminarUsuario.textoDeError,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        eliminarUsuario: (id) => {dispatch(eliminarUsuario(id))},
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EliminarUsuario);
