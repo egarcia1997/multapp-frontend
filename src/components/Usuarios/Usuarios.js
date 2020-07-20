@@ -69,58 +69,67 @@ class Usuarios extends Component {
         let inspectores = this.props.usuarios.filter(usuario => {
             return usuario.rol === "Inspector" ? true : false;
         }).map(inspector => (
-            <ListItem key={inspector.id} button={true} onClick={() => this.userSelectedHandler(inspector.id)}>
-                <ListItemAvatar>
-                    <Avatar alt={"Foto de " + inspector.nombre} src={inspector.foto} />
-                </ListItemAvatar>
-                <ListItemText
-                    primary={inspector.apellido + " " + inspector.nombre}
-                    secondary={inspector.id}
-                />
-                <ListItemSecondaryAction>
-                    <IconButton onClick={this.deleteUserHandler}>
-                        <Delete />
-                    </IconButton>
-                </ListItemSecondaryAction>
-            </ListItem>
+            <Fragment>
+                <ListItem key={inspector.id} button={true} onClick={() => this.userSelectedHandler(inspector.id)}>
+                    <ListItemAvatar>
+                        <Avatar alt={"Foto de " + inspector.nombre} src={inspector.foto} />
+                    </ListItemAvatar>
+                    <ListItemText
+                        primary={inspector.nombre}
+                        secondary={inspector.id}
+                    />
+                    <ListItemSecondaryAction>
+                        <IconButton onClick={this.deleteUserHandler}>
+                            <Delete />
+                        </IconButton>
+                    </ListItemSecondaryAction>
+                </ListItem>
+                <Divider />
+            </Fragment>
         ));
 
         let supervisores = this.props.usuarios.filter(usuario => {
             return usuario.rol === "Supervisor" ? true : false;
         }).map(supervisor => (
-            <ListItem key={supervisor.id} button={true} onClick={() => this.userSelectedHandler(supervisor.id)}>
-                <ListItemAvatar>
-                    <Avatar alt={"Foto de " + supervisor.nombre} src={supervisor.foto} />
-                </ListItemAvatar>
-                <ListItemText
-                    primary={supervisor.apellido + " " + supervisor.nombre}
-                    secondary={supervisor.id}
-                />
-                <ListItemSecondaryAction>
-                    <IconButton onClick={this.deleteUserHandler}>
-                        <Delete />
-                    </IconButton>
-                </ListItemSecondaryAction>
-            </ListItem>
+            <Fragment>
+                <ListItem key={supervisor.id} button={true} onClick={() => this.userSelectedHandler(supervisor.id)}>
+                    <ListItemAvatar>
+                        <Avatar alt={"Foto de " + supervisor.nombre} src={supervisor.foto} />
+                    </ListItemAvatar>
+                    <ListItemText
+                        primary={supervisor.apellido + " " + supervisor.nombre}
+                        secondary={supervisor.id}
+                    />
+                    <ListItemSecondaryAction>
+                        <IconButton onClick={this.deleteUserHandler}>
+                            <Delete />
+                        </IconButton>
+                    </ListItemSecondaryAction>
+                </ListItem>
+                <Divider />
+            </Fragment>
         ));
 
         let administradores = this.props.usuarios.filter(usuario => {
             return usuario.rol === "Administrador" ? true : false;
         }).map(administrador => (
-            <ListItem key={administrador.id} button={true} onClick={() => this.userSelectedHandler(administrador.id)}>
-                <ListItemAvatar>
-                    <Avatar alt={"Foto de " + administrador.nombre} src={administrador.foto} />
-                </ListItemAvatar>
-                <ListItemText
-                    primary={administrador.apellido + " " + administrador.nombre}
-                    secondary={administrador.id}
-                />
-                <ListItemSecondaryAction>
-                    <IconButton onClick={this.deleteUserHandler}>
-                        <Delete />
-                    </IconButton>
-                </ListItemSecondaryAction>
-            </ListItem>
+            <Fragment>
+                <ListItem key={administrador.id} button={true} onClick={() => this.userSelectedHandler(administrador.id)}>
+                    <ListItemAvatar>
+                        <Avatar alt={"Foto de " + administrador.nombre} src={administrador.foto} />
+                    </ListItemAvatar>
+                    <ListItemText
+                        primary={administrador.apellido + " " + administrador.nombre}
+                        secondary={administrador.id}
+                    />
+                    <ListItemSecondaryAction>
+                        <IconButton onClick={this.deleteUserHandler}>
+                            <Delete />
+                        </IconButton>
+                    </ListItemSecondaryAction>
+                </ListItem>
+                <Divider />
+            </Fragment>
         ));
 
         const theme = createMuiTheme();
@@ -142,21 +151,11 @@ class Usuarios extends Component {
                         }
                     </this.TabPanel>
                     <this.TabPanel value={this.state.pestanaActual} index={1}>
-                        <List>
-                            {/* {usuarios} */}
-                            <ListItem button={true} onClick={() => this.userSelectedHandler(1)}>
-                                <ListItemAvatar>
-                                    <Avatar />
-                                </ListItemAvatar>
-                                <ListItemText primary="Juan Pérez" secondary="64ghf8shj23" />
-                                <ListItemSecondaryAction>
-                                    <IconButton onClick={this.deleteUserHandler}>
-                                        <Delete />
-                                    </IconButton>
-                                </ListItemSecondaryAction>
-                            </ListItem>
-                            <Divider />
-                        </List>
+                        {this.props.cargando ? <CircularProgress /> : 
+                            <List>
+                                {supervisores}
+                            </List>
+                        }
                     </this.TabPanel>
                     <this.TabPanel value={this.state.pestanaActual} index={2}>
                         {this.props.cargando ? <CircularProgress /> : 
