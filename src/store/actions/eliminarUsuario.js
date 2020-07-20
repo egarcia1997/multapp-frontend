@@ -20,6 +20,14 @@ const eliminarUsuarioConError = (error) => {
     }
 }
 
+export const setUsuarioAEliminar = (id, nombre) => {
+    return {
+        type: actionTypes.SET_USUARIO_A_ELIMINAR,
+        id: id,
+        nombre: nombre,
+    }
+}
+
 export const eliminarUsuario = (id) => {
     return dispatch => {
         dispatch(eliminarUsuarioStart());
