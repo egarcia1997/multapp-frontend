@@ -97,7 +97,7 @@ class Usuarios extends Component {
                         <Avatar alt={"Foto de " + supervisor.nombre} src={supervisor.foto} />
                     </ListItemAvatar>
                     <ListItemText
-                        primary={supervisor.apellido + " " + supervisor.nombre}
+                        primary={supervisor.nombre}
                         secondary={supervisor.id}
                     />
                     <ListItemSecondaryAction>
@@ -119,7 +119,7 @@ class Usuarios extends Component {
                         <Avatar alt={"Foto de " + administrador.nombre} src={administrador.foto} />
                     </ListItemAvatar>
                     <ListItemText
-                        primary={administrador.apellido + " " + administrador.nombre}
+                        primary={administrador.nombre}
                         secondary={administrador.id}
                     />
                     <ListItemSecondaryAction>
