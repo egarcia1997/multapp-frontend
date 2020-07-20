@@ -3,6 +3,7 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, R
 import { DropzoneArea } from "material-ui-dropzone";
 import { connect } from "react-redux";
 import { crearUsuario } from "../../../store/actions/agregarUsuario";
+import { withSnackbar } from "notistack";
 
 class AgregarUsuario extends Component {
     state = {
@@ -20,6 +21,15 @@ class AgregarUsuario extends Component {
         provincia: "",
         email: "",
         foto: [],
+    }
+
+    componentDidUpdate = () => {
+        if (this.props.error) {
+            this.props.enqueueSnackbar(this.props.textoDeError.toString(), {variant: "error"});
+        }
+        if (this.props.exito) {
+            this.props.enqueueSnackbar("Usuario creado con éxito", {variant: "success"});
+        }
     }
 
     // carga lo que escribe el usuario en el state
@@ -49,7 +59,7 @@ class AgregarUsuario extends Component {
             ...this.state,
         };
         delete usuario.foto;
-        crearUsuario(usuario, this.state.foto[0]);
+        this.props.crearUsuario(usuario, this.state.foto[0]);
     }
 
     render() {
@@ -65,9 +75,9 @@ class AgregarUsuario extends Component {
                             <FormControl required={true} fullWidth={true}>
                                 <InputLabel>Rol</InputLabel>
                                 <Select id="rol" value={this.state.rol} onChange={this.selectHandler}>
-                                    <MenuItem value="administrador">Administrador</MenuItem>
-                                    <MenuItem value="inspector">Inspector</MenuItem>
-                                    <MenuItem value="supervisor">Supervisor</MenuItem>
+                                    <MenuItem value="Administrador">Administrador</MenuItem>
+                                    <MenuItem value="Inspector">Inspector</MenuItem>
+                                    <MenuItem value="Supervisor">Supervisor</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
@@ -205,8 +215,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        crearUsuario: (usuario, foto) => dispatch(crearUsuario(usuario, foto)),
+        crearUsuario: (usuario, foto) => {dispatch(crearUsuario(usuario, foto))},
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AgregarUsuario);
+export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(AgregarUsuario));
