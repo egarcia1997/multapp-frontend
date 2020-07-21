@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Button, TextField, Radio, RadioGroup, FormLabel, FormControlLabel, FormControl, Grid, DialogContentText, Select, MenuItem, InputLabel, Typography, IconButton, InputAdornment, Input } from "@material-ui/core";
 import { Edit } from '@material-ui/icons';
 import { DropzoneArea } from "material-ui-dropzone";
+import { connect } from "react-redux";
+import { cargarUsuario } from "../../store/actions/usuario";
 
 class Usuario extends Component {
     state = {
@@ -65,7 +67,11 @@ class Usuario extends Component {
 
     // carga lo que escribe el usuario en el state
     inputHandler = (event) => {
-        this.setState({[event.target.id]: event.target.value});
+        const nuevoEstado = {
+            ...this.state[event.target.id],
+            value: event.target.value,
+        }
+        this.setState({[event.target.id]: nuevoEstado});
     }
     
     // carga el radio que selecciona el usuario en el state
@@ -85,6 +91,14 @@ class Usuario extends Component {
         });
     }
 
+    editHandler = (control) => {
+        const nuevoEstado = {
+            ...this.state[control],
+            edit: !this.state[control].edit,
+        };
+        this.setState({[control]: nuevoEstado});
+    }
+
     render() {
         return (
             <Grid container={true} spacing={2}>
@@ -102,21 +116,25 @@ class Usuario extends Component {
                 <Grid item={true} xs={4}>
                     <FormControl fullWidth={true}>
                         <FormLabel>Datos personales</FormLabel>
-                        <TextField
-                            id="dni"
-                            type="number"
-                            label="DNI"
-                            required={true}
-                            value={this.state.dni}
-                            onChange={this.inputHandler}
-                            endAdornment={
-                                <InputAdornment>
-                                    <IconButton>
-                                        <Edit />
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                        />
+                        <Grid container spacing={1}>
+                            <Grid item xs={10}>
+                                <TextField
+                                    id="dni"
+                                    type="number"
+                                    label="DNI"
+                                    fullWidth
+                                    required={true}
+                                    value={this.state.dni.value}
+                                    disabled={!this.state.dni.edit}
+                                    onChange={this.inputHandler}
+                                />
+                            </Grid>
+                            <Grid item xs={2}>
+                                <IconButton onClick={() => this.editHandler("dni")}>
+                                    <Edit />
+                                </IconButton>
+                            </Grid>
+                        </Grid>
                         <TextField
                             id="apellido"
                             type="text"
@@ -233,4 +251,22 @@ class Usuario extends Component {
     }
 }
 
-export default Usuario;
+const mapStateToProps = state => {
+    return {
+        usuario: state.usuario.usuario,
+        cargando: state.usuario.cargando,
+        errorAlCargar: state.usuario.errorAlCargar,
+        textoDeErrorAlCargar: state.usuario.textoDeErrorAlCargar,
+        estadoCambiado: state.usuario.estadoCambiado,
+        errorAlModificarDatos: state.usuario.errorAlModificarDatos,
+        textoDeErrorAlModificarDatos: state.usuario.textoDeErrorAlModificarDatos,    
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        cargarUsuario: () => {dispatch(cargarUsuario())},
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Usuario);
