@@ -2,8 +2,18 @@ import React, { Component } from "react";
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from "@material-ui/core";
 import { eliminarUsuario } from "../../../store/actions/eliminarUsuario";
 import { connect } from "react-redux";
+import { withSnackbar } from "notistack";
 
 class EliminarUsuario extends Component {
+    componentDidUpdate = () => {
+        if (this.props.error) {
+            this.props.enqueueSnackbar(this.props.textoDeError.toString(), {variant: "error"});
+        }
+        if (this.props.exito) {
+            this.props.enqueueSnackbar("Usuario eliminado con éxito", {variant: "success"});
+        }
+    }
+
     render() {
         return (
             <Dialog open={this.props.open} onClose={this.props.onClose}>
@@ -42,4 +52,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EliminarUsuario);
+export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(EliminarUsuario));
