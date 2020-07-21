@@ -7,6 +7,7 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { cargarUsuarios } from "../../store/actions/usuarios";
 import { withSnackbar } from "notistack";
+import { setUsuarioAEliminar } from "../../store/actions/eliminarUsuario";
 
 class Usuarios extends Component {
     state = {
@@ -56,9 +57,13 @@ class Usuarios extends Component {
         this.setState({agregarUsuario: nuevoEstado});
     }
 
-    deleteUserHandler = () => {
-        const nuevoEstado = !this.state.eliminarUsuario;
-        this.setState({eliminarUsuario: nuevoEstado});
+    deleteUserHandler = (id, nombre) => {
+        this.setState({eliminarUsuario: true});
+        this.props.setUsuarioAEliminar(id, nombre);
+    }
+
+    closeDeleteDialog = () => {
+        this.setState({eliminarUsuario: false});
     }
 
     userSelectedHandler = (id) => {
@@ -79,7 +84,7 @@ class Usuarios extends Component {
                         secondary={inspector.id}
                     />
                     <ListItemSecondaryAction>
-                        <IconButton onClick={this.deleteUserHandler}>
+                        <IconButton onClick={() => this.deleteUserHandler(inspector.id, inspector.nombre)}>
                             <Delete />
                         </IconButton>
                     </ListItemSecondaryAction>
@@ -101,7 +106,7 @@ class Usuarios extends Component {
                         secondary={supervisor.id}
                     />
                     <ListItemSecondaryAction>
-                        <IconButton onClick={this.deleteUserHandler}>
+                        <IconButton onClick={() => this.deleteUserHandler(supervisor.id, supervisor.nombre)}>
                             <Delete />
                         </IconButton>
                     </ListItemSecondaryAction>
@@ -123,7 +128,7 @@ class Usuarios extends Component {
                         secondary={administrador.id}
                     />
                     <ListItemSecondaryAction>
-                        <IconButton onClick={this.deleteUserHandler}>
+                        <IconButton onClick={() => this.deleteUserHandler(administrador.id, administrador.nombre)}>
                             <Delete />
                         </IconButton>
                     </ListItemSecondaryAction>
@@ -172,7 +177,7 @@ class Usuarios extends Component {
                     </Fab>
                 </Container>
                 <AgregarUsuario open={this.state.agregarUsuario} onClose={this.addUserHandler} />
-                <EliminarUsuario open={this.state.eliminarUsuario} onClose={this.deleteUserHandler} />
+                <EliminarUsuario open={this.state.eliminarUsuario} onClose={this.closeDeleteDialog} />
             </Fragment>
         );
     }
@@ -190,6 +195,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => { 
     return {
         cargarUsuarios: () => {dispatch(cargarUsuarios())},
+        setUsuarioAEliminar: (id, nombre) => {dispatch(setUsuarioAEliminar(id, nombre))},
     }
 }
 
