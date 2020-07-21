@@ -13,6 +13,7 @@ import multaReducer from "./store/reducers/multa";
 import usuariosReducer from "./store/reducers/usuarios";
 import agregarUsuarioReducer from "./store/reducers/agregarUsuario";
 import eliminarUsuarioReducer from "./store/reducers/eliminarUsuario";
+import usuarioReducer from "./store/reducers/usuario";
 
 Axios.defaults.baseURL = "https://multa-app.herokuapp.com/api"; // esto es para usar la misma url en todas las peticiones http sin tener que andar escribiendo
 
@@ -25,6 +26,7 @@ const reducers = combineReducers({
     usuarios: usuariosReducer,
     agregarUsuario: agregarUsuarioReducer,
     eliminarUsuario: eliminarUsuarioReducer,
+    usuario: usuarioReducer,
 });
 
 const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
