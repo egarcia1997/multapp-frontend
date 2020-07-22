@@ -3,14 +3,14 @@ import Axios from "axios";
 
 const cargarUsuarioConExito = (usuario) => {
     return {
-        type: actionTypes.CARGAR_MULTA_CON_EXITO,
+        type: actionTypes.CARGAR_USUARIO_CON_EXITO,
         usuario: usuario,
     }
 }
 
 const cargarUsuarioConError = (error) => {
     return {
-        type: actionTypes.CARGAR_MULTA_CON_ERROR,
+        type: actionTypes.CARGAR_USUARIO_CON_ERROR,
         error: error,
     }
 }
