@@ -20,6 +20,7 @@ class AgregarUsuario extends Component {
         localidad: "",
         provincia: "",
         email: "",
+        telefono: "",
         foto: [],
     }
 
@@ -182,6 +183,14 @@ class AgregarUsuario extends Component {
                                     label="Correo electrónico"
                                     required={true}
                                     value={this.state.email}
+                                    onChange={this.inputHandler}
+                                />
+                                <TextField
+                                    id="telefono"
+                                    type="phone"
+                                    label="Teléfono"
+                                    required={true}
+                                    value={this.state.telefono}
                                     onChange={this.inputHandler}
                                 />
                                 <FormLabel component="legend">Foto</FormLabel>
