@@ -115,7 +115,7 @@ class Usuario extends Component {
                                     <ListItemIcon>
                                         <Phone />
                                     </ListItemIcon>
-                                    <ListItemText primary="Teléfono" secondary={"HAY QUE INCLUIR EL NUMERO"} />
+                                    <ListItemText primary="Teléfono" secondary={this.props.usuario.telefono} />
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
