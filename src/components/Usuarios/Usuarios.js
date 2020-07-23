@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Box, Container, Typography, Tabs, Tab, CircularProgress, List, ListItem, Divider, ListItemAvatar, Avatar, ListItemText, Fab, ListItemSecondaryAction, IconButton, createMuiTheme, Tooltip } from "@material-ui/core";
 import { Add, Delete } from "@material-ui/icons";
-import AgregarUsuario from "./AgregarUsuario/AgregarUsuario";
+import EditarUsuario from "./EditarUsuario/EditarUsuario";
 import EliminarUsuario from "./EliminarUsuario/EliminarUsuario";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
@@ -178,7 +178,7 @@ class Usuarios extends Component {
                         </Fab>
                     </Tooltip>
                 </Container>
-                <AgregarUsuario open={this.state.agregarUsuario} onClose={this.addUserHandler} />
+                <EditarUsuario open={this.state.agregarUsuario} onClose={this.addUserHandler} editar={false} />
                 <EliminarUsuario open={this.state.eliminarUsuario} onClose={this.closeDeleteDialog} />
             </Fragment>
         );

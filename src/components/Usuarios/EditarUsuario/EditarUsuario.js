@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Radio, RadioGroup, FormLabel, FormControlLabel, FormControl, Grid, DialogContentText, Select, MenuItem, InputLabel } from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
 import { connect } from "react-redux";
-import { crearUsuario } from "../../../store/actions/agregarUsuario";
+import { crearUsuario } from "../../../store/actions/editarUsuario";
 import { withSnackbar } from "notistack";
 
-class AgregarUsuario extends Component {
+class EditarUsuario extends Component {
     state = {
         rol: "",
         dni: "",
@@ -215,10 +215,10 @@ class AgregarUsuario extends Component {
 
 const mapStateToProps = state => {
     return {
-        cargando: state.agregarUsuario.cargando,
-        exito: state.agregarUsuario.exito,
-        error: state.agregarUsuario.error,
-        textoDeError: state.agregarUsuario.textoDeError,
+        cargando: state.editarUsuario.cargando,
+        exito: state.editarUsuario.exito,
+        error: state.editarUsuario.error,
+        textoDeError: state.editarUsuario.textoDeError,
     }
 }
 
@@ -228,4 +228,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(AgregarUsuario));
+export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(EditarUsuario));

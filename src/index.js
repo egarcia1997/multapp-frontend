@@ -11,7 +11,7 @@ import loginReducer from "./store/reducers/login";
 import multasReducer from "./store/reducers/multas";
 import multaReducer from "./store/reducers/multa";
 import usuariosReducer from "./store/reducers/usuarios";
-import agregarUsuarioReducer from "./store/reducers/agregarUsuario";
+import editarUsuarioReducer from "./store/reducers/editarUsuario";
 import eliminarUsuarioReducer from "./store/reducers/eliminarUsuario";
 import usuarioReducer from "./store/reducers/usuario";
 
@@ -24,7 +24,7 @@ const reducers = combineReducers({
     multas: multasReducer,
     multa: multaReducer,
     usuarios: usuariosReducer,
-    agregarUsuario: agregarUsuarioReducer,
+    editarUsuario: editarUsuarioReducer,
     eliminarUsuario: eliminarUsuarioReducer,
     usuario: usuarioReducer,
 });
