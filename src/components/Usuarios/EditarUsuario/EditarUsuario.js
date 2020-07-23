@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Radio, RadioGroup, FormLabel, FormControlLabel, FormControl, Grid, DialogContentText, Select, MenuItem, InputLabel } from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
 import { connect } from "react-redux";
-import { crearUsuario } from "../../../store/actions/editarUsuario";
+import { editarUsuario } from "../../../store/actions/editarUsuario";
 import { withSnackbar } from "notistack";
 
 class EditarUsuario extends Component {
@@ -82,7 +82,7 @@ class EditarUsuario extends Component {
             ...this.state,
         };
         delete usuario.foto;
-        this.props.crearUsuario(usuario, this.state.foto[0], this.props.editar);
+        this.props.editarUsuario(usuario, this.state.foto[0], this.props.editar);
     }
 
     render() {
@@ -250,7 +250,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        crearUsuario: (usuario, foto, editar) => {dispatch(crearUsuario(usuario, foto, editar))},
+        editarUsuario: (usuario, foto, editar) => {dispatch(editarUsuario(usuario, foto, editar))},
     }
 }
 
