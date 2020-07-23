@@ -9,12 +9,12 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.CREAR_USUARIO_START:
+        case actionTypes.EDITAR_USUARIO_START:
             return {
                 ...state,
                 cargando: true,
             };
-        case actionTypes.CREAR_USUARIO_CON_EXITO:
+        case actionTypes.EDITAR_USUARIO_CON_EXITO:
             return {
                 ...state,
                 cargando: false,
@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
                 error: false,
                 textoDeError: "",
             };
-        case actionTypes.CREAR_USUARIO_CON_ERROR:
+        case actionTypes.EDITAR_USUARIO_CON_ERROR:
             return {
                 ...state,
                 cargando: false,
