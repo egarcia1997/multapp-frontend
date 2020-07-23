@@ -50,7 +50,8 @@ class EditarUsuario extends Component {
             this.props.enqueueSnackbar(this.props.textoDeError.toString(), {variant: "error"});
         }
         if (this.props.exito) {
-            this.props.enqueueSnackbar("Usuario creado con éxito", {variant: "success"});
+            let texto = this.props.editar ? "Usuario actualizado con éxito" : "Usuario creado con éxito";
+            this.props.enqueueSnackbar(texto, {variant: "success"});
         }
     }
 
