@@ -20,10 +20,11 @@ const editarUsuarioConError = (error) => {
     }
 }
 
-export const editarUsuario = (usuario, foto, editar) => {
+export const editarUsuario = (id, usuario, foto, editar) => {
     return dispatch => {
         dispatch(editarUsuarioStart());
         const data = {
+            id: id,
             usuario: usuario,
             foto: foto,
         };

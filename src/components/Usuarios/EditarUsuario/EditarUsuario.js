@@ -82,7 +82,8 @@ class EditarUsuario extends Component {
             ...this.state,
         };
         delete usuario.foto;
-        this.props.editarUsuario(usuario, this.state.foto[0], this.props.editar);
+        let id = this.props.editar ? this.props.usuario.id : "";
+        this.props.editarUsuario(id, usuario, this.state.foto[0], this.props.editar);
     }
 
     render() {
@@ -250,7 +251,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        editarUsuario: (usuario, foto, editar) => {dispatch(editarUsuario(usuario, foto, editar))},
+        editarUsuario: (id, usuario, foto, editar) => {dispatch(editarUsuario(id, usuario, foto, editar))},
     }
 }
 
