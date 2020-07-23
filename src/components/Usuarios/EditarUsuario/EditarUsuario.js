@@ -24,6 +24,27 @@ class EditarUsuario extends Component {
         foto: [],
     }
 
+    componentDidMount = () => {
+        if (this.props.editar) {
+            this.setState({
+                rol: this.props.usuario.rol,
+                dni: this.props.usuario.dni,
+                apellido: this.props.usuario.apellido,
+                nombre: this.props.usuario.nombre,
+                fechaNacimiento: this.props.usuario.fechaNacimiento,
+                sexo: this.props.usuario.sexo,
+                calle: this.props.usuario.calle,
+                numero: this.props.usuario.numero,
+                piso: this.props.usuario.piso,
+                departamento: this.props.usuario.departamento,
+                localidad: this.props.usuario.localidad,
+                provincia: this.props.usuario.provincia,
+                email: this.props.usuario.email,
+                telefono: this.props.usuario.telefono,
+            });
+        }
+    }
+
     componentDidUpdate = () => {
         if (this.props.error) {
             this.props.enqueueSnackbar(this.props.textoDeError.toString(), {variant: "error"});
@@ -55,19 +76,22 @@ class EditarUsuario extends Component {
         });
     }
 
-    agregarUsuarioHandler = () => {
+    editarUsuarioHandler = () => {
         const usuario = {
             ...this.state,
         };
         delete usuario.foto;
-        this.props.crearUsuario(usuario, this.state.foto[0]);
+        this.props.crearUsuario(usuario, this.state.foto[0], this.props.editar);
     }
 
     render() {
         return (
             <Dialog open={this.props.open} onClose={this.props.onClose} maxWidth="xl" fullWidth={true}>
                 <DialogTitle>
-                    Agregar un nuevo usuario
+                    {this.props.editar ?
+                        "Editar usuario " + this.props.usuario.id
+                        : "Agregar un nuevo usuario"
+                    }
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>* Campos obligatorios</DialogContentText>
@@ -119,8 +143,8 @@ class EditarUsuario extends Component {
                                 />
                                 <FormLabel component="legend">Sexo</FormLabel>                                
                                 <RadioGroup value={this.state.sexo} onChange={this.radioHandler}>
-                                    <FormControlLabel value="masculino" label="Masculino" control={<Radio color="primary" />} />
-                                    <FormControlLabel value="femenino" label="Femenino" control={<Radio color="primary" />} />
+                                    <FormControlLabel value="Masculino" label="Masculino" control={<Radio color="primary" />} />
+                                    <FormControlLabel value="Femenino" label="Femenino" control={<Radio color="primary" />} />
                                 </RadioGroup>
                             </FormControl>
                         </Grid>
@@ -206,7 +230,7 @@ class EditarUsuario extends Component {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.props.onClose}>Cancelar</Button>
-                    <Button onClick={this.agregarUsuarioHandler} color="primary">Agregar</Button>
+                    <Button onClick={this.editarUsuarioHandler} color="primary">Aceptar</Button>
                 </DialogActions>
             </Dialog>
         )
@@ -215,6 +239,7 @@ class EditarUsuario extends Component {
 
 const mapStateToProps = state => {
     return {
+        usuario: state.usuario.usuario,
         cargando: state.editarUsuario.cargando,
         exito: state.editarUsuario.exito,
         error: state.editarUsuario.error,
@@ -224,7 +249,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        crearUsuario: (usuario, foto) => {dispatch(crearUsuario(usuario, foto))},
+        crearUsuario: (usuario, foto, editar) => {dispatch(crearUsuario(usuario, foto, editar))},
     }
 }
 
