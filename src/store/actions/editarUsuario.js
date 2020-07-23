@@ -1,28 +1,28 @@
 import * as actionTypes from "./actionTypes";
 import Axios from "axios";
 
-const crearUsuarioStart = () => {
+const editarUsuarioStart = () => {
     return {
         type: actionTypes.CREAR_USUARIO_START,
     }
 }
 
-const crearUsuarioConExito = () => {
+const editarUsuarioConExito = () => {
     return {
         type: actionTypes.CREAR_USUARIO_CON_EXITO,
     }
 }
 
-const crearUsuarioConError = (error) => {
+const editarUsuarioConError = (error) => {
     return {
         type: actionTypes.CREAR_USUARIO_CON_ERROR,
         error: error,
     }
 }
 
-export const crearUsuario = (usuario, foto) => {
+export const editarUsuario = (usuario, foto, editar) => {
     return dispatch => {
-        dispatch(crearUsuarioStart());
+        dispatch(editarUsuarioStart());
         const data = {
             usuario: usuario,
             foto: foto,
@@ -31,11 +31,13 @@ export const crearUsuario = (usuario, foto) => {
             "content-type": "application/json",
             "Access-Control-Allow-Origin": "*",
         };
-        Axios.post("/addUsuario", data, headers)
+        // si editar es true, edita el usuario, si es false crea uno nuevo
+        let url = editar ? "/editUsuario" : "/addUsuario"
+        Axios.post(url, data, headers)
             .then(response => {
-                dispatch(crearUsuarioConExito());
+                dispatch(editarUsuarioConExito());
             }).catch(error => {
-                dispatch(crearUsuarioConError(error));
+                dispatch(editarUsuarioConError(error));
             });
     }
 }
