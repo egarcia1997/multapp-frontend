@@ -4,23 +4,11 @@ import { Edit, Contacts, Email, Fingerprint, Event, Wc, Phone, LocationCity, Hom
 import { DropzoneArea } from "material-ui-dropzone";
 import { connect } from "react-redux";
 import { cargarUsuario } from "../../store/actions/usuario";
+import EditarUsuario from "../Usuarios/EditarUsuario/EditarUsuario";
 
 class Usuario extends Component {
     state = {
-        rol: "",
-        dni: "",
-        apellido: "",
-        nombre: "",
-        fechaNacimiento: "",
-        sexo: "",
-        calle: "",
-        numero: "",
-        piso: "",
-        departamento: "",
-        localidad: "",
-        provincia: "",
-        email: "",
-        foto: "",
+        editarUsuario: false,
     }
 
     componentDidMount = () => {
@@ -54,12 +42,9 @@ class Usuario extends Component {
         });
     }
 
-    editHandler = (control) => {
-        const nuevoEstado = {
-            ...this.state[control],
-            edit: !this.state[control].edit,
-        };
-        this.setState({[control]: nuevoEstado});
+    editHandler = () => {
+        const nuevoEstado = !this.state.editarUsuario;
+        this.setState({editarUsuario: nuevoEstado});
     }
 
     render() {
@@ -290,10 +275,11 @@ class Usuario extends Component {
                             </Grid> */}
                         </Grid>
                         <Tooltip title="Editar datos" placement="left" arrow>
-                            <Fab color="primary" onClick={void(0)} style={{position: "fixed", bottom: theme.spacing(5), right: theme.spacing(5)}}>
+                            <Fab color="primary" onClick={this.editHandler} style={{position: "fixed", bottom: theme.spacing(5), right: theme.spacing(5)}}>
                                 <Edit />
                             </Fab>
                         </Tooltip>
+                        <EditarUsuario open={this.state.editarUsuario} onClose={this.editHandler} editar={true} />
                     </Fragment>
                 : null}
             </Container>
