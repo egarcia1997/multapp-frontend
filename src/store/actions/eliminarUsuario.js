@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import Axios from "axios";
 import { enqueueSnackbar } from "./notifier";
+import { cargarUsuarios } from "./usuarios";
 
 const eliminarUsuarioStart = () => {
     return {
@@ -46,6 +47,7 @@ export const eliminarUsuario = (id) => {
                 console.log(response);
                 dispatch(eliminarUsuarioConExito());
                 dispatch(enqueueSnackbar({message: "Usuario eliminado con éxito", options: {variant: "success"}}));
+                dispatch(cargarUsuarios());
             }).catch(error => {
                 console.log(error);
                 dispatch(eliminarUsuarioConError(error));
