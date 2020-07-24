@@ -3,17 +3,9 @@ import { Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogConten
 import { eliminarUsuario } from "../../../store/actions/eliminarUsuario";
 import { connect } from "react-redux";
 import { withSnackbar } from "notistack";
+import Notifier from "../../Notifier/Notifier";
 
 class EliminarUsuario extends Component {
-    componentDidUpdate = () => {
-        if (this.props.error) {
-            this.props.enqueueSnackbar(this.props.textoDeError.toString(), {variant: "error"});
-        }
-        if (this.props.exito) {
-            this.props.enqueueSnackbar("Usuario eliminado con éxito", {variant: "success"});
-        }
-    }
-
     render() {
         return (
             <Dialog open={this.props.open} onClose={this.props.onClose}>
@@ -30,6 +22,7 @@ class EliminarUsuario extends Component {
                     <Button onClick={this.props.onClose}>Cancelar</Button>
                     <Button color="primary" onClick={() => this.props.eliminarUsuario(this.props.id)}>Eliminar</Button>
                 </DialogActions>
+                <Notifier />
             </Dialog>
         )
     }
