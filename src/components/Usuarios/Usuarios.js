@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { cargarUsuarios } from "../../store/actions/usuarios";
 import { withSnackbar } from "notistack";
 import { setUsuarioAEliminar } from "../../store/actions/eliminarUsuario";
+import Notifier from "../Notifier/Notifier";
 
 class Usuarios extends Component {
     state = {
@@ -18,12 +19,6 @@ class Usuarios extends Component {
 
     componentDidMount = () => {
         this.props.cargarUsuarios();
-    }
-
-    componentDidUpdate = () => {
-        if (this.props.error) {
-            this.props.enqueueSnackbar(this.props.textoDeError.toString(), {variant: "error"});
-        }
     }
 
     // esta funcion fue copiada de la pagina de https://material-ui.com/components/tabs/#simple-tabs
@@ -180,6 +175,7 @@ class Usuarios extends Component {
                 </Container>
                 <EditarUsuario open={this.state.agregarUsuario} onClose={this.addUserHandler} editar={false} />
                 <EliminarUsuario open={this.state.eliminarUsuario} onClose={this.closeDeleteDialog} />
+                <Notifier />
             </Fragment>
         );
     }

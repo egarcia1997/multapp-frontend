@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import Axios from "axios";
+import { enqueueSnackbar } from "./notifier";
 
 const cargarUsuariosConExito = (usuarios) => {
     return {
@@ -23,6 +24,7 @@ export const cargarUsuarios = () => {
                 dispatch(cargarUsuariosConExito(response.data));
             }).catch(error => {
                 dispatch(cargarUsuariosConError(error));
+                dispatch(enqueueSnackbar({message: "Error al cargar usuarios. Intente nuevamente", options: {variant: "error"}}));
             });
     }
 }
