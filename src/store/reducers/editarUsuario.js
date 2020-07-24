@@ -1,6 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
+    mostrarDialog: false,
     cargando: false,
     exito: false,
     error: false,
@@ -9,6 +10,20 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.ABRIR_DIALOG_EDITAR:
+            return {
+                ...state,
+                mostrarDialog: true,
+            };
+        case actionTypes.CERRAR_DIALOG_EDITAR:
+            return {
+                ...state,
+                mostrarDialog: false,
+                cargando: false,
+                exito: false,
+                error: false,
+                textoDeError: "",
+            };
         case actionTypes.EDITAR_USUARIO_START:
             return {
                 ...state,

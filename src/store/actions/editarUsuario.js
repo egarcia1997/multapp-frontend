@@ -4,6 +4,18 @@ import { enqueueSnackbar } from "./notifier";
 import { cargarUsuarios } from "./usuarios";
 import { cargarUsuario } from "./usuario";
 
+export const abrirDialogEditar = () => {
+    return {
+        type: actionTypes.ABRIR_DIALOG_EDITAR,
+    }
+}
+
+export const cerrarDialogEditar = () => {
+    return {
+        type: actionTypes.CERRAR_DIALOG_EDITAR,
+    }
+}
+
 const editarUsuarioStart = () => {
     return {
         type: actionTypes.EDITAR_USUARIO_START,
@@ -48,6 +60,7 @@ export const editarUsuario = (id, usuario, foto, editar) => {
                 else {
                     dispatch(cargarUsuarios());
                 }
+                dispatch(cerrarDialogEditar());
             }).catch(error => {
                 dispatch(editarUsuarioConError(error));
                 let texto = editar ? "Error al actualizar usuario" : "Error al crear usuario";
