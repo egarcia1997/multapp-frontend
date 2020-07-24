@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import Axios from "axios";
+import { enqueueSnackbar } from "./notifier";
 
 const editarUsuarioStart = () => {
     return {
@@ -37,8 +38,12 @@ export const editarUsuario = (id, usuario, foto, editar) => {
         Axios.post(url, data, headers)
             .then(response => {
                 dispatch(editarUsuarioConExito());
+                let texto = editar ? "Usuario actualizado exitosamente" : "Usuario creado exitosamente";
+                dispatch(enqueueSnackbar({message: texto, options: {variant: "success"}}));
             }).catch(error => {
                 dispatch(editarUsuarioConError(error));
+                let texto = editar ? "Error al actualizar usuario" : "Error al crear usuario";
+                dispatch(enqueueSnackbar({message: texto, options: {variant: "error"}}));
             });
     }
 }

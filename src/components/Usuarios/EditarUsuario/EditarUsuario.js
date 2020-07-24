@@ -4,6 +4,7 @@ import { DropzoneArea } from "material-ui-dropzone";
 import { connect } from "react-redux";
 import { editarUsuario } from "../../../store/actions/editarUsuario";
 import { withSnackbar } from "notistack";
+import Notifier from "../../Notifier/Notifier";
 
 class EditarUsuario extends Component {
     state = {
@@ -42,16 +43,6 @@ class EditarUsuario extends Component {
                 email: this.props.usuario.email,
                 telefono: this.props.usuario.telefono,
             });
-        }
-    }
-
-    componentDidUpdate = () => {
-        if (this.props.error) {
-            this.props.enqueueSnackbar(this.props.textoDeError.toString(), {variant: "error"});
-        }
-        if (this.props.exito) {
-            let texto = this.props.editar ? "Usuario actualizado con éxito" : "Usuario creado con éxito";
-            this.props.enqueueSnackbar(texto, {variant: "success"});
         }
     }
 
@@ -234,6 +225,7 @@ class EditarUsuario extends Component {
                     <Button onClick={this.props.onClose}>Cancelar</Button>
                     <Button onClick={this.editarUsuarioHandler} color="primary">Aceptar</Button>
                 </DialogActions>
+                <Notifier />
             </Dialog>
         )
     }
