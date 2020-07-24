@@ -6,6 +6,7 @@ import estilos from "./Multa.module.css";
 import { connect } from "react-redux";
 import { cargarMulta, cambiarEstado } from "../../store/actions/multa";
 import { withSnackbar } from "notistack";
+import Notifier from "../Notifier/Notifier";
 
 class Multa extends Component {
     state = {
@@ -18,18 +19,6 @@ class Multa extends Component {
     componentDidMount = () => {
         const id = this.props.location.pathname.concat("").split("/")[2];
         this.props.cargarMulta(id);
-    }
-
-    componentDidUpdate = () => {
-        if (this.props.errorAlCargar) {
-            this.props.enqueueSnackbar(this.props.textoDeErrorAlCargar.toString(), {variant: "error"});
-        }
-        if (this.props.estadoCambiado) {
-            this.props.enqueueSnackbar("Estado cambiado exitosamente", {variant: "success"});
-        }
-        if (this.props.errorAlCambiarDeEstado) {
-            this.props.enqueueSnackbar(this.props.textoDeErrorAlCambiarDeEstado.toString(), {variant: "error"});
-        }
     }
 
     toggleDialogHandler = (accion) => {
@@ -412,6 +401,7 @@ class Multa extends Component {
                                 </Button>
                             </DialogActions>
                         </Dialog>
+                        <Notifier />
                     </Fragment>
                 : null }
             </Fragment>
