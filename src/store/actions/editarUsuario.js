@@ -1,6 +1,8 @@
 import * as actionTypes from "./actionTypes";
 import Axios from "axios";
 import { enqueueSnackbar } from "./notifier";
+import { cargarUsuarios } from "./usuarios";
+import { cargarUsuario } from "./usuario";
 
 const editarUsuarioStart = () => {
     return {
@@ -40,6 +42,12 @@ export const editarUsuario = (id, usuario, foto, editar) => {
                 dispatch(editarUsuarioConExito());
                 let texto = editar ? "Usuario actualizado exitosamente" : "Usuario creado exitosamente";
                 dispatch(enqueueSnackbar({message: texto, options: {variant: "success"}}));
+                if (editar) {
+                    dispatch(cargarUsuario(id));
+                }
+                else {
+                    dispatch(cargarUsuarios());
+                }
             }).catch(error => {
                 dispatch(editarUsuarioConError(error));
                 let texto = editar ? "Error al actualizar usuario" : "Error al crear usuario";
