@@ -146,21 +146,21 @@ class Usuarios extends Component {
                     <this.TabPanel value={this.state.pestanaActual} index={0}>
                         {this.props.cargando ? <CircularProgress /> : 
                             <List>
-                                {inspectores}
+                                {inspectores.length !== 0 ? inspectores : "Aún no hay inspectores cargados"}
                             </List>
                         }
                     </this.TabPanel>
                     <this.TabPanel value={this.state.pestanaActual} index={1}>
                         {this.props.cargando ? <CircularProgress /> : 
                             <List>
-                                {supervisores}
+                                {supervisores.length !== 0 ? inspectores : "Aún no hay supervisores cargados"}
                             </List>
                         }
                     </this.TabPanel>
                     <this.TabPanel value={this.state.pestanaActual} index={2}>
                         {this.props.cargando ? <CircularProgress /> : 
                             <List>
-                                {administradores}
+                                {administradores.length !== 0 ? inspectores : "Aún no hay administradores cargados"}
                             </List>
                         }
                     </this.TabPanel>
