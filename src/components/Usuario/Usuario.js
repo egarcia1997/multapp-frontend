@@ -5,6 +5,7 @@ import { DropzoneArea } from "material-ui-dropzone";
 import { connect } from "react-redux";
 import { cargarUsuario } from "../../store/actions/usuario";
 import EditarUsuario from "../Usuarios/EditarUsuario/EditarUsuario";
+import Notifier from "../Notifier/Notifier";
 
 class Usuario extends Component {
     state = {
@@ -280,6 +281,7 @@ class Usuario extends Component {
                             </Fab>
                         </Tooltip>
                         <EditarUsuario open={this.state.editarUsuario} onClose={this.editHandler} editar={true} />
+                        <Notifier />
                     </Fragment>
                 : null}
             </Container>
