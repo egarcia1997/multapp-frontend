@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import Axios from "axios";
+import { enqueueSnackbar } from "./notifier";
 
 const cargarMultasConExito = (multas) => {
     return {
@@ -28,6 +29,7 @@ export const cargarMultas = () => {
             }).catch(error => {
                 console.log(error);
                 dispatch(cargarMultasConError(error));
+                dispatch(enqueueSnackbar({message: "Error al cargar multas. Intente nuevamente", options: {variant: "error"}}));
             });
     }
 }

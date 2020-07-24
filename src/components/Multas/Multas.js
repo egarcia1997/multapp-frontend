@@ -5,6 +5,7 @@ import Filtro from "./Filtro/Filtro";
 import { cargarMultas } from "../../store/actions/multas";
 import { connect } from 'react-redux';
 import { withSnackbar } from "notistack";
+import Notifier from "../Notifier/Notifier";
 
 class Multas extends Component {
     state = {
@@ -23,12 +24,6 @@ class Multas extends Component {
     // recupero el listado de todas las multas del servidor y lo meto en el estado
     componentDidMount() {
         this.props.cargarMultas();
-    }
-
-    componentDidUpdate = () => {
-        if (this.props.error) {
-            this.props.enqueueSnackbar(this.props.textoDeError.toString(), {variant: "error"});
-        }
     }
 
     // metodo para mostrar/ocultar las opciones de filtrado
@@ -128,6 +123,7 @@ class Multas extends Component {
                                 </TableBody>
                             </Table>
                         </TableContainer>
+                        <Notifier />
                     </Fragment>
                 : null}
             </Container>
