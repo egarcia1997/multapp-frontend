@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { cargarUsuario } from "../../store/actions/usuario";
 import EditarUsuario from "../Usuarios/EditarUsuario/EditarUsuario";
 import Notifier from "../Notifier/Notifier";
+import { abrirDialogEditar, cerrarDialogEditar } from "../../store/actions/editarUsuario";
 
 class Usuario extends Component {
     state = {
@@ -276,11 +277,11 @@ class Usuario extends Component {
                             </Grid> */}
                         </Grid>
                         <Tooltip title="Editar datos" placement="left" arrow>
-                            <Fab color="primary" onClick={this.editHandler} style={{position: "fixed", bottom: theme.spacing(5), right: theme.spacing(5)}}>
+                            <Fab color="primary" onClick={this.props.abrirDialogEditar} style={{position: "fixed", bottom: theme.spacing(5), right: theme.spacing(5)}}>
                                 <Edit />
                             </Fab>
                         </Tooltip>
-                        <EditarUsuario open={this.state.editarUsuario} onClose={this.editHandler} editar={true} />
+                        <EditarUsuario open={this.props.mostrarDialog} onClose={this.props.cerrarDialogEditar} editar={true} />
                         <Notifier />
                     </Fragment>
                 : null}
@@ -297,13 +298,16 @@ const mapStateToProps = state => {
         textoDeErrorAlCargar: state.usuario.textoDeErrorAlCargar,
         estadoCambiado: state.usuario.estadoCambiado,
         errorAlModificarDatos: state.usuario.errorAlModificarDatos,
-        textoDeErrorAlModificarDatos: state.usuario.textoDeErrorAlModificarDatos,    
+        textoDeErrorAlModificarDatos: state.usuario.textoDeErrorAlModificarDatos,
+        mostrarDialog: state.editarUsuario.mostrarDialog,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         cargarUsuario: (id) => {dispatch(cargarUsuario(id))},
+        abrirDialogEditar: () => {dispatch(abrirDialogEditar())},
+        cerrarDialogEditar: () => {dispatch(cerrarDialogEditar())},
     }
 }
 

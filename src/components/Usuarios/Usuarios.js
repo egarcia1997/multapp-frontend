@@ -7,8 +7,9 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { cargarUsuarios } from "../../store/actions/usuarios";
 import { withSnackbar } from "notistack";
-import { setUsuarioAEliminar } from "../../store/actions/eliminarUsuario";
+import { setUsuarioAEliminar, abrirDialogEliminar, cerrarDialogEliminar } from "../../store/actions/eliminarUsuario";
 import Notifier from "../Notifier/Notifier";
+import { abrirDialogEditar, cerrarDialogEditar } from "../../store/actions/editarUsuario";
 
 class Usuarios extends Component {
     state = {
@@ -187,6 +188,8 @@ const mapStateToProps = state => {
         cargando: state.usuarios.cargando,
         error: state.usuarios.error,
         textoDeError: state.usuarios.textoDeError,
+        mostrarDialogEditar: state.editarUsuario.mostrarDialog,
+        mostrarDialogEliminar: state.eliminarUsuario.mostrarDialog,
     }
 }
 
@@ -194,6 +197,10 @@ const mapDispatchToProps = dispatch => {
     return {
         cargarUsuarios: () => {dispatch(cargarUsuarios())},
         setUsuarioAEliminar: (id, nombre) => {dispatch(setUsuarioAEliminar(id, nombre))},
+        abrirDialogEditar: () => {dispatch(abrirDialogEditar())},
+        cerrarDialogEditar: () => {dispatch(cerrarDialogEditar())},
+        abrirDialogEliminar: () => {dispatch(abrirDialogEliminar())},
+        cerrarDialogEliminar: () => {dispatch(cerrarDialogEliminar())},
     }
 }
 
