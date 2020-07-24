@@ -1,6 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
+    mostrarDialog: false,
     id: "",
     nombre: "",
     cargando: false,
@@ -11,6 +12,22 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.ABRIR_DIALOG_ELIMINAR:
+            return {
+                ...state,
+                mostrarDialog: true,
+            };
+        case actionTypes.CERRAR_DIALOG_ELIMINAR:
+            return {
+                ...state,
+                mostrarDialog: false,
+                id: "",
+                nombre: "",
+                cargando: false,
+                exito: false,
+                error: false,
+                textoDeError: "",
+            };
         case actionTypes.SET_USUARIO_A_ELIMINAR:
             return {
                 ...state,

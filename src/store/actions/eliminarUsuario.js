@@ -3,6 +3,18 @@ import Axios from "axios";
 import { enqueueSnackbar } from "./notifier";
 import { cargarUsuarios } from "./usuarios";
 
+export const abrirDialogEliminar = () => {
+    return {
+        type: actionTypes.ABRIR_DIALOG_ELIMINAR,
+    }
+}
+
+export const cerrarDialogEliminar = () => {
+    return {
+        type: actionTypes.CERRAR_DIALOG_ELIMINAR,
+    }
+}
+
 const eliminarUsuarioStart = () => {
     return {
         type: actionTypes.ELIMINAR_USUARIO_START,
@@ -48,6 +60,7 @@ export const eliminarUsuario = (id) => {
                 dispatch(eliminarUsuarioConExito());
                 dispatch(enqueueSnackbar({message: "Usuario eliminado con éxito", options: {variant: "success"}}));
                 dispatch(cargarUsuarios());
+                dispatch(cerrarDialogEliminar());
             }).catch(error => {
                 console.log(error);
                 dispatch(eliminarUsuarioConError(error));
