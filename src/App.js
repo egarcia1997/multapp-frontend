@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
 import Login from "./containers/Login/Login";
-import LayoutSupervisor from './containers/LayoutSupervisor/LayoutSupervisor';
+import Layout from './containers/Layout/Layout';
 import { connect } from 'react-redux';
 
 class App extends Component {
@@ -16,7 +16,7 @@ class App extends Component {
             rutas = (
                 <Switch>
                     <Route path="/login" component={Login} />
-                    <Route path="/" component={LayoutSupervisor} />
+                    <Route path="/" component={Layout} />
                 </Switch>
             );
         }
