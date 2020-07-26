@@ -14,8 +14,6 @@ import { abrirDialogEditar, cerrarDialogEditar } from "../../store/actions/edita
 class Usuarios extends Component {
     state = {
         pestanaActual: 0,
-        agregarUsuario: false,
-        eliminarUsuario: false,
     }
 
     componentDidMount = () => {
@@ -47,19 +45,10 @@ class Usuarios extends Component {
     tabChangeHandler = (event, newValue) => {
         this.setState({pestanaActual: newValue});
     }
-    
-    addUserHandler = () => {
-        const nuevoEstado = !this.state.agregarUsuario;
-        this.setState({agregarUsuario: nuevoEstado});
-    }
 
     deleteUserHandler = (id, nombre) => {
-        this.setState({eliminarUsuario: true});
         this.props.setUsuarioAEliminar(id, nombre);
-    }
-
-    closeDeleteDialog = () => {
-        this.setState({eliminarUsuario: false});
+        this.props.abrirDialogEliminar();
     }
 
     userSelectedHandler = (id) => {
@@ -169,13 +158,13 @@ class Usuarios extends Component {
                         Coso de multados
                     </this.TabPanel>
                     <Tooltip title="Agregar usuario" placement="left" arrow>
-                        <Fab color="primary" onClick={this.addUserHandler} style={{position: "fixed", bottom: theme.spacing(5), right: theme.spacing(5)}}>
+                        <Fab color="primary" onClick={this.props.abrirDialogEditar} style={{position: "fixed", bottom: theme.spacing(5), right: theme.spacing(5)}}>
                             <Add />
                         </Fab>
                     </Tooltip>
                 </Container>
-                <EditarUsuario open={this.state.agregarUsuario} onClose={this.addUserHandler} editar={false} />
-                <EliminarUsuario open={this.state.eliminarUsuario} onClose={this.closeDeleteDialog} />
+                <EditarUsuario open={this.props.mostrarDialogEditar} onClose={this.props.cerrarDialogEditar} editar={false} />
+                <EliminarUsuario open={this.props.mostrarDialogEliminar} onClose={this.props.cerrarDialogEliminar} />
                 <Notifier />
             </Fragment>
         );
