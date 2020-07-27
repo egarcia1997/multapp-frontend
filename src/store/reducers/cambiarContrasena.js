@@ -45,6 +45,8 @@ const reducer = (state = initialState, action) => {
                 error: true,
                 textoDeError: action.error,
             };
+        default:
+            return state;
     }
 }
 
