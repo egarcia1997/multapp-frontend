@@ -9,6 +9,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import notifierReducer from "./store/reducers/notifier";
 import loginReducer from "./store/reducers/login";
+import cambiarContrasenaReducer from "./store/reducers/cambiarContrasena";
 import multasReducer from "./store/reducers/multas";
 import multaReducer from "./store/reducers/multa";
 import usuariosReducer from "./store/reducers/usuarios";
@@ -23,6 +24,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const reducers = combineReducers({
     notifier: notifierReducer,
     login: loginReducer,
+    cambiarContrasena: cambiarContrasenaReducer,
     multas: multasReducer,
     multa: multaReducer,
     usuarios: usuariosReducer,
