@@ -4,6 +4,7 @@ const initialState = {
     id: "",
     datos: null,
     foto: "",
+    cargando: true,
     error: false,
     textoDeError: "",
 }
@@ -16,6 +17,7 @@ const reducer = (state = initialState, action) => {
                 id: action.id,
                 datos: action.datos,
                 foto: action.foto,
+                cargando: false,
                 error: false,
                 textoDeError: "",
             };
@@ -25,6 +27,7 @@ const reducer = (state = initialState, action) => {
                 id: "",
                 datos: null,
                 foto: "",
+                cargando: false,
                 error: true,
                 textoDeError: action.error,
             };
