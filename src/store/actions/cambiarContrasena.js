@@ -44,7 +44,7 @@ export const cambiarContrasena = (contrasenaActual, contrasenaNueva) => {
             "content-type": "application/json",
             "Access-Control-Allow-Origin": "*",
         };
-        Axios.post("", data, headers)
+        Axios.post("/cambiarContrasena", data, headers)
             .then(response => {
                 dispatch(cambiarContrasenaConExito());
                 dispatch(cerrarDialogCambiarContrasena());
