@@ -20,10 +20,16 @@ const cargarPerfilConError = (error) => {
 
 export const cargarPerfil = () => {
     return dispatch => {
-        Axios.get("/getPerfil")
+        const data = {
+            params: {
+                uid: localStorage.localId,
+            }
+        };
+        Axios.get("/getPerfil", data)
             .then(response => {
                 dispatch(cargarPerfilConExito(response.data));
             }).catch(error => {
+                console.log(error);
                 dispatch(cargarPerfilConError(error));
                 dispatch(enqueueSnackbar({message: "No se pudieron obtener sus datos personales", options: {variant: "error"}}));
             });
