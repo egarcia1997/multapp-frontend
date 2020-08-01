@@ -1,129 +1,128 @@
-import React, { Component } from "react";
-import axios from "axios";
-import * as placeholder from "../../assets/placeholder-vault-boy.png";
-import {Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, DialogContentText, Avatar, List, ListItemIcon, ListItem, ListItemText, CircularProgress, Container, Typography, Grid, Divider} from "@material-ui/core";
-import {Email, Lock, Home, Phone, Contacts} from "@material-ui/icons";
+import React, { Component, Fragment } from "react";
+import {Button, Avatar, List, ListItemIcon, ListItem, ListItemText, CircularProgress, Container, Typography, Grid, Divider} from "@material-ui/core";
+import {Email, Home, Phone, Fingerprint, Event, Wc, LocationCity, LocationOn} from "@material-ui/icons";
+import CambiarContrasena from "../CambiarContrasena/CambiarContrasena";
+import { connect } from "react-redux";
+import { abrirDialogCambiarContrasena, cerrarDialogCambiarContrasena } from "../../store/actions/cambiarContrasena";
+import { cargarPerfil } from "../../store/actions/perfil";
+import Notifier from "../Notifier/Notifier";
 
 class Perfil extends Component {
-    state = {
-        nombre: "Juan Pérez",
-        rol: "Supervisor",
-        imagen: placeholder,
-        dni: "12.345.678",
-        direccion: "Calle Falsa 123",
-        telefono: "362 4123456",
-        email: "juancitokpo_84@capitanichmail.com",
-        cargando: true,
-        huboError: false,
-        cambiarContrasena: false,
-    }
-
     componentDidMount = () => {
-        axios.get("/supervisores") // poner para que busque los datos solo del supervisor actual
-            .then(response => { // si salio tood bien
-                console.log(response); // muestra la respuesta por consola
-                this.setState({ // carga los datos obtenidos en el state
-                    cargando: false,
-                    nombre: response.data.nombre,
-                    rol: response.data.rol,
-                    imagen: response.data.imagen,
-                    dni: response.data.dni,
-                    direccion: response.data.direccion,
-                    telefono: response.data.telefono,
-                    email: response.data.email,
-                });
-            }).catch(error => { // si salio todo mal
-                console.log(error); // muestra por consola el error
-                this.setState({ // pone en el state que no se esta cargando y que hubo error
-                    cargando: false,
-                    huboError: true,
-                });
-            });
-    }
-
-    // metodo que hace que se abra el Dialog de cambiar contraseña
-    cambiarContrasena = () => {
-        this.setState({cambiarContrasena: true});
-    }
-
-    // metodo para cerrar el Dialog de cambiar contraseña
-    cerrarDialog = () => {
-        this.setState({cambiarContrasena: false});
+        this.props.cargarPerfil();
     }
 
     render() {
-        let progress = this.state.cargando ? <CircularProgress /> : null;
         return (
-            <Container maxWidth="md">
-                <Grid container={true} direction="row">
-                    <Grid item={true}>
-                        <Avatar style={{width: "200px", height: "200px"}} src={this.state.imagen} alt={this.state.nombre} />
-                    </Grid>
-                    <Grid item={true} style={{verticalAlign: "center"}}>
-                        <Typography variant="h2">{this.state.nombre}</Typography>
-                        <Typography variant="h4">{this.state.rol}</Typography>
-                    </Grid>
-                </Grid>
-                {progress}
-                <List>
-                    <ListItem>
-                        <ListItemIcon>
-                            <Contacts />
-                        </ListItemIcon>
-                        <ListItemText primary="DNI" secondary={this.state.dni} />
-                    </ListItem>
-                    <Divider />
-                    <ListItem>
-                        <ListItemIcon>
-                            <Home />
-                        </ListItemIcon>
-                        <ListItemText primary="Dirección" secondary={this.state.direccion} />
-                    </ListItem>
-                    <Divider />
-                    <ListItem>
-                        <ListItemIcon>
-                            <Phone />
-                        </ListItemIcon>
-                        <ListItemText primary="Teléfono" secondary={this.state.telefono} />
-                    </ListItem>
-                    <Divider />
-                    <ListItem>
-                        <ListItemIcon>
-                            <Email />
-                        </ListItemIcon>
-                        <ListItemText primary="Correo electrónico" secondary={this.state.email} />
-                    </ListItem>
-                    <Divider />
-                    <ListItem>
-                        <ListItemIcon>
-                            <Lock />
-                        </ListItemIcon>
-                        <ListItemText primary="Contraseña" secondary="········" />
-                    </ListItem>
-                </List>
-                <Button variant="contained" color="primary" onClick={this.cambiarContrasena}>Cambiar contraseña</Button>
-                <Dialog open={this.state.cambiarContrasena} onClose={this.cerrarDialog}>
-                    <DialogTitle>Cambiar contraseña</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            No vayas a meter cualquier cosa insegura como contraseña
-                        </DialogContentText>
-                        <TextField autoFocus={true} type="password" label="Contraseña actual" fullWidth={true} />
-                        <TextField type="password" label="Nueva contraseña" fullWidth={true} />
-                        <TextField type="password" label="Repita la nueva contraseña" fullWidth={true} />
-                        <DialogActions>
-                            <Button onClick={this.cerrarDialog} color="default">
-                                Cancelar
-                            </Button>
-                            <Button onClick={this.cerrarDialog} color="primary">
-                                Aceptar
-                            </Button>
-                        </DialogActions>
-                    </DialogContent>
-                </Dialog>
+            <Container>
+                {this.props.cargando ? <CircularProgress /> : null}
+                {!this.props.cargando && !this.props.error ?
+                    <Fragment>
+                        <Grid container={true} spacing={2}>
+                            <Grid item={true} xs={12}>
+                                <Avatar style={{width: "200px", height: "200px"}} src={this.props.foto} alt={this.props.nombre} />
+                            </Grid>
+                            <Grid item={true} xs={12} style={{verticalAlign: "center"}}>
+                                <Typography variant="h2">
+                                    {this.props.datos.nombre}
+                                </Typography>
+                                <Typography variant="h4">{this.props.datos.rol}</Typography>
+                            </Grid>
+                            <Grid item={true} xs={4}>
+                                <List>
+                                    <ListItem>
+                                        <ListItemIcon>
+                                            <Email />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Correo electrónico" secondary={this.props.datos.email} />
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem>
+                                        <ListItemIcon>
+                                            <Fingerprint />
+                                        </ListItemIcon>
+                                        <ListItemText primary="DNI" secondary={this.props.datos.dni} />
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem>
+                                        <ListItemIcon>
+                                            <Event />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Fecha de nacimiento" secondary={this.props.datos.fechaNacimiento} />
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem>
+                                        <ListItemIcon>
+                                            <Wc />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Sexo" secondary={this.props.datos.sexo} />
+                                    </ListItem>
+                                    <Divider />
+                                </List>
+                            </Grid>
+                            <Grid item={true}>
+                                <List>
+                                    <ListItem>
+                                        <ListItemIcon>
+                                            <Phone />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Teléfono" secondary={this.props.datos.telefono} />
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem>
+                                        <ListItemIcon>
+                                            <Home />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Dirección" secondary={this.props.datos.direccion} />
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem>
+                                        <ListItemIcon>
+                                            <LocationCity />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Localidad" secondary={this.props.datos.localidad} />
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem>
+                                        <ListItemIcon>
+                                            <LocationOn />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Provincia" secondary={this.props.datos.provincia} />
+                                    </ListItem>
+                                    <Divider />
+                                </List>
+                            </Grid>
+                            <Grid item={true} xs={12}>
+                                <Button variant="contained" color="primary" onClick={this.props.abrirDialogCambiarContrasena}>Cambiar contraseña</Button>
+                            </Grid>
+                        </Grid>
+                        <CambiarContrasena open={this.props.mostrarDialog} onClose={this.props.cerrarDialogCambiarContrasena} />
+                    </Fragment>
+                : null}
+                <Notifier />
             </Container>
         );
     };
 }
 
-export default Perfil;
+const mapStateToProps = state => {
+    return {
+        id: "",
+        datos: state.perfil.datos,
+        foto: state.perfil.foto,
+        cargando: state.perfil.cargando,
+        error: state.perfil.error,
+        textoDeError: state.perfil.textoDeError,
+        mostrarDialog: state.cambiarContrasena.mostrarDialog,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        cargarPerfil: () => dispatch(cargarPerfil()),
+        abrirDialogCambiarContrasena: () => dispatch(abrirDialogCambiarContrasena()),
+        cerrarDialogCambiarContrasena: () => dispatch(cerrarDialogCambiarContrasena()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Perfil);
