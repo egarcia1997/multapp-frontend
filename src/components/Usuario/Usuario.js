@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
-import { Button, TextField, Radio, RadioGroup, FormLabel, FormControlLabel, FormControl, Grid, DialogContentText, Select, MenuItem, InputLabel, Typography, IconButton, InputAdornment, Input, List, ListItem, ListItemIcon, ListItemText, Divider, Avatar, Container, CircularProgress, Tooltip, Fab, createMuiTheme } from "@material-ui/core";
-import { Edit, Contacts, Email, Fingerprint, Event, Wc, Phone, LocationCity, Home, LocationOn } from '@material-ui/icons';
-import { DropzoneArea } from "material-ui-dropzone";
+import { Grid, Typography, List, ListItem, ListItemIcon, ListItemText, Divider, Avatar, Container, CircularProgress, Tooltip, Fab, createMuiTheme } from "@material-ui/core";
+import { Edit, Email, Fingerprint, Event, Wc, Phone, LocationCity, Home, LocationOn } from '@material-ui/icons';
 import { connect } from "react-redux";
 import { cargarUsuario } from "../../store/actions/usuario";
 import EditarUsuario from "../Usuarios/EditarUsuario/EditarUsuario";
