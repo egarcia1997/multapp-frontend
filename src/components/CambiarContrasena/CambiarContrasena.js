@@ -5,25 +5,39 @@ import { cambiarContrasena, abrirDialogCambiarContrasena, cerrarDialogCambiarCon
 
 class CambiarContrasena extends Component {
     state = {
+        contrasenaActual: "",
         nuevaContrasena: "",
         repitaContrasena: "",
+        errorNuevaContrasena: "",
+        errorRepitaContrasena: "",
+        aceptable: false,
     }
 
     // carga lo que escribe el usuario en el state
     inputHandler = (event) => {
-        this.setState({[event.target.id]: event.target.value});
-        if (event.target.id === "nuevaContrasena") {
-            if (event.target.length < 6) {
-                event.target.error = true;
-                event.target.helperText = "La contraseña debe tener 6 o más caracteres";
+        this.setState({[event.target.id]: event.target.value}, () => {
+            if (this.state.contrasenaActual !== "" || this.state.nuevaContrasena !== "" || this.state.repitaContrasena !== "") {
+                this.setState({aceptable: true});
             }
-        }
-        if (event.target.id === "repitaContrasena") {
+            if (this.state.contrasenaActual === this.state.nuevaContrasena) {
+                this.setState({errorNuevaContrasena: "La nueva contraseña es igual a la actual", aceptable: false});
+            }
+            else {
+                this.setState({errorNuevaContrasena: ""});
+            }
+            if (this.state.nuevaContrasena.length < 6) {
+                this.setState({errorNuevaContrasena: "La contraseña debe tener 6 o más caracteres", aceptable: false});
+            }
+            else {
+                this.setState({errorNuevaContrasena: ""});
+            }
             if (this.state.nuevaContrasena !== this.state.repitaContrasena) {
-                event.target.error = true;
-                event.target.helperText = "Las contraseñas no coinciden";
+                this.setState({errorRepitaContrasena: "Las contraseñas no coinciden", aceptable: false});
             }
-        }
+            else {
+                this.setState({errorRepitaContrasena: ""});
+            }
+        });
     }
 
     render() {
@@ -35,13 +49,22 @@ class CambiarContrasena extends Component {
                         La contraseña debe tener como mínimo 6 caracteres.<br />
                         Recomendamos que utilice mayúsculas, minúsculas, números y símbolos.
                     </DialogContentText>
-                    <TextField autoFocus={true} type="password" label="Contraseña actual" fullWidth={true} />
+                    <TextField
+                        autoFocus={true}
+                        type="password"
+                        id="contrasenaActual"
+                        label="Contraseña actual"
+                        fullWidth={true}
+                        value={this.state.contrasenaActual}
+                        onChange={this.inputHandler}
+                    />
                     <TextField
                         type="password"
                         id="nuevaContrasena"
                         label="Nueva contraseña"
                         fullWidth={true}
-                        helperText=""
+                        helperText={this.state.errorNuevaContrasena}
+                        error={this.state.errorNuevaContrasena !== ""}
                         value={this.state.nuevaContrasena}
                         onChange={this.inputHandler}
                     />
@@ -50,16 +73,22 @@ class CambiarContrasena extends Component {
                         id="repitaContrasena"
                         label="Repita la nueva contraseña"
                         fullWidth={true}
-                        helperText=""
+                        helperText={this.state.errorRepitaContrasena}
+                        error={this.state.errorRepitaContrasena !== ""}
                         value={this.state.repitaContrasena}
                         onChange={this.inputHandler}
                     />
                     <DialogActions>
-                        <Button onClick={this.cerrarDialog} color="default">
+                        <Button onClick={this.props.onClose} color="default">
                             Cancelar
                         </Button>
-                        <Button onClick={this.cerrarDialog} color="primary">
+                        <Button
+                            onClick={() => this.props.cambiarContrasena(this.state.contrasenaActual, this.state.nuevaContrasena)}
+                            color="primary"
+                            disabled={!this.state.aceptable}
+                        >
                             Aceptar
+                            {this.props.cargando && <CircularProgress size={24} />}
                         </Button>
                     </DialogActions>
                 </DialogContent>
