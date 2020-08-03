@@ -66,7 +66,7 @@ class Usuarios extends Component {
                     </ListItemAvatar>
                     <ListItemText
                         primary={inspector.nombre}
-                        secondary={inspector.id}
+                        secondary={inspector.email}
                     />
                     <ListItemSecondaryAction>
                         <IconButton onClick={() => this.deleteUserHandler(inspector.id, inspector.nombre)}>
@@ -88,7 +88,7 @@ class Usuarios extends Component {
                     </ListItemAvatar>
                     <ListItemText
                         primary={supervisor.nombre}
-                        secondary={supervisor.id}
+                        secondary={supervisor.email}
                     />
                     <ListItemSecondaryAction>
                         <IconButton onClick={() => this.deleteUserHandler(supervisor.id, supervisor.nombre)}>
@@ -110,7 +110,7 @@ class Usuarios extends Component {
                     </ListItemAvatar>
                     <ListItemText
                         primary={administrador.nombre}
-                        secondary={administrador.id}
+                        secondary={administrador.email}
                     />
                     <ListItemSecondaryAction>
                         <IconButton onClick={() => this.deleteUserHandler(administrador.id, administrador.nombre)}>
