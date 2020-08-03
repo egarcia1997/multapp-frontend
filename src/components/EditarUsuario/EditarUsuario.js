@@ -1,237 +1,242 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Radio, RadioGroup, FormLabel, FormControlLabel, FormControl, Grid, DialogContentText, Select, MenuItem, InputLabel, CircularProgress } from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
 import { connect } from "react-redux";
 import { editarUsuario } from "../../store/actions/editarUsuario";
 import { withSnackbar } from "notistack";
 import Notifier from "../Notifier/Notifier";
+import useStyles from "../../share/useStyles";
 
-class EditarUsuario extends Component {
-    state = {
-        rol: "",
-        dni: "",
-        apellido: "",
-        nombre: "",
-        fechaNacimiento: new Date().toISOString().slice(0, 10),
-        sexo: "masculino",
-        calle: "",
-        numero: "",
-        piso: "",
-        departamento: "",
-        localidad: "",
-        provincia: "",
-        email: "",
-        telefono: "",
-        foto: [],
-    }
+const EditarUsuario = props => {
+    const [rol, setRol] = useState("");
+    const [dni, setDni] = useState("");
+    const [apellido, setApellido] = useState("");
+    const [nombre, setNombre] = useState("");
+    const [fechaNacimiento, setFechaNacimiento] = useState(new Date().toISOString().slice(0, 10));
+    const [sexo, setSexo] = useState("Masculino");
+    const [calle, setCalle] = useState("");
+    const [numero, setNumero] = useState("");
+    const [piso, setPiso] = useState("");
+    const [departamento, setDepartamento] = useState("");
+    const [localidad, setLocalidad] = useState("");
+    const [provincia, setProvincia] = useState("");
+    const [email, setEmail] = useState("");
+    const [telefono, setTelefono] = useState("");
+    const [foto, setFoto] = useState([]);
 
-    componentDidMount = () => {
-        if (this.props.editar) {
-            this.setState({
-                rol: this.props.usuario.rol,
-                dni: this.props.usuario.dni,
-                apellido: this.props.usuario.apellido,
-                nombre: this.props.usuario.nombre,
-                fechaNacimiento: this.props.usuario.fechaNacimiento,
-                sexo: this.props.usuario.sexo,
-                calle: this.props.usuario.calle,
-                numero: this.props.usuario.numero,
-                piso: this.props.usuario.piso,
-                departamento: this.props.usuario.departamento,
-                localidad: this.props.usuario.localidad,
-                provincia: this.props.usuario.provincia,
-                email: this.props.usuario.email,
-                telefono: this.props.usuario.telefono,
-            });
+    const estilos = useStyles();
+
+    useEffect(() => {
+        if (props.editar) {
+            setRol(props.usuario.rol);
+            setDni(props.usuario.dni);
+            setApellido(props.usuario.apellido);
+            setNombre(props.usuario.nombre);
+            setFechaNacimiento(props.usuario.fechaNacimiento);
+            setSexo(props.usuario.sexo);
+            setCalle(props.usuario.calle);
+            setNumero(props.usuario.numero);
+            setPiso(props.usuario.piso);
+            setDepartamento(props.usuario.departamento);
+            setLocalidad(props.usuario.localidad);
+            setProvincia(props.usuario.provincia);
+            setEmail(props.usuario.email);
+            setTelefono(props.usuario.telefono);
         }
-    }
+    }, []);
 
-    // carga lo que escribe el usuario en el state
-    inputHandler = (event) => {
-        this.setState({[event.target.id]: event.target.value});
-    }
-    
     // carga el radio que selecciona el usuario en el state
-    radioHandler = (event) => {
-        this.setState({sexo: event.target.value});
+    const radioHandler = (event) => {
+        setSexo(event.target.value);
     }
 
     // carga lo que selecciona el usuario en el select en el state
-    selectHandler = (event) => {
-        this.setState({rol: event.target.value});
+    const selectHandler = (event) => {
+        setRol(event.target.value);
     }
 
     // carga la foto subida en el state
-    imageUploadHandler = (files) => {
-        this.setState({foto: files}, () => {
-            console.log(this.state);
-        });
+    const imageUploadHandler = (files) => {
+        setFoto(files);
     }
 
-    editarUsuarioHandler = () => {
+    const editarUsuarioHandler = () => {
         const usuario = {
-            ...this.state,
+            rol: rol,
+            email: email,
+            telefono: telefono,
+            foto: foto,
+            datos: {
+                dni: dni,
+                apellido: apellido,
+                nombre: nombre,
+                fechaNacimiento: fechaNacimiento,
+                sexo: sexo,
+                calle: calle,
+                numero: numero,
+                piso: piso,
+                departamento: departamento,
+                localidad: localidad,
+                provincia: provincia,
+            }
         };
-        delete usuario.foto;
-        let id = this.props.editar ? this.props.usuario.id : "";
-        this.props.editarUsuario(id, usuario, this.state.foto[0], this.props.editar);
+        let id = props.editar ? props.usuario.id : "";
+        props.editarUsuario(id, usuario, props.editar);
     }
 
-    render() {
-        return (
-            <Dialog open={this.props.open} onClose={this.props.onClose} maxWidth="xl" fullWidth={true}>
-                <DialogTitle>
-                    {this.props.editar ?
-                        "Editar usuario " + this.props.usuario.id
-                        : "Agregar un nuevo usuario"
-                    }
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText>* Campos obligatorios</DialogContentText>
-                    <Grid container={true} spacing={2}>
-                        <Grid item={true} xs={12}>
-                            <FormControl required={true} fullWidth={true}>
-                                <InputLabel>Rol</InputLabel>
-                                <Select id="rol" value={this.state.rol} onChange={this.selectHandler}>
-                                    <MenuItem value="Administrador">Administrador</MenuItem>
-                                    <MenuItem value="Inspector">Inspector</MenuItem>
-                                    <MenuItem value="Supervisor">Supervisor</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item={true} xs={4}>
-                            <FormControl fullWidth={true}>
-                                <FormLabel>Datos personales</FormLabel>
-                                <TextField
-                                    id="dni"
-                                    type="number"
-                                    label="DNI"
-                                    required={true}
-                                    value={this.state.dni}
-                                    onChange={this.inputHandler}
-                                />
-                                <TextField
-                                    id="apellido"
-                                    type="text"
-                                    label="Apellido"
-                                    required={true}
-                                    value={this.state.apellido}
-                                    onChange={this.inputHandler}
-                                />
-                                <TextField
-                                    id="nombre"
-                                    type="text"
-                                    label="Nombre"
-                                    required={true}
-                                    value={this.state.nombre}
-                                    onChange={this.inputHandler}
-                                />
-                                <TextField
-                                    id="fechaNacimiento"
-                                    type="date"
-                                    label="Fecha de nacimiento"
-                                    required={true}
-                                    value={this.state.fechaNacimiento}
-                                    onChange={this.inputHandler}
-                                />
-                                <FormLabel component="legend">Sexo</FormLabel>                                
-                                <RadioGroup value={this.state.sexo} onChange={this.radioHandler}>
-                                    <FormControlLabel value="Masculino" label="Masculino" control={<Radio color="primary" />} />
-                                    <FormControlLabel value="Femenino" label="Femenino" control={<Radio color="primary" />} />
-                                </RadioGroup>
-                            </FormControl>
-                        </Grid>
-                        <Grid item={true} xs={4}>
-                            <FormControl fullWidth={true}>
-                                <FormLabel>Dirección</FormLabel>
-                                <TextField
-                                    id="calle"
-                                    type="text"
-                                    label="Calle"
-                                    required={true}
-                                    value={this.state.calle}
-                                    onChange={this.inputHandler}
-                                />
-                                <TextField
-                                    id="numero"
-                                    type="number"
-                                    label="Número"
-                                    value={this.state.numero}
-                                    onChange={this.inputHandler}
-                                />
-                                <TextField
-                                    id="piso"
-                                    type="text"
-                                    label="Piso"
-                                    value={this.state.piso}
-                                    onChange={this.inputHandler}
-                                />
-                                <TextField
-                                    id="departamento"
-                                    type="text"
-                                    label="Departamento"
-                                    value={this.state.departamento}
-                                    onChange={this.inputHandler}
-                                />
-                                <TextField
-                                    id="localidad"
-                                    type="text"
-                                    label="Localidad"
-                                    required={true}
-                                    value={this.state.localidad}
-                                    onChange={this.inputHandler}
-                                />
-                                <TextField
-                                    id="provincia"
-                                    type="text"
-                                    label="Provincia"
-                                    required={true}
-                                    value={this.state.provincia}
-                                    onChange={this.inputHandler}
-                                />
-                            </FormControl>
-                        </Grid>
-                        <Grid item={true} xs={4}>
-                            <FormControl fullWidth={true}>
-                                <FormLabel>Cuenta</FormLabel>
-                                <TextField
-                                    id="email"
-                                    type="email"
-                                    label="Correo electrónico"
-                                    required={true}
-                                    value={this.state.email}
-                                    onChange={this.inputHandler}
-                                />
-                                <TextField
-                                    id="telefono"
-                                    type="phone"
-                                    label="Teléfono"
-                                    required={true}
-                                    value={this.state.telefono}
-                                    onChange={this.inputHandler}
-                                />
-                                <FormLabel component="legend">Foto</FormLabel>
-                                <DropzoneArea
-                                    dropzoneText="No se cargó foto"
-                                    acceptedFiles={["image/*"]}
-                                    filesLimit={1}
-                                    onChange={this.imageUploadHandler.bind(this)}
-                                />
-                            </FormControl>
-                        </Grid>
+    return (
+        <Dialog open={props.open} onClose={props.onClose} maxWidth="xl" fullWidth={true}>
+            <DialogTitle>
+                {props.editar ?
+                    "Editar usuario " + props.usuario.id
+                    : "Agregar un nuevo usuario"
+                }
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText>* Campos obligatorios</DialogContentText>
+                <Grid container={true} spacing={2}>
+                    <Grid item={true} xs={12}>
+                        <FormControl required={true} fullWidth={true}>
+                            <InputLabel>Rol</InputLabel>
+                            <Select id="rol" value={rol} onChange={selectHandler}>
+                                <MenuItem value="Administrador">Administrador</MenuItem>
+                                <MenuItem value="Inspector">Inspector</MenuItem>
+                                <MenuItem value="Supervisor">Supervisor</MenuItem>
+                            </Select>
+                        </FormControl>
                     </Grid>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={this.props.onClose}>Cancelar</Button>
-                    <Button onClick={this.editarUsuarioHandler} color="primary">
-                        Aceptar
-                        {this.props.cargando && <CircularProgress size={24} />}
-                    </Button>
-                </DialogActions>
-                <Notifier />
-            </Dialog>
-        )
-    }
+                    <Grid item={true} xs={4}>
+                        <FormControl fullWidth={true}>
+                            <FormLabel>Datos personales</FormLabel>
+                            <TextField
+                                id="dni"
+                                type="number"
+                                label="DNI"
+                                required={true}
+                                value={dni}
+                                onChange={event => setDni(event.target.value)}
+                            />
+                            <TextField
+                                id="apellido"
+                                type="text"
+                                label="Apellido"
+                                required={true}
+                                value={apellido}
+                                onChange={event => setApellido(event.target.value)}
+                            />
+                            <TextField
+                                id="nombre"
+                                type="text"
+                                label="Nombre"
+                                required={true}
+                                value={nombre}
+                                onChange={event => setNombre(event.target.value)}
+                            />
+                            <TextField
+                                id="fechaNacimiento"
+                                type="date"
+                                label="Fecha de nacimiento"
+                                required={true}
+                                value={fechaNacimiento}
+                                onChange={event => setFechaNacimiento(event.target.value)}
+                            />
+                            <FormLabel component="legend">Sexo</FormLabel>                                
+                            <RadioGroup value={sexo} onChange={radioHandler}>
+                                <FormControlLabel value="Masculino" label="Masculino" control={<Radio color="primary" />} />
+                                <FormControlLabel value="Femenino" label="Femenino" control={<Radio color="primary" />} />
+                            </RadioGroup>
+                        </FormControl>
+                    </Grid>
+                    <Grid item={true} xs={4}>
+                        <FormControl fullWidth={true}>
+                            <FormLabel>Dirección</FormLabel>
+                            <TextField
+                                id="calle"
+                                type="text"
+                                label="Calle"
+                                required={true}
+                                value={calle}
+                                onChange={event => setCalle(event.target.value)}
+                            />
+                            <TextField
+                                id="numero"
+                                type="number"
+                                label="Número"
+                                value={numero}
+                                onChange={event => setNumero(event.target.value)}
+                            />
+                            <TextField
+                                id="piso"
+                                type="text"
+                                label="Piso"
+                                value={piso}
+                                onChange={event => setPiso(event.target.value)}
+                            />
+                            <TextField
+                                id="departamento"
+                                type="text"
+                                label="Departamento"
+                                value={departamento}
+                                onChange={event => setDepartamento(event.target.value)}
+                            />
+                            <TextField
+                                id="localidad"
+                                type="text"
+                                label="Localidad"
+                                required={true}
+                                value={localidad}
+                                onChange={event => setLocalidad(event.target.value)}
+                            />
+                            <TextField
+                                id="provincia"
+                                type="text"
+                                label="Provincia"
+                                required={true}
+                                value={provincia}
+                                onChange={event => setProvincia(event.target.value)}
+                            />
+                        </FormControl>
+                    </Grid>
+                    <Grid item={true} xs={4}>
+                        <FormControl fullWidth={true}>
+                            <FormLabel>Cuenta</FormLabel>
+                            <TextField
+                                id="email"
+                                type="email"
+                                label="Correo electrónico"
+                                required={true}
+                                value={email}
+                                onChange={event => setEmail(event.target.value)}
+                            />
+                            <TextField
+                                id="telefono"
+                                type="phone"
+                                label="Teléfono"
+                                required={true}
+                                value={telefono}
+                                onChange={event => setTelefono(event.target.value)}
+                            />
+                            <FormLabel component="legend">Foto</FormLabel>
+                            <DropzoneArea
+                                dropzoneText="No se cargó foto"
+                                acceptedFiles={["image/*"]}
+                                filesLimit={1}
+                                onChange={imageUploadHandler.bind(this)}
+                            />
+                        </FormControl>
+                    </Grid>
+                </Grid>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={props.onClose}>Cancelar</Button>
+                <Button onClick={editarUsuarioHandler} color="primary">
+                    Aceptar
+                    {props.cargando && <CircularProgress size={24} className={estilos.buttonProgress} />}
+                </Button>
+            </DialogActions>
+            <Notifier />
+        </Dialog>
+    );
 }
 
 const mapStateToProps = state => {
@@ -246,7 +251,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        editarUsuario: (id, usuario, foto, editar) => {dispatch(editarUsuario(id, usuario, foto, editar))},
+        editarUsuario: (id, usuario, editar) => {dispatch(editarUsuario(id, usuario, editar))},
     }
 }
 
