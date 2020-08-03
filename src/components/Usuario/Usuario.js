@@ -35,7 +35,7 @@ class Usuario extends Component {
                                 </Typography>
                                 <Typography variant="h4">{this.props.usuario.rol}</Typography>
                             </Grid>
-                            <Grid item={true} xs={4}>
+                            <Grid item={true} xs={6}>
                                 <List>
                                     <ListItem>
                                         <ListItemIcon>
@@ -67,7 +67,7 @@ class Usuario extends Component {
                                     <Divider />
                                 </List>
                             </Grid>
-                            <Grid item={true}>
+                            <Grid item={true} xs={6}>
                                 <List>
                                     <ListItem>
                                         <ListItemIcon>
