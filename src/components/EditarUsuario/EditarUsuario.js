@@ -229,7 +229,7 @@ const EditarUsuario = props => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.onClose}>Cancelar</Button>
-                <Button onClick={editarUsuarioHandler} color="primary">
+                <Button onClick={editarUsuarioHandler} color="primary" disabled={props.cargando}>
                     Aceptar
                     {props.cargando && <CircularProgress size={24} className={estilos.buttonProgress} />}
                 </Button>
