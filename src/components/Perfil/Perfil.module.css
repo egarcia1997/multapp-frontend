@@ -1,8 +1,0 @@
-.Cabecera {
-    display: flex;
-    flex-direction: row;
-}
-
-.Cabecera * {
-    margin: 0px;
-}
