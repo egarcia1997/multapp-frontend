@@ -3,7 +3,7 @@ import { Grid, Typography, List, ListItem, ListItemIcon, ListItemText, Divider, 
 import { Edit, Email, Fingerprint, Event, Wc, Phone, LocationCity, Home, LocationOn } from '@material-ui/icons';
 import { connect } from "react-redux";
 import { cargarUsuario } from "../../store/actions/usuario";
-import EditarUsuario from "../Usuarios/EditarUsuario/EditarUsuario";
+import EditarUsuario from "../EditarUsuario/EditarUsuario";
 import Notifier from "../Notifier/Notifier";
 import { abrirDialogEditar, cerrarDialogEditar } from "../../store/actions/editarUsuario";
 

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, CircularProgress } from "@material-ui/core";
-import { eliminarUsuario } from "../../../store/actions/eliminarUsuario";
+import { eliminarUsuario } from "../../store/actions/eliminarUsuario";
 import { connect } from "react-redux";
 import { withSnackbar } from "notistack";
-import Notifier from "../../Notifier/Notifier";
+import Notifier from "../Notifier/Notifier";
 
 class EliminarUsuario extends Component {
     render() {

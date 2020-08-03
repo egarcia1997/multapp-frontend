@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Radio, RadioGroup, FormLabel, FormControlLabel, FormControl, Grid, DialogContentText, Select, MenuItem, InputLabel, CircularProgress } from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
 import { connect } from "react-redux";
-import { editarUsuario } from "../../../store/actions/editarUsuario";
+import { editarUsuario } from "../../store/actions/editarUsuario";
 import { withSnackbar } from "notistack";
-import Notifier from "../../Notifier/Notifier";
+import Notifier from "../Notifier/Notifier";
 
 class EditarUsuario extends Component {
     state = {

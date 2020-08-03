@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { Box, Container, Typography, Tabs, Tab, CircularProgress, List, ListItem, Divider, ListItemAvatar, Avatar, ListItemText, Fab, ListItemSecondaryAction, IconButton, createMuiTheme, Tooltip } from "@material-ui/core";
 import { Add, Delete } from "@material-ui/icons";
-import EditarUsuario from "./EditarUsuario/EditarUsuario";
-import EliminarUsuario from "./EliminarUsuario/EliminarUsuario";
+import EditarUsuario from "../EditarUsuario/EditarUsuario";
+import EliminarUsuario from "../EliminarUsuario/EliminarUsuario";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { cargarUsuarios } from "../../store/actions/usuarios";
