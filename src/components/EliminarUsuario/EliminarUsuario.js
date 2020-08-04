@@ -4,31 +4,32 @@ import { eliminarUsuario } from "../../store/actions/eliminarUsuario";
 import { connect } from "react-redux";
 import { withSnackbar } from "notistack";
 import Notifier from "../Notifier/Notifier";
+import useStyles from "../../share/useStyles";
 
-class EliminarUsuario extends Component {
-    render() {
-        return (
-            <Dialog open={this.props.open} onClose={this.props.onClose}>
-                <DialogTitle>
-                    Eliminar usuario
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        ¿Está seguro de que desea eliminar a {this.props.nombre} (id {this.props.id})?
-                        Esta acción no se puede deshacer.
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={this.props.onClose}>Cancelar</Button>
-                    <Button color="primary" onClick={() => this.props.eliminarUsuario(this.props.id)}>
-                        Eliminar
-                        {this.props.cargando && <CircularProgress size={24} />}
-                    </Button>
-                </DialogActions>
-                <Notifier />
-            </Dialog>
-        )
-    }
+const EliminarUsuario = props => {
+    const estilos = useStyles();
+
+    return (
+        <Dialog open={props.open} onClose={props.onClose}>
+            <DialogTitle>
+                Eliminar usuario
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    ¿Está seguro de que desea eliminar a {props.nombre} (id {props.id})?
+                    Esta acción no se puede deshacer.
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={props.onClose}>Cancelar</Button>
+                <Button color="primary" disabled={props.cargando} onClick={() => props.eliminarUsuario(props.id)}>
+                    Eliminar
+                    {props.cargando && <CircularProgress size={24} className={estilos.buttonProgress} />}
+                </Button>
+            </DialogActions>
+            <Notifier />
+        </Dialog>
+    );
 }
 
 const mapStateToProps = state => {
