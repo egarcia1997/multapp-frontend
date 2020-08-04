@@ -35,13 +35,16 @@ const editarUsuarioConError = (error) => {
     }
 }
 
-export const editarUsuario = (id, usuario, foto, editar) => {
+export const editarUsuario = (id, usuario, editar) => {
     return dispatch => {
         dispatch(editarUsuarioStart());
         const data = {
             id: id,
-            usuario: usuario,
-            foto: foto,
+            rol: usuario.rol,
+            email: usuario.email,
+            telefono: usuario.telefono,
+            foto: usuario.foto,
+            datos: usuario.datos,
         };
         const headers = {
             "content-type": "application/json",
