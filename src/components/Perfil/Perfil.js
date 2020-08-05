@@ -20,7 +20,7 @@ class Perfil extends Component {
                     <Fragment>
                         <Grid container={true} spacing={2}>
                             <Grid item={true} xs={12}>
-                                <Avatar style={{width: "200px", height: "200px"}} src={this.props.foto} alt={this.props.nombre} />
+                                <Avatar style={{width: "200px", height: "200px"}} src={this.props.foto} alt={this.props.datos.nombre} />
                             </Grid>
                             <Grid item={true} xs={12} style={{verticalAlign: "center"}}>
                                 <Typography variant="h2">
