@@ -1,72 +1,70 @@
-import React, { Component } from "react";
-import {withRouter} from "react-router-dom";
+import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
 import Logo from "../../components/Logo/Logo";
 // aca hay conflicto, en /core e /icons hay un componente llamado Menu
-import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from "@material-ui/core";
-import { AccountCircle } from "@material-ui/icons";
-import {cerrarSesion} from "../../share/cerrarSesion";
+import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Avatar } from "@material-ui/core";
+import { cerrarSesion } from "../../share/cerrarSesion";
+import useStyles from "../../share/useStyles";
 
 
-class BarraSuperior extends Component {
-    state = {
-        anchorEl: null,
-    }
+const BarraSuperior = props => {
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const estilos = useStyles();
 
     // metodo para abrir el menu
-    abrirMenuHandler = (event) => {
-        this.setState({anchorEl: event.currentTarget});
+    const abrirMenuHandler = event => {
+        setAnchorEl(event.currentTarget);
     }
 
     // metodo para cerrar el menu
-    cerrarMenuHandler = () => {
-        this.setState({anchorEl: null});
+    const cerrarMenuHandler = () => {
+        setAnchorEl(null);
     }
 
     // metodo que te manda a la pagina para administrar las multas
-    multasHandler = () => {
-        this.cerrarMenuHandler();
-        this.props.history.push("/multas");
+    const multasHandler = () => {
+        cerrarMenuHandler();
+        props.history.push("/multas");
     }
 
     // metodo que te manda a tu perfil
-    perfilHandler = () => {
-        this.cerrarMenuHandler();
-        this.props.history.push("/perfil");
+    const perfilHandler = () => {
+        cerrarMenuHandler();
+        props.history.push("/perfil");
     }
 
     // metodo que te manda a la pagina para administrar usuarios
-    usuariosHandler = () => {
-        this.cerrarMenuHandler();
-        this.props.history.push("/usuarios");
+    const usuariosHandler = () => {
+        cerrarMenuHandler();
+        props.history.push("/usuarios");
     }
 
     // metodo para cerrar sesion
-    cerrarSesionHandler = () => {
-        this.cerrarMenuHandler();
+    const cerrarSesionHandler = () => {
+        cerrarMenuHandler();
         cerrarSesion();
     }
 
-    render() {
-        return (
-            <AppBar position="sticky">
-                <Toolbar variant="dense">
-                        <Logo width={48} height={48} />
-                    <Typography variant="h6" style={{flexGrow: "1"}}>
-                        MultApp
-                    </Typography>
-                    <IconButton edge="end" color="inherit" aria-label="menu" aria-haspopup="true" onClick={this.abrirMenuHandler}>
-                        <AccountCircle />
-                    </IconButton>
-                    <Menu id="menu" anchorEl={this.state.anchorEl} open={Boolean(this.state.anchorEl)} onClose={this.cerrarMenuHandler}>
-                        <MenuItem onClick={this.multasHandler}>Administrar multas</MenuItem>
-                        <MenuItem onClick={this.usuariosHandler}>Administrar usuarios</MenuItem>
-                        <MenuItem onClick={this.perfilHandler}>Mi perfil</MenuItem>
-                        <MenuItem onClick={this.cerrarSesionHandler}>Cerrar sesión</MenuItem>
-                    </Menu>
-                </Toolbar>
-            </AppBar>
-        );
-    }
+    return (
+        <AppBar position="sticky">
+            <Toolbar variant="dense">
+                <Logo width={48} height={48} />
+                <Typography variant="h6" style={{flexGrow: "1"}}>
+                    MultApp
+                </Typography>
+                <IconButton edge="end" color="inherit" aria-label="menu" aria-haspopup="true" onClick={abrirMenuHandler}>
+                    <Avatar className={estilos.avatar} src={localStorage.getItem("photoURL")} alt={localStorage.getItem("displayName")} />
+                </IconButton>
+                <Menu id="menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={cerrarMenuHandler}>
+                    <MenuItem onClick={multasHandler}>Administrar multas</MenuItem>
+                    <MenuItem onClick={usuariosHandler}>Administrar usuarios</MenuItem>
+                    <MenuItem onClick={perfilHandler}>Mi perfil</MenuItem>
+                    <MenuItem onClick={cerrarSesionHandler}>Cerrar sesión</MenuItem>
+                </Menu>
+            </Toolbar>
+        </AppBar>
+    );
 }
 
 export default withRouter(BarraSuperior);
