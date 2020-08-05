@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
         bottom: theme.spacing(5),
         right: theme.spacing(5),
     },
+    avatar: {
+        width: theme.spacing(4),
+        height: theme.spacing(4),
+    }
   }));
 
   export default useStyles;
