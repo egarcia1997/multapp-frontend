@@ -22,7 +22,7 @@ export const cargarPerfil = () => {
     return dispatch => {
         const data = {
             params: {
-                uid: localStorage.localId,
+                uid: localStorage.uid,
             }
         };
         Axios.get("/getPerfil", data)
