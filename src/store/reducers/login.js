@@ -4,8 +4,6 @@ const initialState = {
     cargando: false,
     error: "",
     idToken: "",
-    expirationDate: "",
-    localId: "",
     contrasenaRecuperada: false,
 }
 
@@ -22,8 +20,6 @@ const reducer = (state = initialState, action) => {
                 cargando: false,
                 error: "",
                 idToken: action.idToken,
-                expirationDate: action.expirationDate,
-                localId: action.localId,
             }
         case actionTypes.LOGIN_CON_ERROR:
             return {
