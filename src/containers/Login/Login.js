@@ -132,7 +132,7 @@ class Login extends Component {
                                 {this.props.error !== "" ?
                                     <Grid item={true} xs={12}>
                                         <Typography align="center" variant="body2" color={this.props.error ? "error" : "primary"}>
-                                            {traducirError(this.props.textoDeError)}
+                                            {this.props.error ? traducirError(this.props.textoDeError) : this.props.textoDeError}
                                         </Typography>
                                     </Grid>
                                 : null}
