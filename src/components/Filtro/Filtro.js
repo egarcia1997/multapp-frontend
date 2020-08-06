@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Checkbox, FormGroup, FormControlLabel, FormControl, FormLabel, TextField } from "@material-ui/core";
+import { connect } from "react-redux";
+import { setFiltros, clearFiltros, cerrarDialogFiltro } from "../../store/actions/filtro";
 
 class Filtro extends Component {
     state = {
@@ -13,12 +15,12 @@ class Filtro extends Component {
 
     componentDidMount = () => {
         this.setState({
-            noResueltas: this.props.default.noResueltas,
-            aceptadas: this.props.default.aceptadas,
-            rechazadas: this.props.default.rechazadas,
-            desde: this.props.default.desde,
-            hasta: this.props.default.hasta,
-            dni: this.props.default.dni,
+            noResueltas: this.props.noResueltas,
+            aceptadas: this.props.aceptadas,
+            rechazadas: this.props.rechazadas,
+            desde: this.props.desde,
+            hasta: this.props.hasta,
+            dni: this.props.dni,
         });
     }
 
@@ -32,22 +34,9 @@ class Filtro extends Component {
         this.setState({[event.target.id]: event.target.checked});
     }
 
-    // metodo para borrar los filtros aplicados y mostrar todas las multas
-    borrarFiltrosHandler = () => {
-        // poner los controles como esta el estado
-        this.setState({
-            noResueltas: true,
-            aceptadas: true,
-            rechazadas: true,
-            desde: "2020-01-01",
-            hasta: new Date().toISOString().slice(0, 10),
-            dni: "",
-        });
-    }
-
     render() {
         return (
-            <Dialog open={this.props.open} onClose={this.props.onClose}>
+            <Dialog open={this.props.mostrarDialog} onClose={this.props.cerrarDialogFiltro}>
                 <DialogTitle>Filtrar multas</DialogTitle>
                 <DialogContent>
                     <FormControl>
@@ -118,13 +107,33 @@ class Filtro extends Component {
                     </FormControl>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={this.borrarFiltrosHandler}>Borrar filtros</Button>
-                    <Button onClick={this.props.onClose}>Cancelar</Button>
-                    <Button onClick={() => this.props.aplicar(this.state)} color="primary">Aceptar</Button>
+                    <Button onClick={this.props.clearFiltros}>Borrar filtros</Button>
+                    <Button onClick={this.props.cerrarDialogFiltro}>Cancelar</Button>
+                    <Button onClick={() => this.props.setFiltros(this.state)} color="primary">Aceptar</Button>
                 </DialogActions>
             </Dialog>
         );
     }
 }
 
-export default Filtro;
+const mapStateToProps = state => {
+    return {
+        mostrarDialog: state.filtro.mostrarDialog,
+        noResueltas: state.filtro.noResueltas,
+        aceptadas: state.filtro.aceptadas,
+        rechazadas: state.filtro.rechazadas,
+        desde: state.filtro.desde,
+        hasta: state.filtro.hasta,
+        dni: state.filtro.dni,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        cerrarDialogFiltro: () => dispatch(cerrarDialogFiltro()),
+        setFiltros: filtros => dispatch(setFiltros(filtros)),
+        clearFiltros: () => dispatch(clearFiltros()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filtro);

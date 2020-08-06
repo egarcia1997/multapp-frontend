@@ -12,6 +12,7 @@ import loginReducer from "./store/reducers/login";
 import cambiarContrasenaReducer from "./store/reducers/cambiarContrasena";
 import perfilReducer from "./store/reducers/perfil";
 import multasReducer from "./store/reducers/multas";
+import filtroReducer from "./store/reducers/filtro";
 import multaReducer from "./store/reducers/multa";
 import usuariosReducer from "./store/reducers/usuarios";
 import editarUsuarioReducer from "./store/reducers/editarUsuario";
@@ -28,6 +29,7 @@ const reducers = combineReducers({
     cambiarContrasena: cambiarContrasenaReducer,
     perfil: perfilReducer,
     multas: multasReducer,
+    filtro: filtroReducer,
     multa: multaReducer,
     usuarios: usuariosReducer,
     editarUsuario: editarUsuarioReducer,

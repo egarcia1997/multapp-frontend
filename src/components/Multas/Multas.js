@@ -6,36 +6,12 @@ import { cargarMultas } from "../../store/actions/multas";
 import { connect } from 'react-redux';
 import { withSnackbar } from "notistack";
 import Notifier from "../Notifier/Notifier";
+import { abrirDialogFiltro } from '../../store/actions/filtro';
 
 class Multas extends Component {
-    state = {
-        condicionesDeFiltrado: { // las condiciones de filtrado de las multas
-            noResueltas: true,
-            aceptadas: true,
-            rechazadas: true,
-            desde: "2020-01-01",
-            hasta: new Date().toISOString().slice(0, 10),
-            dni: "",
-        },
-        cargando: true, // controla si ya se cargaron las multas o no
-        mostrarFiltro: false, // controla si se muestran las opciones de filtros
-    }
-
     // recupero el listado de todas las multas del servidor y lo meto en el estado
     componentDidMount() {
         this.props.cargarMultas();
-    }
-
-    // metodo para mostrar/ocultar las opciones de filtrado
-    toggleFiltroHandler = () => {
-        const nuevoEstado = !(this.state.mostrarFiltro);
-        this.setState({mostrarFiltro: nuevoEstado});
-    }
-
-    // metodo para aplicar los filtros seleccionados
-    filtrarHandler = (condiciones) => {
-        this.setState({condicionesDeFiltrado: condiciones});
-        this.toggleFiltroHandler();
     }
 
     // metodo que carga todos los datos de una multa al hacer clic en una
@@ -49,22 +25,22 @@ class Multas extends Component {
 
         let multasFiltradas = this.props.multas.filter(multa => {
             let seDebeMostrar = true;
-            if (!this.state.condicionesDeFiltrado.noResueltas && multa.estado === "No resuelta") {
+            if (!this.props.noResueltas && multa.estado === "No resuelta") {
                 seDebeMostrar = false;
             }
-            if (!this.state.condicionesDeFiltrado.aceptadas && multa.estado === "Aceptada") {
+            if (!this.props.aceptadas && multa.estado === "Aceptada") {
                 seDebeMostrar = false;
             }
-            if (!this.state.condicionesDeFiltrado.rechazadas && multa.estado === "Rechazada") {
+            if (!this.props.rechazadas && multa.estado === "Rechazada") {
                 seDebeMostrar = false;
             }
-            if (this.state.condicionesDeFiltrado.desde > multa.fecha) {
+            if (this.props.desde > multa.fecha) {
                 seDebeMostrar = false;
             }
-            if (this.state.condicionesDeFiltrado.hasta < multa.fecha) {
+            if (this.props.hasta < multa.fecha) {
                 seDebeMostrar = false;
             }
-            if (this.state.condicionesDeFiltrado.dni !== "" && this.state.condicionesDeFiltrado.dni !== multa.dniConductor) {
+            if (this.props.dni !== "" && this.props.dni !== multa.dniConductor) {
                 seDebeMostrar = false;
             }
             if (multa.estado === "No resuelta") {
@@ -93,20 +69,14 @@ class Multas extends Component {
   
         return (
             <Container maxWidth="lg" style={{minHeight: "100vh"}}>
-                <Typography variant="h3">Bienvenido, {this.props.nombreUsuario}</Typography>
+                <Typography variant="h3">Bienvenido, {localStorage.getItem("displayName")}</Typography>
                 {this.props.cargando ? <CircularProgress /> : null}
                 {!this.props.cargando && !this.props.error ?
                     <Fragment>
                         <Typography variant="h5">{textoDeMultasSinResolver}</Typography>
-                        <Button variant="contained" color="primary" onClick={this.toggleFiltroHandler}>
+                        <Button variant="contained" color="primary" onClick={this.props.abrirDialogFiltro}>
                             Filtrar
                         </Button>
-                        <Filtro
-                            open={this.state.mostrarFiltro}
-                            onClose={this.toggleFiltroHandler}
-                            default={this.state.condicionesDeFiltrado}
-                            aplicar={this.filtrarHandler}
-                        />
                         <TableContainer component={Paper}>
                             <Table>
                                 <TableHead>
@@ -123,6 +93,7 @@ class Multas extends Component {
                                 </TableBody>
                             </Table>
                         </TableContainer>
+                        <Filtro />
                         <Notifier />
                     </Fragment>
                 : null}
@@ -137,12 +108,19 @@ const mapStateToProps = state => {
         cargando: state.multas.cargando,
         error: state.multas.error,
         textoDeError: state.multas.textoDeError,
+        noResueltas: state.filtro.noResueltas,
+        aceptadas: state.filtro.aceptadas,
+        rechazadas: state.filtro.rechazadas,
+        desde: state.filtro.desde,
+        hasta: state.filtro.hasta,
+        dni: state.filtro.dni,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         cargarMultas: () => dispatch(cargarMultas()),
+        abrirDialogFiltro: () => dispatch(abrirDialogFiltro()),
     }
 }
 
