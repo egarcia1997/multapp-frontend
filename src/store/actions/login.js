@@ -69,7 +69,7 @@ export const recuperarContrasena = (email) => {
             "content-type": "application/json",
             "Access-Control-Allow-Origin": "*",
         }
-        Axios.post("endpoint que falta hacer", data, headers)
+        Axios.post("/recuperarContrasena", data, headers)
             .then(response => {
                 console.log(response);
                 dispatch(recuperarContrasenaConExito());

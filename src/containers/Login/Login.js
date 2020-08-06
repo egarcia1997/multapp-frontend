@@ -131,8 +131,8 @@ class Login extends Component {
                                 </Grid>
                                 {this.props.error !== "" ?
                                     <Grid item={true} xs={12}>
-                                        <Typography align="center" variant="body2" color="error">
-                                            {traducirError(this.props.error)}
+                                        <Typography align="center" variant="body2" color={this.props.error ? "error" : "primary"}>
+                                            {traducirError(this.props.textoDeError)}
                                         </Typography>
                                     </Grid>
                                 : null}
@@ -151,6 +151,7 @@ const mapStateToProps = state => {
     return {
         cargando: state.login.cargando,
         error: state.login.error,
+        textoDeError: state.login.textoDeError,
     }
 }
 

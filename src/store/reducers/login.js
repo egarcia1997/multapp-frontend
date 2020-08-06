@@ -2,9 +2,9 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
     cargando: false,
-    error: "",
+    error: false,
+    textoDeError: "",
     idToken: "",
-    contrasenaRecuperada: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -18,20 +18,23 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 cargando: false,
-                error: "",
+                error: false,
+                textoDeError: "",
                 idToken: action.idToken,
             }
         case actionTypes.LOGIN_CON_ERROR:
             return {
                 ...state,
                 cargando: false,
-                error: action.error,
+                error: false,
+                textoDeError: action.error,
             }
         case actionTypes.RECUPERAR_CONTRASENA_CON_EXITO: {
             return {
                 ...state,
                 cargando: false,
-                contrasenaRecuperada: true,
+                error: false,
+                textoDeError: "Verifique su correo electrónico (bandeja de entrada y correo no deseado). Allí le informamos los pasos a seguir.",
             }
         }
         default:
