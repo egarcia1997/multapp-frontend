@@ -26,7 +26,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 cargando: false,
-                error: false,
+                error: true,
                 textoDeError: action.error,
             }
         case actionTypes.RECUPERAR_CONTRASENA_CON_EXITO: {
