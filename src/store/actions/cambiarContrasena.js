@@ -37,7 +37,7 @@ export const cambiarContrasena = (contrasenaActual, contrasenaNueva) => {
     return dispatch => {
         dispatch(cambiarContrasenaStart());
         const data = {
-            uid: localStorage.localId,
+            uid: localStorage.uid,
             contrasenaActual: contrasenaActual,
             contrasenaNueva: contrasenaNueva,
         };
