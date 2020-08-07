@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, CircularProgress } from "@material-ui/core";
 import { eliminarUsuario } from "../../store/actions/eliminarUsuario";
 import { connect } from "react-redux";
