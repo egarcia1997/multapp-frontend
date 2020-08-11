@@ -4,13 +4,13 @@ export const traducirError = (error) => {
         case "":
             return "";
         // errores de login
-        case "INVALID_PASSWORD":
+        case "auth/wrong-password":
             return "La contraseña es incorrecta";
-        case "EMAIL_NOT_FOUND":
+        case "auth/user-not-found":
             return "El correo electrónico no está cargado en nuestros sistemas";
-        case "INVALID_EMAIL":
+        case "auth/invalid-email":
             return "El correo electrónico ingresado no es válido";
-        case "USER_DISABLED":
+        case "auth/user-disabled":
             return "Su cuenta fue bloqueada. Contacte con un administrador";
         // errores de authentication
         case "auth/email-already-exists":
