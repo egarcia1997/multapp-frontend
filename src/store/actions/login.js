@@ -35,7 +35,6 @@ export const login = (email, password) => {
         }
         Axios.post("/sessionLogin", data, headers)
             .then(response => {
-                console.log(response);
                 localStorage.setItem("idToken", response.data.idToken);
                 localStorage.setItem("uid", response.data.uid);
                 localStorage.setItem("email", response.data.email);
@@ -46,8 +45,7 @@ export const login = (email, password) => {
                 // localStorage.setItem("localId", response.data.localId);
                 dispatch(loginConExito(response.data.idToken));
             }).catch(error => {
-                console.log(error);
-                dispatch(loginConError(error));
+                dispatch(loginConError(error.response.data.message));
             });
     }
 }
