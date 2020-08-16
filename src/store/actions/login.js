@@ -72,8 +72,8 @@ export const recuperarContrasena = (email) => {
                 console.log(response);
                 dispatch(recuperarContrasenaConExito());
             }).catch(error => {
-                console.log(error.response.data.error.message);
-                dispatch(loginConError(error.response.data.error.message));
+                console.log(error.response.data.message);
+                dispatch(loginConError(error.response.data.message));
             });
     }
 
