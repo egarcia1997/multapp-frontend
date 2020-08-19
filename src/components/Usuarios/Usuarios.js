@@ -131,7 +131,6 @@ class Usuarios extends Component {
                         <Tab label="Inspectores" />
                         <Tab label="Supervisores" />
                         <Tab label="Administradores" />
-                        <Tab label="Multados" />
                     </Tabs>
                     <this.TabPanel value={this.state.pestanaActual} index={0}>
                         {this.props.cargando ? <CircularProgress /> : 
@@ -153,9 +152,6 @@ class Usuarios extends Component {
                                 {administradores.length !== 0 ? administradores : "Aún no hay administradores cargados"}
                             </List>
                         }
-                    </this.TabPanel>
-                    <this.TabPanel value={this.state.pestanaActual} index={3}>
-                        Coso de multados
                     </this.TabPanel>
                     <Tooltip title="Agregar usuario" placement="left" arrow>
                         <Fab color="primary" onClick={this.props.abrirDialogEditar} style={{position: "fixed", bottom: theme.spacing(5), right: theme.spacing(5)}}>
