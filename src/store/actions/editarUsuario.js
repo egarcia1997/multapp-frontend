@@ -3,6 +3,7 @@ import Axios from "axios";
 import { enqueueSnackbar } from "./notifier";
 import { cargarUsuarios } from "./usuarios";
 import { cargarUsuario } from "./usuario";
+import { traducirError } from "../../share/traducirError";
 
 export const abrirDialogEditar = () => {
     return {
@@ -66,8 +67,7 @@ export const editarUsuario = (id, usuario, editar) => {
                 dispatch(cerrarDialogEditar());
             }).catch(error => {
                 dispatch(editarUsuarioConError(error));
-                let texto = editar ? "Error al actualizar usuario" : "Error al crear usuario";
-                dispatch(enqueueSnackbar({message: texto, options: {variant: "error"}}));
+                dispatch(enqueueSnackbar({message: traducirError(error.response.data.message), options: {variant: "error"}}));
             });
     }
 }
