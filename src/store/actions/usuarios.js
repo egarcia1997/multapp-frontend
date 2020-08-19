@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import Axios from "axios";
 import { enqueueSnackbar } from "./notifier";
+import { traducirError } from "../../share/traducirError"
 
 const cargarUsuariosConExito = (usuarios) => {
     return {
@@ -24,7 +25,7 @@ export const cargarUsuarios = () => {
                 dispatch(cargarUsuariosConExito(response.data));
             }).catch(error => {
                 dispatch(cargarUsuariosConError(error));
-                dispatch(enqueueSnackbar({message: "Error al cargar usuarios. Intente nuevamente", options: {variant: "error"}}));
+                dispatch(enqueueSnackbar({message: traducirError(error.response.data.message), options: {variant: "error"}}));
             });
     }
 }
