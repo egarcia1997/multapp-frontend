@@ -23,9 +23,11 @@ const EditarUsuario = props => {
     const [email, setEmail] = useState("");
     const [telefono, setTelefono] = useState("");
     const [foto, setFoto] = useState([]);
+    const [aceptable, setAceptable] = useState(false);
 
     const estilos = useStyles();
 
+    // carga los datos del usuario a editar/todo vacio al abrir/cerrar el dialog
     useEffect(() => {
         if (props.editar) {
             setRol(props.usuario.rol);
@@ -43,7 +45,45 @@ const EditarUsuario = props => {
             setEmail(props.usuario.email);
             setTelefono(props.usuario.telefono);
         }
-    }, []);
+        else {
+            setRol("");
+            setDni("");
+            setApellido("");
+            setNombre("");
+            setFechaNacimiento(new Date().toISOString().slice(0, 10));
+            setSexo("Masculino");
+            setCalle("");
+            setNumero("");
+            setPiso("");
+            setDepartamento("");
+            setLocalidad("");
+            setProvincia("");
+            setEmail("");
+            setTelefono("");
+            setFoto([]);
+        }
+    }, [props.mostrarDialog, props.editar]);
+
+    // evalua si se pueden aceptar los cambios al completar todos los campos obligatorios
+    useEffect(() => {
+        if (
+            rol.trim() !== "" &&
+            dni.trim() !== "" &&
+            apellido.trim() !== "" &&
+            nombre.trim() !== "" &&
+            fechaNacimiento.trim() !== "" &&
+            calle.trim() !== "" &&
+            localidad.trim() !== "" &&
+            provincia.trim() !== "" &&
+            email.trim() !== "" &&
+            telefono.trim() !== ""
+        ) {
+            setAceptable(true);
+        }
+        else {
+            setAceptable(false);
+        }
+    }, [rol, dni, apellido, nombre, fechaNacimiento, calle, localidad, provincia, email, telefono]);
 
     // carga el radio que selecciona el usuario en el state
     const radioHandler = (event) => {
@@ -229,7 +269,7 @@ const EditarUsuario = props => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.onClose}>Cancelar</Button>
-                <Button onClick={editarUsuarioHandler} color="primary" disabled={props.cargando}>
+                <Button onClick={editarUsuarioHandler} color="primary" disabled={props.cargando || !aceptable}>
                     Aceptar
                     {props.cargando && <CircularProgress size={24} className={estilos.buttonProgress} />}
                 </Button>
@@ -242,6 +282,7 @@ const EditarUsuario = props => {
 const mapStateToProps = state => {
     return {
         usuario: state.usuario.usuario,
+        mostrarDialog: state.editarUsuario.mostrarDialog,
         cargando: state.editarUsuario.cargando,
         exito: state.editarUsuario.exito,
         error: state.editarUsuario.error,
