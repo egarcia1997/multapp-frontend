@@ -9,7 +9,7 @@ export const traducirError = (error) => {
         case "auth/user-not-found":
             return "El correo electrónico no está cargado en nuestros sistemas";
         case "auth/invalid-email":
-            return "El correo electrónico ingresado no es válido";
+            return "El correo electrónico no es válido";
         case "auth/user-disabled":
             return "Su cuenta fue bloqueada. Contacte con un administrador";
         // errores de authentication
@@ -17,6 +17,8 @@ export const traducirError = (error) => {
             return "Ya existe un usuario con el correo electrónico ingresado";
         case "auth/phone-number-already-exists":
             return "Ya existe un usuario con el número de teléfono ingresado";
+        case "auth/invalid-phone-number":
+            return "El número de teléfono no tiene el formato indicado";
         default:
             return "Ocurrió un error. Intente nuevamente";
     }
