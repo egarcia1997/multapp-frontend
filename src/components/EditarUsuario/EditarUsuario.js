@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Radio, RadioGroup, FormLabel, FormControlLabel, FormControl, Grid, DialogContentText, Select, MenuItem, InputLabel, CircularProgress } from "@material-ui/core";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Radio, RadioGroup, FormLabel, FormControlLabel, FormControl, Grid, DialogContentText, Select, MenuItem, InputLabel, CircularProgress, Tooltip } from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
 import { connect } from "react-redux";
 import { editarUsuario } from "../../store/actions/editarUsuario";
@@ -133,7 +133,7 @@ const EditarUsuario = props => {
                 }
             </DialogTitle>
             <DialogContent>
-                <DialogContentText>* Campos obligatorios</DialogContentText>
+                <DialogContentText>* Campos obligatorios. Pase el cursor sobre algunos campo para más información.</DialogContentText>
                 <Grid container={true} spacing={2}>
                     <Grid item={true} xs={12}>
                         <FormControl required={true} fullWidth={true}>
@@ -148,14 +148,16 @@ const EditarUsuario = props => {
                     <Grid item={true} xs={4}>
                         <FormControl fullWidth={true}>
                             <FormLabel>Datos personales</FormLabel>
-                            <TextField
-                                id="dni"
-                                type="number"
-                                label="DNI"
-                                required={true}
-                                value={dni}
-                                onChange={event => setDni(event.target.value)}
-                            />
+                            <Tooltip title="El número de DNI sin puntos">
+                                <TextField
+                                    id="dni"
+                                    type="number"
+                                    label="DNI"
+                                    required={true}
+                                    value={dni}
+                                    onChange={event => setDni(event.target.value)}
+                                />
+                            </Tooltip>
                             <TextField
                                 id="apellido"
                                 type="text"
@@ -190,35 +192,43 @@ const EditarUsuario = props => {
                     <Grid item={true} xs={4}>
                         <FormControl fullWidth={true}>
                             <FormLabel>Dirección</FormLabel>
-                            <TextField
-                                id="calle"
-                                type="text"
-                                label="Calle"
-                                required={true}
-                                value={calle}
-                                onChange={event => setCalle(event.target.value)}
-                            />
-                            <TextField
-                                id="numero"
-                                type="number"
-                                label="Número"
-                                value={numero}
-                                onChange={event => setNumero(event.target.value)}
-                            />
-                            <TextField
-                                id="piso"
-                                type="text"
-                                label="Piso"
-                                value={piso}
-                                onChange={event => setPiso(event.target.value)}
-                            />
-                            <TextField
-                                id="departamento"
-                                type="text"
-                                label="Departamento"
-                                value={departamento}
-                                onChange={event => setDepartamento(event.target.value)}
-                            />
+                            <Tooltip title="Si la calle del usuario no tiene nombre, escriba Calle sin nombre">
+                                <TextField
+                                    id="calle"
+                                    type="text"
+                                    label="Calle"
+                                    required={true}
+                                    value={calle}
+                                    onChange={event => setCalle(event.target.value)}
+                                />
+                            </Tooltip>
+                            <Tooltip title="Si la casa del usuario no tiene número, deje vacío este campo">
+                                <TextField
+                                    id="numero"
+                                    type="number"
+                                    label="Número"
+                                    value={numero}
+                                    onChange={event => setNumero(event.target.value)}
+                                />
+                            </Tooltip>
+                            <Tooltip title="Si el usuario no vive en un edificio, deje vacío este campo">
+                                <TextField
+                                    id="piso"
+                                    type="text"
+                                    label="Piso"
+                                    value={piso}
+                                    onChange={event => setPiso(event.target.value)}
+                                />
+                            </Tooltip>
+                            <Tooltip title="Si el usuario no vive en un edificio, deje vacío este campo">
+                                <TextField
+                                    id="departamento"
+                                    type="text"
+                                    label="Departamento"
+                                    value={departamento}
+                                    onChange={event => setDepartamento(event.target.value)}
+                                />
+                            </Tooltip>
                             <TextField
                                 id="localidad"
                                 type="text"
@@ -248,14 +258,16 @@ const EditarUsuario = props => {
                                 value={email}
                                 onChange={event => setEmail(event.target.value)}
                             />
-                            <TextField
-                                id="telefono"
-                                type="phone"
-                                label="Teléfono"
-                                required={true}
-                                value={telefono}
-                                onChange={event => setTelefono(event.target.value)}
-                            />
+                            <Tooltip title="El formato del teléfono es: +54 + código de área (sin 0) + número (sin 15)">
+                                <TextField
+                                    id="telefono"
+                                    type="phone"
+                                    label="Teléfono"
+                                    required={true}
+                                    value={telefono}
+                                    onChange={event => setTelefono(event.target.value)}
+                                />
+                            </Tooltip>
                             <FormLabel component="legend">Foto</FormLabel>
                             <DropzoneArea
                                 dropzoneText="No se cargó foto"
