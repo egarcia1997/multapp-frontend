@@ -31,7 +31,7 @@ class Usuario extends Component {
                             </Grid>
                             <Grid item={true} xs={12} style={{verticalAlign: "center"}}>
                                 <Typography variant="h2">
-                                    {this.props.usuario.apellido + " " + this.props.usuario.nombre}
+                                    {this.props.usuario.displayName}
                                 </Typography>
                                 <Typography variant="h4">{this.props.usuario.rol}</Typography>
                             </Grid>
@@ -80,7 +80,7 @@ class Usuario extends Component {
                                         <ListItemIcon>
                                             <Home />
                                         </ListItemIcon>
-                                        <ListItemText primary="Dirección" secondary={this.props.usuario.calle + " " + this.props.usuario.numero} />
+                                        <ListItemText primary="Dirección" secondary={this.props.usuario.direccion} />
                                     </ListItem>
                                     <Divider />
                                     <ListItem>
