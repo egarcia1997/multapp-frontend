@@ -133,7 +133,7 @@ const EditarUsuario = props => {
                 }
             </DialogTitle>
             <DialogContent>
-                <DialogContentText>* Campos obligatorios. Pase el cursor sobre algunos campo para más información.</DialogContentText>
+                <DialogContentText>* Campos obligatorios. Pase el cursor sobre algunos campos para más información.</DialogContentText>
                 <Grid container={true} spacing={2}>
                     <Grid item={true} xs={12}>
                         <FormControl required={true} fullWidth={true}>
