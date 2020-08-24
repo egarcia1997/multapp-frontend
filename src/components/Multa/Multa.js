@@ -44,7 +44,7 @@ class Multa extends Component {
                 {!this.props.cargando && !this.props.errorAlCargar ?
                     <Fragment>
                         <Container>
-                            <Typography variant="h3">Detalles de la multa {this.props.multa.id}</Typography>
+                            <Typography variant="h3">Detalles de la multa con id. {this.props.multa.id}</Typography>
                             <Grid container={true} spacing={1}>
                                 <Grid item={true} xs={12}>
                                     <Paper elevation={3} className={estilos.GridItem}>
@@ -271,7 +271,7 @@ class Multa extends Component {
                                         <Grid container={true} spacing={3}>
                                             <Grid item={true}>
                                                 <Typography variant="overline">Nombre</Typography>
-                                                <Typography variant="body2">{this.props.multa.idInspector}</Typography>
+                                                <Typography variant="body2">{this.props.multa.nombreInspector}</Typography>
                                             </Grid>
                                         </Grid>
                                     </Paper>
@@ -314,34 +314,57 @@ class Multa extends Component {
                                     </Paper>
                                 </Grid>
                             </Grid>
-                            <Typography>Estado de la multa: </Typography>
-                            <Typography>{this.props.multa.estado}</Typography>
-                            <Grid container={true}>
-                                <Grid item={true} xs={6}>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        fullWidth={true}
-                                        size="large"
-                                        startIcon={<Check />}
-                                        onClick={() => this.toggleDialogHandler("aceptar")}
-                                    >
-                                        Aceptar multa
-                                    </Button>
+                            <Grid item={true} xs={12}>
+                                    <Paper elevation={3} className={estilos.GridItem}>
+                                        <Typography variant="h6">Estado</Typography>
+                                        <Grid container={true} spacing={3}>
+                                            <Grid item={true} xs={6}>
+                                                <Typography variant="overline">Estado de la multa</Typography>
+                                                <Typography variant="body2">{this.props.multa.estado}</Typography>
+                                            </Grid>
+                                            {this.props.multa.estado === "Aceptada" || this.props.multa.estado === "Rechazada" ?
+                                                <Fragment>
+                                                    <Grid item={true} xs={6}>
+                                                        <Typography variant="overline">Razón</Typography>
+                                                        <Typography variant="body2">{this.props.multa.razon}</Typography>
+                                                    </Grid>
+                                                    <Grid item={true} xs={6}>
+                                                        <Typography variant="overline">Supervisor</Typography>
+                                                        <Typography variant="body2">{this.props.multa.nombreSupervisor}</Typography>
+                                                    </Grid>
+                                                </Fragment>
+                                            : null}
+                                        </Grid>
+                                    </Paper>
                                 </Grid>
-                                <Grid item={true} xs={6}>
-                                    <Button
-                                        variant="contained"
-                                        color="secondary"
-                                        fullWidth={true}
-                                        size="large"
-                                        startIcon={<Close />}
-                                        onClick={() => this.toggleDialogHandler("rechazar")}
-                                    >
-                                        Rechazar multa
-                                    </Button>
+                            {this.props.multa.estado === "No resuelta" ?
+                                <Grid container={true}>
+                                    <Grid item={true} xs={6}>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            fullWidth={true}
+                                            size="large"
+                                            startIcon={<Check />}
+                                            onClick={() => this.toggleDialogHandler("aceptar")}
+                                        >
+                                            Aceptar multa
+                                        </Button>
+                                    </Grid>
+                                    <Grid item={true} xs={6}>
+                                        <Button
+                                            variant="contained"
+                                            color="secondary"
+                                            fullWidth={true}
+                                            size="large"
+                                            startIcon={<Close />}
+                                            onClick={() => this.toggleDialogHandler("rechazar")}
+                                        >
+                                            Rechazar multa
+                                        </Button>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
+                            : null}
                         </Container>
                         <Dialog open={this.state.mostrarDialogAceptar} onClose={() => this.toggleDialogHandler("aceptar")}>
                             <DialogTitle>
