@@ -39,14 +39,10 @@ const editarUsuarioConError = (error) => {
 export const editarUsuario = (id, usuario, editar) => {
     return dispatch => {
         dispatch(editarUsuarioStart());
-        const data = {
-            id: id,
-            rol: usuario.rol,
-            email: usuario.email,
-            telefono: usuario.telefono,
-            foto: usuario.foto,
-            datos: usuario.datos,
-        };
+        const data = new FormData();
+        Object.keys(usuario).map(key => {
+            data.append(key.toString(), usuario[key]);
+        });
         const headers = {
             "content-type": "application/json",
             "Access-Control-Allow-Origin": "*",

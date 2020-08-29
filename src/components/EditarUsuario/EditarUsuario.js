@@ -95,30 +95,42 @@ const EditarUsuario = props => {
         setRol(event.target.value);
     }
 
+    // funcion que convierte la imagen cargada por material-ui-dropzone a base64
+    // cortesia de http://jsbin.com/piqiqecuxo/1/edit?js,console,output
+    // function getBase64(file) {
+    //     var reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = function () {
+    //         console.log(reader.result);
+    //     };
+    //     reader.onerror = function (error) {
+    //         console.log('Error: ', error);
+    //     };
+    // }
+
     // carga la foto subida en el state
     const imageUploadHandler = (files) => {
-        setFoto(files);
+        // setFoto(getBase64(files[0]));
     }
 
+    // ejecuta la action para mandar todo al backend
     const editarUsuarioHandler = () => {
         const usuario = {
             rol: rol,
             email: email,
             telefono: telefono,
-            foto: foto,
-            datos: {
-                dni: dni,
-                apellido: apellido,
-                nombre: nombre,
-                fechaNacimiento: fechaNacimiento,
-                sexo: sexo,
-                calle: calle,
-                numero: numero,
-                piso: piso,
-                departamento: departamento,
-                localidad: localidad,
-                provincia: provincia,
-            }
+            file: foto[0],
+            dni: dni,
+            apellido: apellido,
+            nombre: nombre,
+            fechaNacimiento: fechaNacimiento,
+            sexo: sexo,
+            calle: calle,
+            numero: numero,
+            piso: piso,
+            departamento: departamento,
+            localidad: localidad,
+            provincia: provincia,
         };
         let id = props.editar ? props.usuario.id : "";
         props.editarUsuario(id, usuario, props.editar);
