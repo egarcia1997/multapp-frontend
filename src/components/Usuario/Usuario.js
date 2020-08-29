@@ -27,7 +27,7 @@ class Usuario extends Component {
                     <Fragment>
                         <Grid container={true} spacing={2}>
                             <Grid item={true} xs={12}>
-                                <Avatar style={{width: "200px", height: "200px"}} src={this.state.imagen} alt={this.state.nombre} />
+                                <Avatar style={{width: "200px", height: "200px"}} src={this.props.usuario.foto} alt={this.props.usuario.displayName} />
                             </Grid>
                             <Grid item={true} xs={12} style={{verticalAlign: "center"}}>
                                 <Typography variant="h2">
