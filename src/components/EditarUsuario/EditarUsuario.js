@@ -95,22 +95,9 @@ const EditarUsuario = props => {
         setRol(event.target.value);
     }
 
-    // funcion que convierte la imagen cargada por material-ui-dropzone a base64
-    // cortesia de http://jsbin.com/piqiqecuxo/1/edit?js,console,output
-    // function getBase64(file) {
-    //     var reader = new FileReader();
-    //     reader.readAsDataURL(file);
-    //     reader.onload = function () {
-    //         console.log(reader.result);
-    //     };
-    //     reader.onerror = function (error) {
-    //         console.log('Error: ', error);
-    //     };
-    // }
-
     // carga la foto subida en el state
     const imageUploadHandler = (files) => {
-        // setFoto(getBase64(files[0]));
+        setFoto(files[0]);
     }
 
     // ejecuta la action para mandar todo al backend
@@ -119,7 +106,7 @@ const EditarUsuario = props => {
             rol: rol,
             email: email,
             telefono: telefono,
-            file: foto[0],
+            file: foto,
             dni: dni,
             apellido: apellido,
             nombre: nombre,
