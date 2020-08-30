@@ -40,6 +40,9 @@ export const editarUsuario = (id, usuario, editar) => {
     return dispatch => {
         dispatch(editarUsuarioStart());
         const data = new FormData();
+        if (editar) {
+            data.append("id", id);
+        }
         Object.keys(usuario).map(key => {
             data.append(key.toString(), usuario[key]);
         });
