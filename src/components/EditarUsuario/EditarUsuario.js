@@ -126,10 +126,7 @@ const EditarUsuario = props => {
     return (
         <Dialog open={props.open} onClose={props.onClose} maxWidth="xl" fullWidth={true}>
             <DialogTitle>
-                {props.editar ?
-                    "Editar usuario " + props.usuario.id
-                    : "Agregar un nuevo usuario"
-                }
+                {props.editar ? "Editar usuario " : "Agregar un nuevo usuario"}
             </DialogTitle>
             <DialogContent>
                 <DialogContentText>* Campos obligatorios. Pase el cursor sobre algunos campos para más información.</DialogContentText>
