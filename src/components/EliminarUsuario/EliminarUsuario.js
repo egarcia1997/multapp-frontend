@@ -16,7 +16,7 @@ const EliminarUsuario = props => {
             </DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    ¿Está seguro de que desea eliminar a {props.nombre} (id {props.id})?
+                    ¿Está seguro de que desea eliminar a {props.nombre}?
                     Esta acción no se puede deshacer.
                 </DialogContentText>
             </DialogContent>
