@@ -34,13 +34,6 @@ const resolverMultaConError = error => {
     }
 }
 
-export const setMultaAResolver = id => {
-    return {
-        type: actionTypes.SET_MULTA_A_RESOLVER,
-        id: id,
-    }
-}
-
 export const resolverMulta = (id, estado, razon) => {
     return dispatch => {
         dispatch(resolverMultaStart());
