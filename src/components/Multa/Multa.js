@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { withRouter } from "react-router";
 import { Container, Typography, Grid, Paper, Button, CircularProgress, } from "@material-ui/core";
-import { Check, Close } from "@material-ui/icons";
+import { Check, Close, LocationOn, Person, DirectionsCar, Gavel, PhotoCamera, InsertInvitation } from "@material-ui/icons";
 import estilos from "./Multa.module.css";
 import { connect } from "react-redux";
 import { cargarMulta } from "../../store/actions/multa";
@@ -35,7 +35,10 @@ class Multa extends Component {
                             <Grid container={true} spacing={1}>
                                 <Grid item={true} xs={12}>
                                     <Paper elevation={3} className={estilos.GridItem}>
-                                        <Typography variant="h6">Ubicación</Typography>
+                                        <Typography variant="h6">
+                                            <LocationOn />
+                                            Ubicación
+                                        </Typography>
                                         <Grid container={true} spacing={3}>
                                             <Grid item={true}>
                                                 <Typography variant="overline">Fecha</Typography>
@@ -97,7 +100,10 @@ class Multa extends Component {
                                 </Grid>
                                 <Grid item={true} xs={12}>
                                     <Paper elevation={3} className={estilos.GridItem}>
-                                        <Typography variant="h6">Conductor</Typography>
+                                        <Typography variant="h6">
+                                            <Person />
+                                            Conductor
+                                        </Typography>
                                         <Grid container={true} spacing={3}>
                                             <Grid item={true}>
                                                 <Typography variant="overline">Apellido</Typography>
@@ -160,7 +166,10 @@ class Multa extends Component {
                                 </Grid>
                                 <Grid item={true} xs={12}>
                                     <Paper elevation={3} className={estilos.GridItem}>
-                                        <Typography variant="h6">Vehículo</Typography>
+                                        <Typography variant="h6">
+                                            <DirectionsCar />
+                                            Vehículo
+                                        </Typography>
                                         <Grid container={true} spacing={3}>
                                             <Grid item={true}>
                                                 <Typography variant="overline">Dominio</Typography>
@@ -227,7 +236,10 @@ class Multa extends Component {
                                 </Grid>
                                 <Grid item={true} xs={12}>
                                     <Paper elevation={3} className={estilos.GridItem}>
-                                        <Typography variant="h6">Infracción</Typography>
+                                        <Typography variant="h6">
+                                            <Gavel />
+                                            Infracción
+                                        </Typography>
                                         <Grid container={true} spacing={3}>
                                             <Grid item={true}>
                                                 <Typography variant="overline">Código de infracción</Typography>
@@ -265,7 +277,10 @@ class Multa extends Component {
                                 </Grid>
                                 <Grid item={true} xs={12}>
                                     <Paper elevation={3} className={estilos.GridItem}>
-                                        <Typography variant="h6">Pruebas fotográficas</Typography>
+                                        <Typography variant="h6">
+                                            <PhotoCamera />
+                                            Pruebas fotográficas
+                                        </Typography>
                                         {this.props.multa.fotos.length > 0 ? 
                                             <Grid container={true} spacing={1}>
                                                 {this.props.multa.fotos.map(foto => (
@@ -279,7 +294,10 @@ class Multa extends Component {
                                 </Grid>
                                 <Grid item={true} xs={12}>
                                     <Paper elevation={3} className={estilos.GridItem}>
-                                        <Typography variant="h6">Vencimientos</Typography>
+                                        <Typography variant="h6">
+                                            <InsertInvitation />
+                                            Vencimientos
+                                        </Typography>
                                         <Grid container={true} spacing={3}>
                                             <Grid item={true} xs={6}>
                                                 <Typography variant="overline">Primer vencimiento</Typography>
