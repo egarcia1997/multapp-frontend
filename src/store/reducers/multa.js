@@ -26,19 +26,6 @@ const reducer = (state = initialState, action) => {
                 errorAlCargar: true,
                 textoDeErrorAlCargar: action.error,
             };
-        case actionTypes.CAMBIAR_ESTADO_CON_EXITO:
-            return {
-                ...state,
-                estadoCambiado: true,
-                errorAlCambiarDeEstado: false,
-            };
-        case actionTypes.CAMBIAR_ESTADO_CON_ERROR:
-            return {
-                ...state,
-                estadoCambiado: false,
-                errorAlCambiarDeEstado: true,
-                textoDeErrorAlCambiarDeEstado: action.error,
-            };
         default:
             return state;
     }

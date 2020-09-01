@@ -1,19 +1,18 @@
 import React, { Component, Fragment } from "react";
 import { withRouter } from "react-router";
-import { Container, Typography, Grid, Paper, Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, TextField, CircularProgress } from "@material-ui/core";
+import { Container, Typography, Grid, Paper, Button, CircularProgress, } from "@material-ui/core";
 import { Check, Close } from "@material-ui/icons";
 import estilos from "./Multa.module.css";
 import { connect } from "react-redux";
-import { cargarMulta, cambiarEstado } from "../../store/actions/multa";
+import { cargarMulta } from "../../store/actions/multa";
 import { withSnackbar } from "notistack";
 import Notifier from "../Notifier/Notifier";
+import ResolverMulta from "../ResolverMulta/ResolverMulta";
+import { abrirDialogResolver } from "../../store/actions/resolverMulta";
 
 class Multa extends Component {
     state = {
-        mostrarDialogAceptar: false,
-        mostrarDialogRechazar: false,
-        razonAceptar: "",
-        razonRechazar: "",
+        accion: "aceptar",
     };
 
     componentDidMount = () => {
@@ -22,19 +21,7 @@ class Multa extends Component {
     }
 
     toggleDialogHandler = (accion) => {
-        let nuevoEstado;
-        if (accion === "aceptar") {
-            nuevoEstado = !this.state.mostrarDialogAceptar;
-            this.setState({mostrarDialogAceptar: nuevoEstado});
-        }
-        if (accion === "rechazar") {
-            nuevoEstado = !this.state.mostrarDialogRechazar;
-            this.setState({mostrarDialogRechazar: nuevoEstado});
-        }
-    }
-
-    inputHandler = (event) => {
-        this.setState({[event.target.id]: event.target.value});
+        this.setState({accion: accion}, () => this.props.abrirDialogResolver());
     }
 
     render() {
@@ -366,64 +353,11 @@ class Multa extends Component {
                                 </Grid>
                             : null}
                         </Container>
-                        <Dialog open={this.state.mostrarDialogAceptar} onClose={() => this.toggleDialogHandler("aceptar")}>
-                            <DialogTitle>
-                                Aceptar multa
-                            </DialogTitle>
-                            <DialogContent>
-                                <DialogContentText>
-                                    ¿Está seguro de que quiere aceptar esta multa?. Debe brindar una razón.
-                                </DialogContentText>
-                                <TextField
-                                    id="razonAceptar"
-                                    label="Razón para aceptar la multa"
-                                    multiline={true}
-                                    rows={4}
-                                    fullWidth={true}
-                                    value={this.state.razonAceptar}
-                                    onChange={this.inputHandler}
-                                />
-                            </DialogContent>
-                            <DialogActions>
-                                <Button onClick={() => this.toggleDialogHandler("aceptar")}>Cancelar</Button>
-                                <Button
-                                    color="primary"
-                                    disabled={this.state.razonAceptar.trim() === ""}
-                                    onClick={() => this.props.cambiarEstado(this.props.multa.id, "Aceptada", this.state.razonAceptar)}
-                                >
-                                    Aceptar multa
-                                </Button>
-                            </DialogActions>
-                        </Dialog>
-                        <Dialog open={this.state.mostrarDialogRechazar} onClose={() => this.toggleDialogHandler("rechazar")}>
-                            <DialogTitle>
-                                Rechazar multa
-                            </DialogTitle>
-                            <DialogContent>
-                                <DialogContentText>
-                                    ¿Está seguro de que quiere rechazar esta multa?. Debe brindar una razón.
-                                </DialogContentText>
-                                <TextField
-                                    id="razonRechazar"
-                                    label="Razón para rechazar la multa"
-                                    multiline={true}
-                                    rows={4}
-                                    fullWidth={true}
-                                    value={this.state.razonRechazar}
-                                    onChange={this.inputHandler}
-                                />
-                            </DialogContent>
-                            <DialogActions>
-                                <Button onClick={() => this.toggleDialogHandler("rechazar")}>Cancelar</Button>
-                                <Button
-                                    color="primary"
-                                    disabled={this.state.razonRechazar.trim() === ""}
-                                    onClick={() => this.props.cambiarEstado(this.props.multa.id, "Rechazada", this.state.razonRechazar)}
-                                >
-                                    Rechazar multa
-                                </Button>
-                            </DialogActions>
-                        </Dialog>
+                        <ResolverMulta
+                            open={this.state.mostrarDialog}
+                            onClose={() => this.setState({mostrarDialog: false})}
+                            accion={this.state.accion}
+                        />
                         <Notifier />
                     </Fragment>
                 : null }
@@ -438,16 +372,13 @@ const mapStateToProps = state => {
         cargando: state.multa.cargando,
         errorAlCargar: state.multa.errorAlCargar,
         textoDeErrorAlCargar: state.multa.textoDeErrorAlCargar,
-        estadoCambiado: state.multa.estadoCambiado,
-        errorAlCambiarDeEstado: state.multa.errorAlCambiarDeEstado,
-        textoDeErrorAlCambiarDeEstado: state.multa.textoDeErrorAlCambiarDeEstado,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        cargarMulta: (id) => {dispatch(cargarMulta(id))},
-        cambiarEstado: (id, estado, razon) => {dispatch(cambiarEstado(id, estado, razon))},
+        cargarMulta: id => dispatch(cargarMulta(id)),
+        abrirDialogResolver: () => dispatch(abrirDialogResolver()),
     }
 }
 
