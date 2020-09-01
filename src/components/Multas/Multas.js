@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter } from "react-router-dom";
-import { Button, Typography, TableHead, TableRow, TableCell, Table, TableContainer, Paper, TableBody, CircularProgress, Container } from "@material-ui/core";
+import { Button, Typography, TableHead, TableRow, TableCell, Table, TableContainer, Paper, TableBody, CircularProgress, Container, Tooltip } from "@material-ui/core";
+import { Done, Warning, Clear } from "@material-ui/icons";
 import Filtro from "../Filtro/Filtro";
 import { cargarMultas } from "../../store/actions/multas";
 import { connect } from 'react-redux';
@@ -51,6 +52,16 @@ class Multas extends Component {
   
         let multasParaMostrar = multasFiltradas.map(multa => (
             <TableRow key={multa.id} hover={true} onClick={() => this.multaSeleccionadaHandler(multa.id)}>
+                <TableCell align="center">
+                    <Tooltip title={multa.estado}>
+                        {multa.estado === "No resuelta" ?
+                            <Warning fontSize="small" style={{ fill: 'darkgoldenrod' }} />
+                            : multa.estado === "Aceptada" ?
+                            <Done fontSize="small" style={{ fill: 'green' }} />
+                            : <Clear fontSize="small" style={{ fill: 'red' }} />
+                        }
+                    </Tooltip>
+                </TableCell>
                 <TableCell>{multa.id}</TableCell>
                 <TableCell>{multa.dniConductor}</TableCell>
                 <TableCell>{multa.nombreConductor}</TableCell>
@@ -81,6 +92,7 @@ class Multas extends Component {
                             <Table>
                                 <TableHead>
                                     <TableRow>
+                                        <TableCell />
                                         <TableCell>ID</TableCell>
                                         <TableCell>DNI del conductor</TableCell>
                                         <TableCell>Nombre del conductor</TableCell>
