@@ -101,7 +101,7 @@ class Usuarios extends Component {
         ));
 
         let administradores = this.props.usuarios.filter(usuario => {
-            return usuario.rol === "Administrador" ? true : false;
+            return usuario.rol === "Administrador" && usuario.id !== localStorage.getItem("uid") ? true : false;
         }).map(administrador => (
             <Fragment>
                 <ListItem key={administrador.id} button={true} onClick={() => this.userSelectedHandler(administrador.id)}>
