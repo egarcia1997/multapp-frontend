@@ -305,7 +305,7 @@ class Multa extends Component {
                                             </Grid>
                                             <Grid item={true} xs={6}>
                                                 <Typography variant="overline">Monto</Typography>
-                                                <Typography variant="body2">{this.props.multa.vencimientos.montoPrimerVencimiento}</Typography>
+                                                <Typography variant="body2">${this.props.multa.vencimientos.montoPrimerVencimiento}</Typography>
                                             </Grid>
                                             <Grid item={true} xs={6}>
                                                 <Typography variant="overline">Segundo vencimiento</Typography>
@@ -313,7 +313,7 @@ class Multa extends Component {
                                             </Grid>
                                             <Grid item={true} xs={6}>
                                                 <Typography variant="overline">Monto</Typography>
-                                                <Typography variant="body2">{this.props.multa.vencimientos.montoSegundoVencimiento}</Typography>
+                                                <Typography variant="body2">${this.props.multa.vencimientos.montoSegundoVencimiento}</Typography>
                                             </Grid>
                                         </Grid>
                                     </Paper>
