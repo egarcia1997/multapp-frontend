@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { withRouter } from "react-router";
 import { Container, Typography, Grid, Paper, Button, CircularProgress, } from "@material-ui/core";
-import { Check, Close, LocationOn, Person, DirectionsCar, Gavel, PhotoCamera, InsertInvitation } from "@material-ui/icons";
+import { Check, Close, LocationOn, Person, DirectionsCar, Gavel, PhotoCamera, InsertInvitation, ContactMail, Warning, Done, Clear, AccountCircle } from "@material-ui/icons";
 import estilos from "./Multa.module.css";
 import { connect } from "react-redux";
 import { cargarMulta } from "../../store/actions/multa";
@@ -57,7 +57,10 @@ class Multa extends Component {
                                 </Grid>
                                 <Grid item={true} xs={12}>
                                     <Paper elevation={3} className={estilos.GridItem}>
-                                        <Typography variant="h6">Licencia</Typography>
+                                        <Typography variant="h6">
+                                            <ContactMail />
+                                            Licencia
+                                        </Typography>
                                         <Grid container={true} spacing={3}>
                                             <Grid item={true}>
                                                 <Typography variant="overline">Número de licencia</Typography>
@@ -266,7 +269,10 @@ class Multa extends Component {
                                 </Grid>
                                 <Grid item={true} xs={12}>
                                     <Paper elevation={3} className={estilos.GridItem}>
-                                        <Typography variant="h6">Funcionario interviniente</Typography>
+                                        <Typography variant="h6">
+                                            <AccountCircle />
+                                            Funcionario interviniente
+                                        </Typography>
                                         <Grid container={true} spacing={3}>
                                             <Grid item={true}>
                                                 <Typography variant="overline">Nombre</Typography>
@@ -320,7 +326,12 @@ class Multa extends Component {
                                 </Grid>
                                 <Grid item={true} xs={12}>
                                     <Paper elevation={3} className={estilos.GridItem}>
-                                        <Typography variant="h6">Estado</Typography>
+                                        <Typography variant="h6">
+                                            {this.props.multa.estado === "No resuelta" ? <Warning /> :
+                                                this.props.multa.estado === "Aceptada" ? <Done /> : <Clear />
+                                            }
+                                            Estado
+                                        </Typography>
                                         <Grid container={true} spacing={3}>
                                             <Grid item={true} xs={6}>
                                                 <Typography variant="overline">Estado de la multa</Typography>
