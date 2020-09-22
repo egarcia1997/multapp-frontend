@@ -2,6 +2,12 @@ import * as actionTypes from "./actionTypes";
 import Axios from "axios";
 import { enqueueSnackbar } from "./notifier";
 
+const cargarMultaStart = () => {
+    return {
+        type: actionTypes.CARGAR_MULTA_START,
+    }
+}
+
 const cargarMultaConExito = (multa) => {
     return {
         type: actionTypes.CARGAR_MULTA_CON_EXITO,
@@ -27,6 +33,7 @@ export const cargarMulta = (id) => {
         },
     };
     return dispatch => {
+        dispatch(cargarMultaStart());
         Axios.get("/getMulta", params)
             .then(response => {
                 console.log(response);

@@ -26,6 +26,7 @@ export const SET_FILTROS = "SET_FILTROS";
 export const CLEAR_FILTROS = "CLEAR_FILTROS";
 
 // acciones de multa
+export const CARGAR_MULTA_START = "CARGAR_MULTA_START";
 export const CARGAR_MULTA_CON_EXITO = "CARGAR_MULTA_CON_EXITO";
 export const CARGAR_MULTA_CON_ERROR = "CARGAR_MULTA_CON_ERROR";
 

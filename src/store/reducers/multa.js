@@ -12,6 +12,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.CARGAR_MULTA_START:
+            return {
+                ...state,
+                cargando: true,
+            };
         case actionTypes.CARGAR_MULTA_CON_EXITO:
             return {
                 ...state,
