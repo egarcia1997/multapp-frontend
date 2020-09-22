@@ -2,6 +2,12 @@ import * as actionTypes from "./actionTypes";
 import Axios from "axios";
 import { enqueueSnackbar } from "./notifier";
 
+const cargarUsuarioStart = () => {
+    return {
+        type: actionTypes.CARGAR_USUARIO_START,
+    }
+}
+
 const cargarUsuarioConExito = (usuario) => {
     return {
         type: actionTypes.CARGAR_USUARIO_CON_EXITO,
@@ -27,6 +33,7 @@ export const cargarUsuario = (id) => {
         },
     };
     return dispatch => {
+        dispatch(cargarUsuarioStart());
         Axios.get("/getUsuario", params)
             .then(response => {
                 console.log(response);

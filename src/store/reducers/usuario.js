@@ -12,6 +12,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.CARGAR_USUARIO_START:
+            return {
+                ...state,
+                cargando: true,
+            };
         case actionTypes.CARGAR_USUARIO_CON_EXITO:
             return {
                 ...state,
