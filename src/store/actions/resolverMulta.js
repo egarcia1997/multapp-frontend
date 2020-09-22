@@ -2,6 +2,7 @@ import * as actionTypes from "./actionTypes";
 import Axios from "axios";
 import { enqueueSnackbar } from "./notifier";
 import { traducirError } from "../../share/traducirError";
+import { cargarMulta } from "./multa";
 
 export const abrirDialogResolver = () => {
     return {
@@ -52,6 +53,7 @@ export const resolverMulta = (id, estado, razon) => {
                 dispatch(resolverMultaConExito());
                 dispatch(enqueueSnackbar({message: "Multa resuelta con éxito", options: {variant: "success"}}));
                 dispatch(cerrarDialogResolver());
+                dispatch(cargarMulta(id));
             }).catch(error => {
                 console.log(error);
                 dispatch(resolverMultaConError(error.response.data.message));
