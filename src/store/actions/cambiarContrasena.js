@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import Axios from "axios";
 import { enqueueSnackbar } from "./notifier";
+import { traducirError } from "../../share/traducirError";
 
 export const abrirDialogCambiarContrasena = () => {
     return {
@@ -52,7 +53,7 @@ export const cambiarContrasena = (contrasenaActual, contrasenaNueva) => {
                 dispatch(enqueueSnackbar({message: "Contraseña cambiada exitosamente", options: {variant: "success"}}));
             }).catch(error => {
                 dispatch(cambiarContrasenaConError(error));
-                dispatch(enqueueSnackbar({message: "No se pudo cambiar la contraseña", options: {variant: "error"}}));
+                dispatch(enqueueSnackbar({message: traducirError(error.response.data.message), options: {variant: "error"}}));
             });
     }
 }
