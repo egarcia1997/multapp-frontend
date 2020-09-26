@@ -266,7 +266,7 @@ const EditarUsuario = props => {
                             </Tooltip>
                             <FormLabel component="legend">Foto</FormLabel>
                             <DropzoneArea
-                                dropzoneText="No se cargó foto"
+                                dropzoneText="Cargue aquí la foto"
                                 acceptedFiles={["image/*"]}
                                 filesLimit={1}
                                 onChange={imageUploadHandler.bind(this)}
