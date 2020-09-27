@@ -14,6 +14,28 @@ class Login extends Component {
         contrasenaIncorrecta: false,
     }
 
+    estilos = {
+        container: {
+            // imagen diseñada por 4045 / Freepik
+            // http://www.freepik.com
+            backgroundImage: "url(" + require("../../assets/login-background.jpg") + ")",
+            backgroundSize: "cover",
+            height: "100vh",
+            width: "100vw",
+            margin: 0,
+        },
+        imageAuthor: {
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            color: "white",
+            padding: 5,
+            fontFamily: "roboto",
+            fontSize: 12,
+            textDecoration: "none",
+        }
+    }
     // metodo para mostrar/ocultar el cuadro de recuperar contraseña
     olvidarContrasenaHandler = () => {
         const nuevoEstado = !this.state.mostrarIniciarSesion;
@@ -115,7 +137,10 @@ class Login extends Component {
         }
         
         return (
-            <Container>
+            <div style={this.estilos.container}>
+                <a href="http://www.freepik.com" style={this.estilos.imageAuthor}>
+                    Imagen diseñada por 4045 / Freepik
+                </a>
                 <Grid
                     container={true}
                     spacing={0}
@@ -142,7 +167,7 @@ class Login extends Component {
                     </Grid>
                 </Grid>
                 {redirect}
-            </Container>
+            </div>
         );
     }
 }
