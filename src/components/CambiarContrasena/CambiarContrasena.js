@@ -14,6 +14,17 @@ const CambiarContrasena = props => {
 
     const estilos = useStyles();
 
+    // pone todos los inputs en blanco al cerrar el dialog
+    useEffect(() => {
+        setContrasenaActual("");
+        setNuevaContrasena("");
+        setRepitaContrasena("");
+        setErrorNuevaContrasena("");
+        setErrorRepitaContrasena("");
+        setAceptable(false);
+    }, [props.mostrarDialog]);
+
+    // controla si se cumplen las condiciones para cambiar la contraseña
     useEffect(() => {
         if (contrasenaActual !== "" && nuevaContrasena !== "" && repitaContrasena !== "") {
             setAceptable(true);
@@ -23,14 +34,13 @@ const CambiarContrasena = props => {
             setAceptable(false);
         }
         else {
-            setErrorNuevaContrasena("");
-        }
-        if (nuevaContrasena.length < 6) {
-            setErrorNuevaContrasena("La contraseña debe tener 6 o más caracteres");
-            setAceptable(false);
-        }
-        else {
-            setErrorNuevaContrasena("");
+            if (nuevaContrasena.length < 6) {
+                setErrorNuevaContrasena("La contraseña debe tener 6 o más caracteres");
+                setAceptable(false);
+            }
+            else {
+                setErrorNuevaContrasena("");
+            }
         }
         if (nuevaContrasena !== repitaContrasena) {
             setErrorRepitaContrasena("Las contraseñas no coinciden");
