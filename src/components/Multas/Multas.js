@@ -25,7 +25,20 @@ class Multas extends Component {
         let textoDeMultasSinResolver = ""; // el texto que se va a mostrar debajo del h2 que da la bienvenida
 
         let multasFiltradas = this.props.multas.filter(multa => {
+            let fecha = multa.fecha.split("/").reverse(); // convierte la fecha en dd/mm/aaaa a aaaa-mm-dd para comparar con los filtros
+            fecha[1] = parseInt(fecha[1]); // esta idiotez es porque los meses en el constructor de Date empiezan en 0
+            fecha[1]--;
+            let fechaParaComparar = new Date(...fecha);
+            let desde = this.props.desde.split("-");
+            desde[1] = parseInt(desde[1]);
+            desde[1]--;
+            let desdeParaComparar = new Date(...desde);
+            let hasta = this.props.hasta.split("-");
+            hasta[1] = parseInt(hasta[1]);
+            hasta[1]--;
+            let hastaParaComparar = new Date(...hasta);
             let seDebeMostrar = true;
+
             if (!this.props.noResueltas && multa.estado === "No resuelta") {
                 seDebeMostrar = false;
             }
@@ -35,10 +48,10 @@ class Multas extends Component {
             if (!this.props.rechazadas && multa.estado === "Rechazada") {
                 seDebeMostrar = false;
             }
-            if (this.props.desde > multa.fecha) {
+            if (desdeParaComparar > fechaParaComparar) {
                 seDebeMostrar = false;
             }
-            if (this.props.hasta < multa.fecha) {
+            if (hastaParaComparar < fechaParaComparar) {
                 seDebeMostrar = false;
             }
             if (this.props.dni !== "" && this.props.dni !== multa.dniConductor) {
