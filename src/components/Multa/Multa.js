@@ -9,6 +9,7 @@ import { withSnackbar } from "notistack";
 import Notifier from "../Notifier/Notifier";
 import ResolverMulta from "../ResolverMulta/ResolverMulta";
 import { abrirDialogResolver } from "../../store/actions/resolverMulta";
+import CustomImagePreview from "../CustomImagePreview/CustomImagePreview";
 
 class Multa extends Component {
     state = {
@@ -289,11 +290,12 @@ class Multa extends Component {
                                         </Typography>
                                         {this.props.multa.fotos.length > 0 ? 
                                             <Grid container={true} spacing={1}>
-                                                {this.props.multa.fotos.map(foto => (
+                                                {/* {this.props.multa.fotos.map(foto => (
                                                     <Grid item={true}>
                                                         <img src={foto} />
                                                     </Grid>
-                                                ))}
+                                                ))} */}
+                                                <CustomImagePreview uris={this.props.multa.fotos} />
                                             </Grid>
                                         : <Typography variant="body2">El inspector no adjuntó pruebas fotográficas</Typography>}
                                     </Paper>
