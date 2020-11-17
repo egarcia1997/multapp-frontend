@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Checkbox, FormGroup, FormControlLabel, FormControl, FormLabel, TextField } from "@material-ui/core";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Checkbox, FormGroup, FormControlLabel, FormControl, FormLabel, TextField, Grid } from "@material-ui/core";
 import { connect } from "react-redux";
 import { setFiltros, clearFiltros, cerrarDialogFiltro } from "../../store/actions/filtro";
 
@@ -39,72 +39,80 @@ class Filtro extends Component {
             <Dialog open={this.props.mostrarDialog} onClose={this.props.cerrarDialogFiltro}>
                 <DialogTitle>Filtrar multas</DialogTitle>
                 <DialogContent>
-                    <FormControl>
-                        <FormLabel>Estado</FormLabel>
-                        <FormGroup>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        color="primary"
-                                        id="noResueltas"
-                                        checked={this.state.noResueltas}
-                                        onChange={this.checkboxHandler}
-                                    />}
-                                label="No resueltas"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        color="primary"
-                                        id="aceptadas"
-                                        checked={this.state.aceptadas}
-                                        onChange={this.checkboxHandler}
-                                    />}
-                                label="Aceptadas"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        color="primary"
-                                        id="rechazadas"
-                                        checked={this.state.rechazadas}
-                                        onChange={this.checkboxHandler}
-                                    />}
-                                label="Rechazadas"
-                            />
-                        </FormGroup>
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel>Fecha de creación</FormLabel>
-                        <FormGroup>
-                            <TextField
-                                id="desde"
-                                label="Desde"
-                                type="date"
-                                value={this.state.desde}
-                                onChange={this.inputHandler}
-                            />
-                            <TextField
-                                id="hasta"
-                                label="Hasta"
-                                type="date"
-                                value={this.state.hasta}
-                                onChange={this.inputHandler}
-                            />
-                        </FormGroup>
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel>Otros</FormLabel>
-                        <FormGroup>
-                            <TextField
-                                id="dni"
-                                label="DNI"
-                                type="number"
-                                value={this.state.dni}
-                                onChange={this.inputHandler}
-                            />
-                        </FormGroup>
-                    </FormControl>
+                    <Grid container={true} spacing={2}>
+                        <Grid item={true}>
+                            <FormControl>
+                                <FormLabel>Estado</FormLabel>
+                                <FormGroup>
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                color="primary"
+                                                id="noResueltas"
+                                                checked={this.state.noResueltas}
+                                                onChange={this.checkboxHandler}
+                                            />}
+                                        label="No resueltas"
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                color="primary"
+                                                id="aceptadas"
+                                                checked={this.state.aceptadas}
+                                                onChange={this.checkboxHandler}
+                                            />}
+                                        label="Aceptadas"
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                color="primary"
+                                                id="rechazadas"
+                                                checked={this.state.rechazadas}
+                                                onChange={this.checkboxHandler}
+                                            />}
+                                        label="Rechazadas"
+                                    />
+                                </FormGroup>
+                            </FormControl>
+                        </Grid>
+                        <Grid item={true}>
+                            <FormControl>
+                                <FormLabel>Fecha de creación</FormLabel>
+                                <FormGroup>
+                                    <TextField
+                                        id="desde"
+                                        label="Desde"
+                                        type="date"
+                                        value={this.state.desde}
+                                        onChange={this.inputHandler}
+                                    />
+                                    <TextField
+                                        id="hasta"
+                                        label="Hasta"
+                                        type="date"
+                                        value={this.state.hasta}
+                                        onChange={this.inputHandler}
+                                    />
+                                </FormGroup>
+                            </FormControl>
+                        </Grid>
+                        <Grid item={true}>
+                            <FormControl>
+                                <FormLabel>Otros</FormLabel>
+                                <FormGroup>
+                                    <TextField
+                                        id="dni"
+                                        label="DNI"
+                                        type="number"
+                                        value={this.state.dni}
+                                        onChange={this.inputHandler}
+                                    />
+                                </FormGroup>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.props.clearFiltros}>Borrar filtros</Button>
