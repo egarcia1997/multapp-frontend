@@ -1,127 +1,123 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Checkbox, FormGroup, FormControlLabel, FormControl, FormLabel, TextField, Grid } from "@material-ui/core";
 import { connect } from "react-redux";
 import { setFiltros, clearFiltros, cerrarDialogFiltro } from "../../store/actions/filtro";
 
-class Filtro extends Component {
-    state = {
-        noResueltas: null,
-        aceptadas: null,
-        rechazadas: null,
-        desde: null,
-        hasta: null,
-        dni: null,
-    }
+const Filtro = props => {
+    const [noResueltas, setNoResueltas] = useState(true);
+    const [aceptadas, setAceptadas] = useState(true);
+    const [rechazadas, setRechazadas] = useState(true);
+    const [desde, setDesde] = useState("2020-01-01");
+    const [hasta, setHasta] = useState(new Date().toISOString().slice(0, 10));
+    const [dni, setDni] = useState("");
 
-    componentDidMount = () => {
-        this.setState({
-            noResueltas: this.props.noResueltas,
-            aceptadas: this.props.aceptadas,
-            rechazadas: this.props.rechazadas,
-            desde: this.props.desde,
-            hasta: this.props.hasta,
-            dni: this.props.dni,
+    useEffect(() => {
+        props.setFiltros({
+            noResueltas: props.noResueltas,
+            aceptadas: props.aceptadas,
+            rechazadas: props.rechazadas,
+            desde: props.desde,
+            hasta: props.hasta,
+            dni: props.dni,
         });
+    }, []);
+
+    const clearFiltros = () => {
+        setNoResueltas(true);
+        setAceptadas(true);
+        setRechazadas(true);
+        setDesde("2020-01-01");
+        setHasta(new Date().toISOString().slice(0, 10));
+        setDni("");
+        props.clearFiltros();
     }
 
-    // carga lo que escribe el usuario en el state
-    inputHandler = (event) => {
-        this.setState({[event.target.id]: event.target.value});
-    }
-    
-    // carga los checkbox que selecciona el usuario en el state
-    checkboxHandler = (event) => {
-        this.setState({[event.target.id]: event.target.checked});
-    }
-
-    render() {
-        return (
-            <Dialog open={this.props.mostrarDialog} onClose={this.props.cerrarDialogFiltro}>
-                <DialogTitle>Filtrar multas</DialogTitle>
-                <DialogContent>
-                    <Grid container={true} spacing={2}>
-                        <Grid item={true}>
-                            <FormControl>
-                                <FormLabel>Estado</FormLabel>
-                                <FormGroup>
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                color="primary"
-                                                id="noResueltas"
-                                                checked={this.state.noResueltas}
-                                                onChange={this.checkboxHandler}
-                                            />}
-                                        label="No resueltas"
-                                    />
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                color="primary"
-                                                id="aceptadas"
-                                                checked={this.state.aceptadas}
-                                                onChange={this.checkboxHandler}
-                                            />}
-                                        label="Aceptadas"
-                                    />
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                color="primary"
-                                                id="rechazadas"
-                                                checked={this.state.rechazadas}
-                                                onChange={this.checkboxHandler}
-                                            />}
-                                        label="Rechazadas"
-                                    />
-                                </FormGroup>
-                            </FormControl>
-                        </Grid>
-                        <Grid item={true}>
-                            <FormControl>
-                                <FormLabel>Fecha de creación</FormLabel>
-                                <FormGroup>
-                                    <TextField
-                                        id="desde"
-                                        label="Desde"
-                                        type="date"
-                                        value={this.state.desde}
-                                        onChange={this.inputHandler}
-                                    />
-                                    <TextField
-                                        id="hasta"
-                                        label="Hasta"
-                                        type="date"
-                                        value={this.state.hasta}
-                                        onChange={this.inputHandler}
-                                    />
-                                </FormGroup>
-                            </FormControl>
-                        </Grid>
-                        <Grid item={true}>
-                            <FormControl>
-                                <FormLabel>Otros</FormLabel>
-                                <FormGroup>
-                                    <TextField
-                                        id="dni"
-                                        label="DNI"
-                                        type="number"
-                                        value={this.state.dni}
-                                        onChange={this.inputHandler}
-                                    />
-                                </FormGroup>
-                            </FormControl>
-                        </Grid>
+    return (
+        <Dialog open={props.mostrarDialog} onClose={props.cerrarDialogFiltro}>
+            <DialogTitle>Filtrar multas</DialogTitle>
+            <DialogContent>
+                <Grid container={true} spacing={2}>
+                    <Grid item={true}>
+                        <FormControl>
+                            <FormLabel>Estado</FormLabel>
+                            <FormGroup>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            color="primary"
+                                            id="noResueltas"
+                                            checked={noResueltas}
+                                            onChange={() => setNoResueltas(prevState => !prevState)}
+                                        />}
+                                    label="No resueltas"
+                                />
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            color="primary"
+                                            id="aceptadas"
+                                            checked={aceptadas}
+                                            onChange={() => setAceptadas(prevState => !prevState)}
+                                        />}
+                                    label="Aceptadas"
+                                />
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            color="primary"
+                                            id="rechazadas"
+                                            checked={rechazadas}
+                                            onChange={() => setRechazadas(prevState => !prevState)}
+                                        />}
+                                    label="Rechazadas"
+                                />
+                            </FormGroup>
+                        </FormControl>
                     </Grid>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={this.props.clearFiltros}>Borrar filtros</Button>
-                    <Button onClick={this.props.cerrarDialogFiltro}>Cancelar</Button>
-                    <Button onClick={() => this.props.setFiltros(this.state)} color="primary">Aceptar</Button>
-                </DialogActions>
-            </Dialog>
-        );
-    }
+                    <Grid item={true}>
+                        <FormControl>
+                            <FormLabel>Fecha de creación</FormLabel>
+                            <FormGroup>
+                                <TextField
+                                    id="desde"
+                                    label="Desde"
+                                    type="date"
+                                    value={desde}
+                                    onChange={event => setDesde(event.target.value)}
+                                />
+                                <TextField
+                                    id="hasta"
+                                    label="Hasta"
+                                    type="date"
+                                    value={hasta}
+                                    onChange={event => setHasta(event.target.value)}
+                                />
+                            </FormGroup>
+                        </FormControl>
+                    </Grid>
+                    <Grid item={true}>
+                        <FormControl>
+                            <FormLabel>Otros</FormLabel>
+                            <FormGroup>
+                                <TextField
+                                    id="dni"
+                                    label="DNI"
+                                    type="number"
+                                    value={dni}
+                                    onChange={event => setDni(event.target.value)}
+                                />
+                            </FormGroup>
+                        </FormControl>
+                    </Grid>
+                </Grid>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={clearFiltros}>Borrar filtros</Button>
+                <Button onClick={props.cerrarDialogFiltro}>Cancelar</Button>
+                <Button onClick={() => props.setFiltros({noResueltas, aceptadas, rechazadas, desde, hasta, dni})} color="primary">Aceptar</Button>
+            </DialogActions>
+        </Dialog>
+    );
 }
 
 const mapStateToProps = state => {
