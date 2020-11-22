@@ -17,7 +17,7 @@ class Layout extends Component {
             routes = (
                 <Fragment>
                     <Route path="/multas/:id" exact={true} component={Multa} />
-                    <Route path="/multas" component={Multas} />
+                    <Route path="/multas" exact={true} component={Multas} />
                     <Redirect from="/" to="/multas" />
                 </Fragment>
             );
@@ -26,7 +26,7 @@ class Layout extends Component {
             routes = (
                 <Fragment>
                     <Route path="/usuarios/:id" exact={true} component={Usuario} />
-                    <Route path="/usuarios" component={Usuarios} />
+                    <Route path="/usuarios" exact={true} component={Usuarios} />
                     <Redirect from="/" to="/usuarios" />
                 </Fragment>
             );
