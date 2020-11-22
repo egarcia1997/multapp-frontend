@@ -32,7 +32,7 @@ class Multa extends Component {
                 {!this.props.cargando && !this.props.errorAlCargar ?
                     <Fragment>
                         <Container>
-                            <Typography variant="h3">Detalles de la multa con id. {this.props.multa.id}</Typography>
+                            <Typography variant="h3">Detalles de la multa</Typography>
                             <Grid container={true} spacing={1}>
                                 <Grid item={true} xs={12}>
                                     <Paper elevation={3} className={estilos.GridItem}>
