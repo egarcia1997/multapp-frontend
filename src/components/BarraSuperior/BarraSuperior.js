@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import Logo from "../../components/Logo/Logo";
-// aca hay conflicto, en /core e /icons hay un componente llamado Menu
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Avatar } from "@material-ui/core";
 import { cerrarSesion } from "../../share/cerrarSesion";
 import useStyles from "../../share/useStyles";
@@ -57,9 +56,9 @@ const BarraSuperior = props => {
                     <Avatar className={estilos.avatar} src={localStorage.getItem("photoURL")} alt={localStorage.getItem("displayName")} />
                 </IconButton>
                 <Menu id="menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={cerrarMenuHandler}>
-                    <MenuItem onClick={multasHandler}>Administrar multas</MenuItem>
-                    <MenuItem onClick={usuariosHandler}>Administrar usuarios</MenuItem>
-                    <MenuItem onClick={perfilHandler}>Mi perfil</MenuItem>
+                    {localStorage.getItem("rol") === "Supervisor" && <MenuItem onClick={multasHandler}>Administrar multas</MenuItem>}
+                    {localStorage.getItem("rol") === "Administrador" && <MenuItem onClick={usuariosHandler}>Administrar usuarios</MenuItem>}
+                    {localStorage.getItem("rol") !== "Inspector" && <MenuItem onClick={perfilHandler}>Mi perfil</MenuItem>}
                     <MenuItem onClick={cerrarSesionHandler}>Cerrar sesión</MenuItem>
                 </Menu>
             </Toolbar>
