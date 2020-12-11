@@ -100,12 +100,16 @@ class Usuario extends Component {
                                 </List>
                             </Grid>
                         </Grid>
-                        <Tooltip title="Editar datos" placement="left" arrow>
-                            <Fab color="primary" onClick={this.props.abrirDialogEditar} style={{position: "fixed", bottom: theme.spacing(5), right: theme.spacing(5)}}>
-                                <Edit />
-                            </Fab>
-                        </Tooltip>
-                        <EditarUsuario open={this.props.mostrarDialog} onClose={this.props.cerrarDialogEditar} editar={true} />
+                        {this.props.usuario.rol !== "Ciudadano" &&
+                            <Fragment>
+                                <Tooltip title="Editar datos" placement="left" arrow>
+                                    <Fab color="primary" onClick={this.props.abrirDialogEditar} style={{position: "fixed", bottom: theme.spacing(5), right: theme.spacing(5)}}>
+                                        <Edit />
+                                    </Fab>
+                                </Tooltip>
+                                <EditarUsuario open={this.props.mostrarDialog} onClose={this.props.cerrarDialogEditar} editar={true} />
+                            </Fragment>
+                        }
                         <Notifier />
                     </Fragment>
                 : null}
