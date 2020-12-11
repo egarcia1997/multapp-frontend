@@ -122,6 +122,28 @@ class Usuarios extends Component {
             </Fragment>
         ));
 
+        let ciudadanos = this.props.usuarios.filter(usuario => {
+            return usuario.rol === "Ciudadano" && usuario.id !== localStorage.getItem("uid") ? true : false;
+        }).map(administrador => (
+            <Fragment>
+                <ListItem key={administrador.id} button={true} onClick={() => this.userSelectedHandler(administrador.id)}>
+                    <ListItemAvatar>
+                        <Avatar alt={"Foto de " + administrador.nombre} src={administrador.foto} />
+                    </ListItemAvatar>
+                    <ListItemText
+                        primary={administrador.nombre}
+                        secondary={administrador.email}
+                    />
+                    <ListItemSecondaryAction>
+                        <IconButton onClick={() => this.deleteUserHandler(administrador.id, administrador.nombre)}>
+                            <Delete />
+                        </IconButton>
+                    </ListItemSecondaryAction>
+                </ListItem>
+                <Divider />
+            </Fragment>
+        ));
+
         const theme = createMuiTheme();
 
         return (
@@ -131,6 +153,7 @@ class Usuarios extends Component {
                         <Tab label="Inspectores" />
                         <Tab label="Supervisores" />
                         <Tab label="Administradores" />
+                        <Tab label="Ciudadanos" />
                     </Tabs>
                     <this.TabPanel value={this.state.pestanaActual} index={0}>
                         {this.props.cargando ? <CircularProgress /> : 
@@ -150,6 +173,13 @@ class Usuarios extends Component {
                         {this.props.cargando ? <CircularProgress /> : 
                             <List>
                                 {administradores.length !== 0 ? administradores : "Aún no hay administradores cargados"}
+                            </List>
+                        }
+                    </this.TabPanel>
+                    <this.TabPanel value={this.state.pestanaActual} index={3}>
+                        {this.props.cargando ? <CircularProgress /> : 
+                            <List>
+                                {ciudadanos.length !== 0 ? ciudadanos : "Aún no hay ciudadanos registrados"}
                             </List>
                         }
                     </this.TabPanel>
