@@ -9,6 +9,7 @@ import Multa from "../../components/Multa/Multa";
 import Usuarios from "../../components/Usuarios/Usuarios";
 import Usuario from "../../components/Usuario/Usuario";
 import InspectorLogueado from "../../components/InspectorLogueado/InspectorLogueado";
+import Vehiculos from "../../components/Vehiculos/Vehiculos";
 
 class Layout extends Component {
     render() {
@@ -24,11 +25,12 @@ class Layout extends Component {
         }
         else if (localStorage.getItem("rol") === "Administrador") {
             routes = (
-                <Fragment>
+                <Switch>
                     <Route path="/usuarios/:id" exact={true} component={Usuario} />
                     <Route path="/usuarios" exact={true} component={Usuarios} />
+                    <Route path="/vehiculos" exact={true} component={Vehiculos} />
                     <Redirect from="/" to="/usuarios" />
-                </Fragment>
+                </Switch>
             );
         }
         else if (localStorage.getItem("rol") === "Inspector") {

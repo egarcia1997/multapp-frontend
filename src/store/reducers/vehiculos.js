@@ -13,7 +13,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.CARGAR_VEHICULOS_CON_EXITO:
             return {
                 ...state,
-                usuarios: action.usuarios,
+                vehiculos: action.vehiculos,
                 cargando: false,
                 error: false,
                 textoDeError: "",

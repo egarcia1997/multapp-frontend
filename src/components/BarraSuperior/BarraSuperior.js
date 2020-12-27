@@ -39,6 +39,12 @@ const BarraSuperior = props => {
         props.history.push("/usuarios");
     }
 
+    // metodo que te manda a la pagina para administrar vehiculos
+    const vehiculosHandler = () => {
+        cerrarMenuHandler();
+        props.history.push("/vehiculos");
+    }
+
     // metodo para cerrar sesion
     const cerrarSesionHandler = () => {
         cerrarMenuHandler();
@@ -58,6 +64,7 @@ const BarraSuperior = props => {
                 <Menu id="menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={cerrarMenuHandler}>
                     {localStorage.getItem("rol") === "Supervisor" && <MenuItem onClick={multasHandler}>Administrar multas</MenuItem>}
                     {localStorage.getItem("rol") === "Administrador" && <MenuItem onClick={usuariosHandler}>Administrar usuarios</MenuItem>}
+                    {localStorage.getItem("rol") === "Administrador" && <MenuItem onClick={vehiculosHandler}>Administrar vehículos</MenuItem>}
                     {localStorage.getItem("rol") !== "Inspector" && <MenuItem onClick={perfilHandler}>Mi perfil</MenuItem>}
                     <MenuItem onClick={cerrarSesionHandler}>Cerrar sesión</MenuItem>
                 </Menu>
