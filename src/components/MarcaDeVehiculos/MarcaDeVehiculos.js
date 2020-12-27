@@ -1,5 +1,5 @@
-import { Avatar, Collapse, IconButton, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from "@material-ui/core";
-import { Delete, DirectionsCar } from "@material-ui/icons";
+import { Avatar, Collapse, IconButton, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, Tooltip } from "@material-ui/core";
+import { Add, Delete, DirectionsCar } from "@material-ui/icons";
 import React, { useState } from "react";
 import { Fragment } from "react";
 
@@ -16,9 +16,16 @@ const MarcaDeVehiculos = props => {
                 </ListItemAvatar>
                 <ListItemText primary={props.marca} secondary={`${props.modelos.length} modelos`} />
                 <ListItemSecondaryAction>
-                    <IconButton>
-                        <Delete />
-                    </IconButton>
+                    <Tooltip title="Agregar modelo">
+                        <IconButton onClick={props.onAddModelo}>
+                            <Add />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Borrar marca">
+                        <IconButton onClick={props.onDeleteMarca}>
+                            <Delete onClick={props.onDeleteMarca} />
+                        </IconButton>
+                    </Tooltip>
                 </ListItemSecondaryAction>
             </ListItem>
             <Collapse in={show}>
@@ -27,9 +34,11 @@ const MarcaDeVehiculos = props => {
                         <ListItem>
                             <ListItemText primary={modelo} />
                             <ListItemSecondaryAction>
-                                <IconButton>
-                                    <Delete />
-                                </IconButton>
+                                <Tooltip title="Borrar modelo">
+                                    <IconButton onClick={props.onDeleteModelo}>
+                                        <Delete />
+                                    </IconButton>
+                                </Tooltip>
                             </ListItemSecondaryAction>
                         </ListItem>
                     ))}
