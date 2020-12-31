@@ -21,6 +21,7 @@ import eliminarUsuarioReducer from "./components/EliminarUsuario/reducer";
 import usuarioReducer from "./components/Usuario/reducer";
 import vehiculosReducer from "./components/Vehiculos/reducer";
 import agregarMarcaReducer from "./components/AgregarMarca/reducer";
+import eliminarMarcaReducer from "./components/EliminarMarca/reducer";
 
 Axios.defaults.baseURL = "http://localhost:8000/api"; // esto es para usar la misma url en todas las peticiones http sin tener que andar escribiendo
 
@@ -41,6 +42,7 @@ const reducers = combineReducers({
     usuario: usuarioReducer,
     vehiculos: vehiculosReducer,
     agregarMarca: agregarMarcaReducer,
+    eliminarMarca: eliminarMarcaReducer,
 });
 
 const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));

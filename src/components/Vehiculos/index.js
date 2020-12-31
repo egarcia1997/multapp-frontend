@@ -9,12 +9,12 @@ import { cargarVehiculos } from "./actions";
 import MarcaDeVehiculos from "../MarcaDeVehiculos/MarcaDeVehiculos";
 import AgregarMarca from "../AgregarMarca";
 import { abrirDialogAgregarMarca, cerrarDialogAgregarMarca } from "../AgregarMarca/actions";
+import EliminarMarca from "../EliminarMarca";
+import { abrirDialogEliminarMarca, cerrarDialogEliminarMarca } from "../EliminarMarca/actions";
 
 class Vehiculos extends Component {
     state = {
-        mostrarDialogAgregarModelo: false,
-        mostrarDialogEliminarMarca: false,
-        mostrarDialogEliminarModelo: false,
+        idSeleccionado: "",
         marcaSeleccionada: "",
         modeloSeleccionado: "",
     }
@@ -25,7 +25,14 @@ class Vehiculos extends Component {
 
     toggleAgregarModelo = () => {}
 
-    onDeleteMarca = () => {}
+    onDeleteMarca = (id, marca) => {
+      this.setState({
+        idSeleccionado: id,
+        marcaSeleccionada: marca,
+        modeloSeleccionado: ""
+      });
+      this.props.abrirDialogEliminarMarca();
+    }
 
     onDeleteModelo = () => {}
 
@@ -45,7 +52,7 @@ class Vehiculos extends Component {
                                         marca={vehiculo.marca}
                                         modelos={vehiculo.modelos}
                                         onAddModelo
-                                        onDeleteMarca
+                                        onDeleteMarca={() => this.onDeleteMarca(vehiculo.id, vehiculo.marca)}
                                         onDeleteModelo
                                     />
                                 ))}
@@ -57,6 +64,12 @@ class Vehiculos extends Component {
                             </Tooltip>
 
                             <AgregarMarca open={this.props.mostrarDialogAgregarMarca} onClose={this.props.cerrarDialogAgregarMarca} />
+                            <EliminarMarca
+                                open={this.props.mostrarDialogEliminarMarca}
+                                onClose={this.props.cerrarDialogEliminarMarca}
+                                id={this.state.idSeleccionado}
+                                marca={this.state.marcaSeleccionada}
+                            />
                         </Fragment>
                     }
                 </Container>
@@ -73,6 +86,7 @@ const mapStateToProps = state => {
         error: state.vehiculos.error,
         textoDeError: state.vehiculos.textoDeError,
         mostrarDialogAgregarMarca: state.agregarMarca.mostrarDialog,
+        mostrarDialogEliminarMarca: state.eliminarMarca.mostrarDialog,
     }
 }
 
@@ -80,7 +94,9 @@ const mapDispatchToProps = dispatch => {
     return {
         cargarVehiculos: () => dispatch(cargarVehiculos()),
         abrirDialogAgregarMarca: () => dispatch(abrirDialogAgregarMarca()),
-        cerrarDialogAgregarMarca: () => dispatch(cerrarDialogAgregarMarca())
+        cerrarDialogAgregarMarca: () => dispatch(cerrarDialogAgregarMarca()),
+        abrirDialogEliminarMarca: () => dispatch(abrirDialogEliminarMarca()),
+        cerrarDialogEliminarMarca: () => dispatch(cerrarDialogEliminarMarca()),
     }
 }
 
