@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
-import Login from "./containers/Login/Login";
+import Login from "./containers/Login";
 import Layout from './containers/Layout/Layout';
 import { connect } from 'react-redux';
 

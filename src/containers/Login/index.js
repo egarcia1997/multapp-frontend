@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Logo from "../../components/Logo/Logo";
 import { Container, Typography, FormControl, TextField, Button, Grid, Paper, CircularProgress } from "@material-ui/core";
-import { login, recuperarContrasena } from "../../store/actions/login";
+import { login, recuperarContrasena } from "./actions";
 import { connect } from "react-redux";
 import { traducirError } from "../../share/traducirError";
 import { Redirect, withRouter } from "react-router";

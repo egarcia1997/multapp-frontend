@@ -8,7 +8,7 @@ import { SnackbarProvider } from "notistack";
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import notifierReducer from "./components/Notifier/reducer";
-import loginReducer from "./store/reducers/login";
+import loginReducer from "./containers/Login/reducer";
 import cambiarContrasenaReducer from "./components/CambiarContrasena/reducer";
 import perfilReducer from "./components/Perfil/reducer";
 import multasReducer from "./components/Multas/reducer";
