@@ -1,42 +1,47 @@
 import * as actionTypes from "../../share/actionTypes";
 
 const initialState = {
+    mostrarDialog: false,
     cargando: false,
+    exito: false,
     error: false,
     textoDeError: "",
-    idToken: "",
-}
+};
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.LOGIN_START:
+        case actionTypes.ABRIR_DIALOG_RESOLVER:
+            return {
+                ...state,
+                mostrarDialog: true,
+            };
+        case actionTypes.CERRAR_DIALOG_RESOLVER:
+            return {
+                ...state,
+                mostrarDialog: false,
+            };
+        case actionTypes.RESOLVER_MULTA_START:
             return {
                 ...state,
                 cargando: true,
-            }
-        case actionTypes.LOGIN_CON_EXITO:
+            };
+        case actionTypes.RESOLVER_MULTA_CON_EXITO:
             return {
                 ...state,
+                mostrarDialog: false,
                 cargando: false,
+                exito: true,
                 error: false,
                 textoDeError: "",
-                idToken: action.idToken,
-            }
-        case actionTypes.LOGIN_CON_ERROR:
+            };
+        case actionTypes.RESOLVER_MULTA_CON_ERROR:
             return {
                 ...state,
                 cargando: false,
+                exito: false,
                 error: true,
                 textoDeError: action.error,
-            }
-        case actionTypes.RECUPERAR_CONTRASENA_CON_EXITO: {
-            return {
-                ...state,
-                cargando: false,
-                error: false,
-                textoDeError: "Verifique su correo electrónico (bandeja de entrada y correo no deseado). Allí le informamos los pasos a seguir.",
-            }
-        }
+            };
         default:
             return state;
     }

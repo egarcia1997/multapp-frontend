@@ -1,4 +1,4 @@
-import * as actionTypes from "./actionTypes";
+import * as actionTypes from "../../share/actionTypes";
 import Axios from "axios";
 
 const loginStart = () => {

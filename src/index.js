@@ -7,20 +7,20 @@ import thunk from "redux-thunk";
 import { SnackbarProvider } from "notistack";
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import notifierReducer from "./store/reducers/notifier";
+import notifierReducer from "./components/Notifier/reducer";
 import loginReducer from "./store/reducers/login";
-import cambiarContrasenaReducer from "./store/reducers/cambiarContrasena";
-import perfilReducer from "./store/reducers/perfil";
-import multasReducer from "./store/reducers/multas";
-import filtroReducer from "./store/reducers/filtro";
-import multaReducer from "./store/reducers/multa";
-import resolverMultaReducer from "./store/reducers/resolverMulta";
-import usuariosReducer from "./store/reducers/usuarios";
-import editarUsuarioReducer from "./store/reducers/editarUsuario";
-import eliminarUsuarioReducer from "./store/reducers/eliminarUsuario";
-import usuarioReducer from "./store/reducers/usuario";
-import vehiculosReducer from "./store/reducers/vehiculos";
-import agregarMarcaReducer from "./store/reducers/agregarMarca";
+import cambiarContrasenaReducer from "./components/CambiarContrasena/reducer";
+import perfilReducer from "./components/Perfil/reducer";
+import multasReducer from "./components/Multas/reducer";
+import filtroReducer from "./components/Filtro/reducer";
+import multaReducer from "./components/Multa/reducer";
+import resolverMultaReducer from "./components/ResolverMulta/reducer";
+import usuariosReducer from "./components/Usuarios/reducer";
+import editarUsuarioReducer from "./components/EditarUsuario/reducer";
+import eliminarUsuarioReducer from "./components/EliminarUsuario/reducer";
+import usuarioReducer from "./components/Usuario/reducer";
+import vehiculosReducer from "./components/Vehiculos/reducer";
+import agregarMarcaReducer from "./components/AgregarMarca/reducer";
 
 Axios.defaults.baseURL = "http://localhost:8000/api"; // esto es para usar la misma url en todas las peticiones http sin tener que andar escribiendo
 
