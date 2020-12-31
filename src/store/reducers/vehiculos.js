@@ -3,7 +3,6 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
     vehiculos: [],
     cargando: true,
-    cargandoModelo: false,
     error: false,
     textoDeError: "",
 }
@@ -25,34 +24,6 @@ const reducer = (state = initialState, action) => {
                 error: true,
                 textoDeError: action.error,
             };
-        case actionTypes.CREAR_MARCA_CON_EXITO:
-          return {
-              ...state,
-              cargandoModelo: false,
-              error: false,
-              textoDeError: "",
-          };
-        case actionTypes.CREAR_MARCA_CON_ERROR:
-          return {
-              ...state,
-              cargandoModelo: false,
-              error: true,
-              textoDeError: action.error,
-          };
-        case actionTypes.CREAR_MODELO_CON_EXITO:
-        return {
-            ...state,
-            cargandoModelo: false,
-            error: false,
-            textoDeError: "",
-        };
-        case actionTypes.CREAR_MODELO_CON_ERROR:
-        return {
-            ...state,
-            cargandoModelo: false,
-            error: true,
-            textoDeError: action.error,
-        };
         default:
             return state;
     }

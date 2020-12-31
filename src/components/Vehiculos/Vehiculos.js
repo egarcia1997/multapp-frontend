@@ -7,11 +7,27 @@ import { withSnackbar } from "notistack";
 import Notifier from "../Notifier/Notifier";
 import { cargarVehiculos } from "../../store/actions/vehiculos";
 import MarcaDeVehiculos from "../MarcaDeVehiculos/MarcaDeVehiculos";
+import AgregarMarca from "../AgregarMarca/AgregarMarca";
+import { abrirDialogAgregarMarca, cerrarDialogAgregarMarca } from "../../store/actions/agregarMarca";
 
 class Vehiculos extends Component {
+    state = {
+        mostrarDialogAgregarModelo: false,
+        mostrarDialogEliminarMarca: false,
+        mostrarDialogEliminarModelo: false,
+        marcaSeleccionada: "",
+        modeloSeleccionado: "",
+    }
+
     componentDidMount = () => {
         this.props.cargarVehiculos();
     }
+
+    toggleAgregarModelo = () => {}
+
+    onDeleteMarca = () => {}
+
+    onDeleteModelo = () => {}
 
     render() {
         const theme = createMuiTheme();
@@ -28,14 +44,19 @@ class Vehiculos extends Component {
                                         logo={vehiculo.logo}
                                         marca={vehiculo.marca}
                                         modelos={vehiculo.modelos}
+                                        onAddModelo
+                                        onDeleteMarca
+                                        onDeleteModelo
                                     />
                                 ))}
                             </List>
                             <Tooltip title="Agregar marca" placement="left" arrow>
-                                <Fab color="primary" onClick={this.props.abrirDialogEditar} style={{position: "fixed", bottom: theme.spacing(5), right: theme.spacing(5)}}>
+                                <Fab color="primary" onClick={this.props.abrirDialogAgregarMarca} style={{position: "fixed", bottom: theme.spacing(5), right: theme.spacing(5)}}>
                                     <Add />
                                 </Fab>
                             </Tooltip>
+
+                            <AgregarMarca open={this.props.mostrarDialogAgregarMarca} onClose={this.props.cerrarDialogAgregarMarca} />
                         </Fragment>
                     }
                 </Container>
@@ -51,12 +72,15 @@ const mapStateToProps = state => {
         cargando: state.vehiculos.cargando,
         error: state.vehiculos.error,
         textoDeError: state.vehiculos.textoDeError,
+        mostrarDialogAgregarMarca: state.agregarMarca.mostrarDialog,
     }
 }
 
 const mapDispatchToProps = dispatch => { 
     return {
-        cargarVehiculos: () => {dispatch(cargarVehiculos())},
+        cargarVehiculos: () => dispatch(cargarVehiculos()),
+        abrirDialogAgregarMarca: () => dispatch(abrirDialogAgregarMarca()),
+        cerrarDialogAgregarMarca: () => dispatch(cerrarDialogAgregarMarca())
     }
 }
 
