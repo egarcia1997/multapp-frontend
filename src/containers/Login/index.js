@@ -149,7 +149,7 @@ class Login extends Component {
                     style={{ minHeight: '100vh' }}
                 >
                     <Grid item={true} xs={3}>
-                        <Paper elevation={3} style={{padding: "8px"}}>
+                        <Paper elevation={3} style={{padding: "16px"}}>
                             <Grid container={true} spacing={1} direction="column">
                                 <Grid item={true} xs={12} style={{textAlign: "center"}}>
                                     {imagen}
