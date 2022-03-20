@@ -1,6 +1,6 @@
 import * as actionTypes from "../../share/actionTypes";
 import Axios from "axios";
-import { enqueueSnackbar } from "../Notifier/actions";
+import { enqueueSnackbar } from "../../containers/Notifier/actions";
 import { traducirError } from "../../share/traducirError";
 import { cargarMulta } from "../Multa/actions";
 

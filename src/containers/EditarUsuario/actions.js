@@ -1,8 +1,8 @@
 import * as actionTypes from "../../share/actionTypes";
 import Axios from "axios";
 import { enqueueSnackbar } from "../Notifier/actions";
-import { cargarUsuarios } from "../Usuarios/actions";
-import { cargarUsuario } from "../Usuario/actions";
+import { cargarUsuarios } from "../../components/Usuarios/actions";
+import { cargarUsuario } from "../../components/Usuario/actions";
 import { traducirError } from "../../share/traducirError";
 
 export const abrirDialogEditar = () => {

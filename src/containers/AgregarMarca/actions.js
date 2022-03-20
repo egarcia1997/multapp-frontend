@@ -2,7 +2,7 @@ import * as actionTypes from "../../share/actionTypes";
 import Axios from "axios";
 import { enqueueSnackbar } from "../Notifier/actions";
 import { traducirError } from "../../share/traducirError";
-import { cargarVehiculos } from "../Vehiculos/actions";
+import { cargarVehiculos } from "../../components/Vehiculos/actions";
 
 export const abrirDialogAgregarMarca = () => {
     return {

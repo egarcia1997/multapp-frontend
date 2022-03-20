@@ -3,7 +3,7 @@ import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, Dialo
 import useStyles from "../../share/useStyles";
 import { withSnackbar } from "notistack";
 import { connect } from "react-redux";
-import Notifier from "../Notifier";
+import Notifier from "../../containers/Notifier";
 import { resolverMulta, cerrarDialogResolver } from "./actions";
 
 const ResolverMulta = props => {
