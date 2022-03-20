@@ -145,7 +145,7 @@ class Login extends Component {
                     container={true}
                     spacing={0}
                     alignContent="center"
-                    justify="center"
+                    justifyContent="center"
                     style={{ minHeight: '100vh' }}
                 >
                     <Grid item={true} xs={3}>
