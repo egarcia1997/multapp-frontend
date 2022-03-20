@@ -1,15 +1,15 @@
 import React, { Component, Fragment } from "react";
 import {Switch, Route, Redirect, withRouter} from "react-router-dom";
-import Multas from "../../components/Multas";
-import Perfil from "../../components/Perfil";
+import Multas from "../../containers/Multas";
+import Perfil from "../../containers/Perfil";
 import estilos from "./Layout.module.css";
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import { Container, Box } from "@material-ui/core";
-import Multa from "../../components/Multa";
-import Usuarios from "../../components/Usuarios";
-import Usuario from "../../components/Usuario";
+import Multa from "../../containers/Multa";
+import Usuarios from "../../containers/Usuarios";
+import Usuario from "../../containers/Usuario";
 import InspectorLogueado from "../../components/InspectorLogueado/InspectorLogueado";
-import Vehiculos from "../../components/Vehiculos";
+import Vehiculos from "../../containers/Vehiculos";
 
 class Layout extends Component {
     render() {

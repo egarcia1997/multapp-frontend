@@ -7,21 +7,21 @@ import thunk from "redux-thunk";
 import { SnackbarProvider } from "notistack";
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import notifierReducer from "./components/Notifier/reducer";
+import notifierReducer from "./containers/Notifier/reducer";
 import loginReducer from "./containers/Login/reducer";
-import cambiarContrasenaReducer from "./components/CambiarContrasena/reducer";
-import perfilReducer from "./components/Perfil/reducer";
-import multasReducer from "./components/Multas/reducer";
-import filtroReducer from "./components/Filtro/reducer";
-import multaReducer from "./components/Multa/reducer";
-import resolverMultaReducer from "./components/ResolverMulta/reducer";
-import usuariosReducer from "./components/Usuarios/reducer";
-import editarUsuarioReducer from "./components/EditarUsuario/reducer";
-import eliminarUsuarioReducer from "./components/EliminarUsuario/reducer";
-import usuarioReducer from "./components/Usuario/reducer";
-import vehiculosReducer from "./components/Vehiculos/reducer";
-import agregarMarcaReducer from "./components/AgregarMarca/reducer";
-import eliminarMarcaReducer from "./components/EliminarMarca/reducer";
+import cambiarContrasenaReducer from "./containers/CambiarContrasena/reducer";
+import perfilReducer from "./containers/Perfil/reducer";
+import multasReducer from "./containers/Multas/reducer";
+import filtroReducer from "./containers/Filtro/reducer";
+import multaReducer from "./containers/Multa/reducer";
+import resolverMultaReducer from "./containers/ResolverMulta/reducer";
+import usuariosReducer from "./containers/Usuarios/reducer";
+import editarUsuarioReducer from "./containers/EditarUsuario/reducer";
+import eliminarUsuarioReducer from "./containers/EliminarUsuario/reducer";
+import usuarioReducer from "./containers/Usuario/reducer";
+import vehiculosReducer from "./containers/Vehiculos/reducer";
+import agregarMarcaReducer from "./containers/AgregarMarca/reducer";
+import eliminarMarcaReducer from "./containers/EliminarMarca/reducer";
 
 Axios.defaults.baseURL = "http://localhost:8000/api"; // esto es para usar la misma url en todas las peticiones http sin tener que andar escribiendo
 

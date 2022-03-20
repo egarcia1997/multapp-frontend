@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { withSnackbar } from "notistack";
 import Notifier from "../Notifier";
 import { cargarVehiculos } from "./actions";
-import MarcaDeVehiculos from "../MarcaDeVehiculos/MarcaDeVehiculos";
+import MarcaDeVehiculos from "../../components/MarcaDeVehiculos/MarcaDeVehiculos";
 import AgregarMarca from "../AgregarMarca";
 import { abrirDialogAgregarMarca, cerrarDialogAgregarMarca } from "../AgregarMarca/actions";
 import EliminarMarca from "../EliminarMarca";

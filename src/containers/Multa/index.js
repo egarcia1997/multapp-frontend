@@ -7,8 +7,8 @@ import { connect } from "react-redux";
 import { cargarMulta } from "./actions";
 import { withSnackbar } from "notistack";
 import Notifier from "../Notifier";
-import ResolverMulta from "../../components/ResolverMulta";
-import { abrirDialogResolver } from "../../components/ResolverMulta/actions";
+import ResolverMulta from "../ResolverMulta";
+import { abrirDialogResolver } from "../ResolverMulta/actions";
 import CustomImagePreview from "../../components/CustomImagePreview/CustomImagePreview";
 
 class Multa extends Component {
