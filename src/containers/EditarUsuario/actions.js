@@ -43,7 +43,7 @@ export const editarUsuario = (id, usuario, editar) => {
         if (editar) {
             data.append("id", id);
         }
-        Object.keys(usuario).map(key => {
+        Object.keys(usuario).forEach(key => {
             data.append(key.toString(), usuario[key]);
         });
         const headers = {
