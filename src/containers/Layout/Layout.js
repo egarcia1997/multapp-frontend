@@ -1,59 +1,64 @@
-import React, { Component, Fragment } from "react";
-import {Switch, Route, Redirect, withRouter} from "react-router-dom";
-import Multas from "../../containers/Multas";
-import Perfil from "../../containers/Perfil";
+import React from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { Container, Box } from "@material-ui/core";
+import Multas from "../Multas";
+import Perfil from "../Perfil";
 import estilos from "./Layout.module.css";
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
-import { Container, Box } from "@material-ui/core";
-import Multa from "../../containers/Multa";
-import Usuarios from "../../containers/Usuarios";
-import Usuario from "../../containers/Usuario";
+import Multa from "../Multa";
+import Usuarios from "../Usuarios";
+import Usuario from "../Usuario";
 import InspectorLogueado from "../../components/InspectorLogueado/InspectorLogueado";
-import Vehiculos from "../../containers/Vehiculos";
+import Vehiculos from "../Vehiculos";
+import { useSelector } from "react-redux";
 
-class Layout extends Component {
-    render() {
-        let routes;
-        if (localStorage.getItem("rol") === "Supervisor") {
-            routes = (
-                <Fragment>
-                    <Route path="/multas/:id" exact={true} component={Multa} />
-                    <Route path="/multas" exact={true} component={Multas} />
-                    <Redirect from="/" to="/multas" />
-                </Fragment>
-            );
-        }
-        else if (localStorage.getItem("rol") === "Administrador") {
-            routes = (
-                <Switch>
-                    <Route path="/usuarios/:id" exact={true} component={Usuario} />
-                    <Route path="/usuarios" exact={true} component={Usuarios} />
-                    <Route path="/vehiculos" exact={true} component={Vehiculos} />
-                    <Redirect from="/" to="/usuarios" />
-                </Switch>
-            );
-        }
-        else if (localStorage.getItem("rol") === "Inspector") {
-            routes = (
-                <Fragment>
-                    <Route path="/notallowed" component={InspectorLogueado} />
-                    <Redirect from="/" to="/notallowed" />
-                </Fragment>
-            )
-        }
+const Layout = () => {
+  const rol = useSelector(state => state.login.rol);
 
-        return (
-            <Box className={estilos.Layout}>
-                <BarraSuperior />
-                <Container className={estilos.Contenido}>
-                    <Switch>
-                        <Route path="/perfil" component={Perfil} />
-                        {routes}
-                    </Switch>
-                </Container>
-            </Box>
-        );
-    }
-}
+  let routes;
+  switch (rol) {
+    case 'Supervisor':
+      routes = (
+        <>
+          <Route path="/multas/:id" exact={true} component={Multa} />
+          <Route path="/multas" exact={true} component={Multas} />
+          <Redirect from="/" to="/multas" />
+        </>
+      );
+      break;
+    case 'Administrador':
+      routes = (
+        <Switch>
+          <Route path="/usuarios/:id" exact={true} component={Usuario} />
+          <Route path="/usuarios" exact={true} component={Usuarios} />
+          <Route path="/vehiculos" exact={true} component={Vehiculos} />
+          <Redirect from="/" to="/usuarios" />
+        </Switch>
+      );
+      break;
+    case 'Inspector':
+      routes = (
+        <>
+          <Route path="/notallowed" component={InspectorLogueado} />
+          <Redirect from="/" to="/notallowed" />
+        </>
+      );
+      break;
+    default:
+      routes = null;
+  }
 
-export default withRouter(Layout);
+  return (
+    <Box className={estilos.Layout}>
+      <BarraSuperior />
+      <Container className={estilos.Contenido}>
+        <Switch>
+          <Route path="/perfil" component={Perfil} />
+          {routes}
+        </Switch>
+      </Container>
+    </Box>
+  );
+};
+
+export default Layout;
