@@ -20,7 +20,11 @@ const reducer = (state = initialState, action) => {
                 cargando: false,
                 error: false,
                 textoDeError: "",
-                idToken: action.idToken,
+                accessToken: action.userData.accessToken,
+                displayName: action.userData.displayName,
+                email: action.userData.email,
+                phoneNumber: action.userData.phoneNumber,
+                photoURL: action.userData.photoURL
             }
         case actionTypes.LOGIN_CON_ERROR:
             return {
