@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
 import Logo from "../../components/Logo/Logo";
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Avatar } from "@material-ui/core";
 import { cerrarSesion } from "../../share/cerrarSesion";
