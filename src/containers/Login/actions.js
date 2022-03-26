@@ -7,14 +7,14 @@ const loginStart = () => {
     }
 }
 
-const loginConExito = (idToken) => {
+export const loginConExito = userData => {
     return {
         type: actionTypes.LOGIN_CON_EXITO,
-        idToken: idToken,
+        userData,
     }
 }
 
-const loginConError = (error) => {
+export const loginConError = (error) => {
     return {
         type: actionTypes.LOGIN_CON_ERROR,
         error: error,
