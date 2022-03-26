@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
                 cargando: false,
                 error: false,
                 textoDeError: "",
-                accessToken: action.userData.accessToken,
+                uid: action.userData.uid,
                 displayName: action.userData.displayName,
                 email: action.userData.email,
                 phoneNumber: action.userData.phoneNumber,

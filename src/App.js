@@ -5,9 +5,9 @@ import Layout from './containers/Layout/Layout';
 import { useSelector } from 'react-redux';
 
 const App = () => {
-  const accessToken = useSelector(state => state.login.accessToken);
+  const uid = useSelector(state => state.login.uid);
 
-  const rutas = accessToken ?
+  const rutas = uid ?
     (
       <Switch>
         <Route path="/login" component={Login} />
