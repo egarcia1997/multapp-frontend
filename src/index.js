@@ -22,6 +22,18 @@ import usuarioReducer from "./containers/Usuario/reducer";
 import vehiculosReducer from "./containers/Vehiculos/reducer";
 import agregarMarcaReducer from "./containers/AgregarMarca/reducer";
 import eliminarMarcaReducer from "./containers/EliminarMarca/reducer";
+import { initializeApp } from 'firebase/app';
+
+const firebaseConfig = {
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
+    measurementId: process.env.REACT_APP_MEASUREMENT_ID
+  };
+const firebaseApp = initializeApp(firebaseConfig);
 
 Axios.defaults.baseURL = "http://localhost:8000/api"; // esto es para usar la misma url en todas las peticiones http sin tener que andar escribiendo
 
@@ -62,3 +74,5 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+export { firebaseApp };
