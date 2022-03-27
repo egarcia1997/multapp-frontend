@@ -68,7 +68,7 @@ const BarraSuperior = () => {
         </IconButton>
         <Menu id="menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={cerrarMenuHandler}>
           {rol === "Supervisor" && <MenuItem onClick={multasHandler}>Administrar multas</MenuItem>}
-          {rol === "Administrador" && <MenuItem onClick={usuariosHandler}>Administrar usuarios</MenuItem>}
+          {true && <MenuItem onClick={usuariosHandler}>Administrar usuarios</MenuItem>}
           {rol === "Administrador" && <MenuItem onClick={vehiculosHandler}>Administrar vehículos</MenuItem>}
           {rol !== "Inspector" && <MenuItem onClick={perfilHandler}>Mi perfil</MenuItem>}
           <MenuItem onClick={cerrarSesionHandler}>Cerrar sesión</MenuItem>

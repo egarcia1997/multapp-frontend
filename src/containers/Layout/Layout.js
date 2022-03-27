@@ -54,6 +54,7 @@ const Layout = () => {
       <Container className={estilos.Contenido}>
         <Switch>
           <Route path="/perfil" component={Perfil} />
+          <Route path="/usuarios" exact={true} component={Usuarios} />
           {routes}
         </Switch>
       </Container>

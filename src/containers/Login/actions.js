@@ -43,7 +43,7 @@ export const login = (email, password) => {
                 localStorage.setItem("photoURL", response.data.photoURL);
                 // localStorage.setItem("expirationDate", response.data.expiresIn);
                 // localStorage.setItem("localId", response.data.localId);
-                dispatch(loginConExito(response.data.idToken));
+                dispatch(loginConExito(response.data));
             }).catch(error => {
                 dispatch(loginConError(error.response.data.message));
             });

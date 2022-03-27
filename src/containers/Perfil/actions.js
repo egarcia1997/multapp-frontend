@@ -19,10 +19,10 @@ const cargarPerfilConError = (error) => {
 }
 
 export const cargarPerfil = () => {
-    return dispatch => {
+    return (dispatch, getState) => {
         const data = {
             params: {
-                uid: localStorage.uid,
+                uid: getState().login.uid,
             }
         };
         Axios.get("/getPerfil", data)
