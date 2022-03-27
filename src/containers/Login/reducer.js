@@ -4,7 +4,12 @@ const initialState = {
     cargando: false,
     error: false,
     textoDeError: "",
+    uid: localStorage.getItem('uid'),
     idToken: localStorage.getItem('idToken'),
+    displayName: localStorage.getItem('displayName'),
+    email: localStorage.getItem('email'),
+    phoneNumber: localStorage.getItem('phoneNumber'),
+    photoURL: localStorage.getItem('photoURL')
 }
 
 const reducer = (state = initialState, action) => {
