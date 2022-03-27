@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import {Button, Avatar, List, ListItemIcon, ListItem, ListItemText, CircularProgress, Container, Typography, Grid, Divider} from "@material-ui/core";
 import {Email, Home, Phone, Fingerprint, Event, Wc, LocationCity, LocationOn} from "@material-ui/icons";
 import CambiarContrasena from "../CambiarContrasena";
@@ -17,7 +17,7 @@ class Perfil extends Component {
             <Container>
                 {this.props.cargando ? <CircularProgress /> : null}
                 {!this.props.cargando && !this.props.error ?
-                    <Fragment>
+                    <>
                         <Grid container={true} spacing={2}>
                             <Grid item={true} xs={12}>
                                 <Avatar style={{width: "200px", height: "200px"}} src={this.props.foto} alt={this.props.datos.nombre} />
@@ -97,7 +97,7 @@ class Perfil extends Component {
                             </Grid>
                         </Grid>
                         <CambiarContrasena open={this.props.mostrarDialog} onClose={this.props.cerrarDialogCambiarContrasena} />
-                    </Fragment>
+                    </>
                 : null}
                 <Notifier />
             </Container>
