@@ -124,15 +124,15 @@ const EditarUsuario = props => {
     }
 
     return (
-        <Dialog open={props.open} onClose={props.onClose} maxWidth="xl" fullWidth={true}>
+        <Dialog open={props.open} onClose={props.onClose} maxWidth="xl" fullWidth>
             <DialogTitle>
                 {props.editar ? "Editar usuario " : "Agregar un nuevo usuario"}
             </DialogTitle>
             <DialogContent>
                 <DialogContentText>* Campos obligatorios. Pase el cursor sobre algunos campos para más información.</DialogContentText>
-                <Grid container={true} spacing={2}>
-                    <Grid item={true} xs={12}>
-                        <FormControl required={true} fullWidth={true}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <FormControl required fullWidth>
                             <InputLabel>Rol</InputLabel>
                             <Select id="rol" value={rol} onChange={selectHandler}>
                                 <MenuItem value="Administrador">Administrador</MenuItem>
@@ -141,15 +141,16 @@ const EditarUsuario = props => {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item={true} xs={4}>
-                        <FormControl fullWidth={true}>
+                    <Grid item xs={4}>
+                        <FormControl fullWidth>
                             <FormLabel>Datos personales</FormLabel>
-                            <Tooltip title="El número de DNI sin puntos">
+                            <Tooltip title="El número de DNI sin puntos. Mínimo 8 caracteres.">
                                 <TextField
                                     id="dni"
                                     type="number"
                                     label="DNI"
-                                    required={true}
+                                    inputProps={{ min: 10000000 }}
+                                    required
                                     value={dni}
                                     onChange={event => setDni(event.target.value)}
                                 />
@@ -158,7 +159,7 @@ const EditarUsuario = props => {
                                 id="apellido"
                                 type="text"
                                 label="Apellido"
-                                required={true}
+                                required
                                 value={apellido}
                                 onChange={event => setApellido(event.target.value)}
                             />
@@ -166,7 +167,7 @@ const EditarUsuario = props => {
                                 id="nombre"
                                 type="text"
                                 label="Nombre"
-                                required={true}
+                                required
                                 value={nombre}
                                 onChange={event => setNombre(event.target.value)}
                             />
@@ -174,26 +175,26 @@ const EditarUsuario = props => {
                                 id="fechaNacimiento"
                                 type="date"
                                 label="Fecha de nacimiento"
-                                required={true}
+                                required
                                 value={fechaNacimiento}
                                 onChange={event => setFechaNacimiento(event.target.value)}
                             />
-                            <FormLabel component="legend">Sexo</FormLabel>                                
+                            <FormLabel component="legend">Sexo</FormLabel>
                             <RadioGroup value={sexo} onChange={radioHandler}>
                                 <FormControlLabel value="Masculino" label="Masculino" control={<Radio color="primary" />} />
                                 <FormControlLabel value="Femenino" label="Femenino" control={<Radio color="primary" />} />
                             </RadioGroup>
                         </FormControl>
                     </Grid>
-                    <Grid item={true} xs={4}>
-                        <FormControl fullWidth={true}>
+                    <Grid item xs={4}>
+                        <FormControl fullWidth>
                             <FormLabel>Dirección</FormLabel>
                             <Tooltip title="Si la calle del usuario no tiene nombre, escriba Calle sin nombre">
                                 <TextField
                                     id="calle"
                                     type="text"
                                     label="Calle"
-                                    required={true}
+                                    required
                                     value={calle}
                                     onChange={event => setCalle(event.target.value)}
                                 />
@@ -210,8 +211,9 @@ const EditarUsuario = props => {
                             <Tooltip title="Si el usuario no vive en un edificio, deje vacío este campo">
                                 <TextField
                                     id="piso"
-                                    type="text"
+                                    type="number"
                                     label="Piso"
+                                    inputProps={{ min: 0 }}
                                     value={piso}
                                     onChange={event => setPiso(event.target.value)}
                                 />
@@ -219,8 +221,9 @@ const EditarUsuario = props => {
                             <Tooltip title="Si el usuario no vive en un edificio, deje vacío este campo">
                                 <TextField
                                     id="departamento"
-                                    type="text"
+                                    type="number"
                                     label="Departamento"
+                                    inputProps={{ min: 1 }}
                                     value={departamento}
                                     onChange={event => setDepartamento(event.target.value)}
                                 />
@@ -229,7 +232,7 @@ const EditarUsuario = props => {
                                 id="localidad"
                                 type="text"
                                 label="Localidad"
-                                required={true}
+                                required
                                 value={localidad}
                                 onChange={event => setLocalidad(event.target.value)}
                             />
@@ -237,20 +240,20 @@ const EditarUsuario = props => {
                                 id="provincia"
                                 type="text"
                                 label="Provincia"
-                                required={true}
+                                required
                                 value={provincia}
                                 onChange={event => setProvincia(event.target.value)}
                             />
                         </FormControl>
                     </Grid>
-                    <Grid item={true} xs={4}>
-                        <FormControl fullWidth={true}>
+                    <Grid item xs={4}>
+                        <FormControl fullWidth>
                             <FormLabel>Cuenta</FormLabel>
                             <TextField
                                 id="email"
                                 type="email"
                                 label="Correo electrónico"
-                                required={true}
+                                required
                                 value={email}
                                 onChange={event => setEmail(event.target.value)}
                             />
@@ -259,7 +262,7 @@ const EditarUsuario = props => {
                                     id="telefono"
                                     type="phone"
                                     label="Teléfono"
-                                    required={true}
+                                    required
                                     value={telefono}
                                     onChange={event => setTelefono(event.target.value)}
                                 />
