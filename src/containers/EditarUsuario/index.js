@@ -6,6 +6,8 @@ import { editarUsuario } from "./actions";
 import { withSnackbar } from "notistack";
 import Notifier from "../Notifier";
 import useStyles from "../../share/useStyles";
+import provincias from '../../share/provincias.json';
+import * as localidades from '../../share/localidades.json'
 
 const EditarUsuario = props => {
     const [rol, setRol] = useState("");
@@ -122,6 +124,11 @@ const EditarUsuario = props => {
         let id = props.editar ? props.usuario.id : "";
         props.editarUsuario(id, usuario, props.editar);
     }
+    const provinciaOptions = provincias.provincias
+        .sort((a, b) => a.nombre.localeCompare(b.nombre))
+        .map(p => (
+            <MenuItem value={p.nombre}>{p.nombre}</MenuItem>
+        ));
 
     return (
         <Dialog open={props.open} onClose={props.onClose} maxWidth="xl" fullWidth>
@@ -236,14 +243,19 @@ const EditarUsuario = props => {
                                 value={localidad}
                                 onChange={event => setLocalidad(event.target.value)}
                             />
-                            <TextField
-                                id="provincia"
-                                type="text"
-                                label="Provincia"
-                                required
-                                value={provincia}
-                                onChange={event => setProvincia(event.target.value)}
-                            />
+                            <FormControl required>
+                                <InputLabel id="provinciaLabel">Provincia</InputLabel>
+                                <Select
+                                    id="provincia"
+                                    labelId="provinciaLabel"
+                                    label="Provincia"
+                                    required
+                                    value={provincia}
+                                    onChange={selectHandler}
+                                >
+                                    {provinciaOptions}
+                                </Select>
+                            </FormControl>
                         </FormControl>
                     </Grid>
                     <Grid item xs={4}>
