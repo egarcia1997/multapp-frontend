@@ -7,7 +7,7 @@ import { withSnackbar } from "notistack";
 import Notifier from "../Notifier";
 import useStyles from "../../share/useStyles";
 import provincias from '../../share/provincias.json';
-import * as localidades from '../../share/localidades.json'
+import localidades from '../../share/localidades.json'
 
 const EditarUsuario = props => {
     const [rol, setRol] = useState("");
@@ -42,8 +42,8 @@ const EditarUsuario = props => {
             setNumero(props.usuario.numero);
             setPiso(props.usuario.piso);
             setDepartamento(props.usuario.departamento);
-            setLocalidad(props.usuario.localidad);
             setProvincia(props.usuario.provincia);
+            setLocalidad(props.usuario.localidad);
             setEmail(props.usuario.email);
             setTelefono(props.usuario.telefono);
         }
@@ -87,14 +87,14 @@ const EditarUsuario = props => {
         }
     }, [rol, dni, apellido, nombre, fechaNacimiento, calle, localidad, provincia, email, telefono]);
 
+    // resetea la localidad al cambiar la provincia
+    useEffect(() => {
+        setLocalidad('');
+    }, [provincia]);
+
     // carga el radio que selecciona el usuario en el state
     const radioHandler = (event) => {
         setSexo(event.target.value);
-    }
-
-    // carga lo que selecciona el usuario en el select en el state
-    const selectHandler = (event) => {
-        setRol(event.target.value);
     }
 
     // carga la foto subida en el state
@@ -129,6 +129,12 @@ const EditarUsuario = props => {
         .map(p => (
             <MenuItem value={p.nombre}>{p.nombre}</MenuItem>
         ));
+    const localidadOptions = localidades.localidades
+        .filter(l => l.provincia.nombre === provincia)
+        .sort((a, b) => a.nombre.localeCompare(b.nombre))
+        .map(l => (
+            <MenuItem value={l.nombre}>{l.nombre}</MenuItem>
+        ));
 
     return (
         <Dialog open={props.open} onClose={props.onClose} maxWidth="xl" fullWidth>
@@ -141,7 +147,7 @@ const EditarUsuario = props => {
                     <Grid item xs={12}>
                         <FormControl required fullWidth>
                             <InputLabel>Rol</InputLabel>
-                            <Select id="rol" value={rol} onChange={selectHandler}>
+                            <Select id="rol" value={rol} onChange={event => setRol(event.target.value)}>
                                 <MenuItem value="Administrador">Administrador</MenuItem>
                                 <MenuItem value="Inspector">Inspector</MenuItem>
                                 <MenuItem value="Supervisor">Supervisor</MenuItem>
@@ -235,14 +241,6 @@ const EditarUsuario = props => {
                                     onChange={event => setDepartamento(event.target.value)}
                                 />
                             </Tooltip>
-                            <TextField
-                                id="localidad"
-                                type="text"
-                                label="Localidad"
-                                required
-                                value={localidad}
-                                onChange={event => setLocalidad(event.target.value)}
-                            />
                             <FormControl required>
                                 <InputLabel id="provinciaLabel">Provincia</InputLabel>
                                 <Select
@@ -251,11 +249,27 @@ const EditarUsuario = props => {
                                     label="Provincia"
                                     required
                                     value={provincia}
-                                    onChange={selectHandler}
+                                    onChange={event => setProvincia(event.target.value)}
                                 >
                                     {provinciaOptions}
                                 </Select>
                             </FormControl>
+                            <Tooltip title={provincia ? '' : 'Seleccione una provincia antes de elegir una localidad.'}>
+                                <FormControl required>
+                                    <InputLabel id="localidadLabel">Localidad</InputLabel>
+                                    <Select
+                                        id="localidad"
+                                        labelId="localidadLabel"
+                                        label="Localidad"
+                                        required
+                                        disabled={!provincia}
+                                        value={localidad}
+                                        onChange={event => setLocalidad(event.target.value)}
+                                    >
+                                        {localidadOptions}
+                                    </Select>
+                                </FormControl>
+                            </Tooltip>
                         </FormControl>
                     </Grid>
                     <Grid item xs={4}>
