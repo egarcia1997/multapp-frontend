@@ -9,7 +9,8 @@ const initialState = {
     displayName: localStorage.getItem('displayName'),
     email: localStorage.getItem('email'),
     phoneNumber: localStorage.getItem('phoneNumber'),
-    photoURL: localStorage.getItem('photoURL')
+    photoURL: localStorage.getItem('photoURL'),
+    rol: localStorage.getItem('rol')
 }
 
 const reducer = (state = initialState, action) => {
@@ -30,7 +31,8 @@ const reducer = (state = initialState, action) => {
                 displayName: action.userData.displayName,
                 email: action.userData.email,
                 phoneNumber: action.userData.phoneNumber,
-                photoURL: action.userData.photoURL
+                photoURL: action.userData.photoURL,
+                rol: action.userData.rol
             }
         case actionTypes.LOGIN_CON_ERROR:
             return {
