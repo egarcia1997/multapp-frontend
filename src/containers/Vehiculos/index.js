@@ -11,6 +11,7 @@ import AgregarMarca from "../AgregarMarca";
 import { abrirDialogAgregarMarca, cerrarDialogAgregarMarca } from "../AgregarMarca/actions";
 import EliminarMarca from "../EliminarMarca";
 import { abrirDialogEliminarMarca, cerrarDialogEliminarMarca } from "../EliminarMarca/actions";
+import { Typography } from "@mui/material";
 
 class Vehiculos extends Component {
     state = {
@@ -45,6 +46,9 @@ class Vehiculos extends Component {
                     {this.props.cargando ? <CircularProgress /> :
                         <Fragment>
                             <List>
+                                {this.props.vehiculos.length === 0 && (
+                                    <Typography>Aún no hay vehículos cargados.</Typography>
+                                )}
                                 {this.props.vehiculos.map(vehiculo => (
                                     <MarcaDeVehiculos
                                         key={vehiculo.id}
