@@ -55,94 +55,42 @@ class Usuarios extends Component {
         this.props.history.push("/usuarios/" + id);
     }
 
+    createUserRow = user => (
+        <>
+            <ListItem key={user.id} button={true} onClick={() => this.userSelectedHandler(user.id)}>
+                <ListItemAvatar>
+                    <Avatar alt={"Foto de " + user.nombre} src={user.foto} />
+                </ListItemAvatar>
+                <ListItemText
+                    primary={user.nombre}
+                    secondary={user.email}
+                />
+                <ListItemSecondaryAction>
+                    <IconButton onClick={() => this.deleteUserHandler(user.id, user.nombre)}>
+                        <Delete />
+                    </IconButton>
+                </ListItemSecondaryAction>
+            </ListItem>
+            <Divider />
+        </>
+    );
+
     render() {
-        let inspectores = this.props.usuarios.filter(usuario => {
-            return usuario.rol === "Inspector" ? true : false;
-        }).map(inspector => (
-            <Fragment>
-                <ListItem key={inspector.id} button={true} onClick={() => this.userSelectedHandler(inspector.id)}>
-                    <ListItemAvatar>
-                        <Avatar alt={"Foto de " + inspector.nombre} src={inspector.foto} />
-                    </ListItemAvatar>
-                    <ListItemText
-                        primary={inspector.nombre}
-                        secondary={inspector.email}
-                    />
-                    <ListItemSecondaryAction>
-                        <IconButton onClick={() => this.deleteUserHandler(inspector.id, inspector.nombre)}>
-                            <Delete />
-                        </IconButton>
-                    </ListItemSecondaryAction>
-                </ListItem>
-                <Divider />
-            </Fragment>
-        ));
+        let inspectores = this.props.usuarios
+            .filter(usuario => usuario.rol === "Inspector")
+            .map(this.createUserRow);
 
-        let supervisores = this.props.usuarios.filter(usuario => {
-            return usuario.rol === "Supervisor" ? true : false;
-        }).map(supervisor => (
-            <Fragment>
-                <ListItem key={supervisor.id} button={true} onClick={() => this.userSelectedHandler(supervisor.id)}>
-                    <ListItemAvatar>
-                        <Avatar alt={"Foto de " + supervisor.nombre} src={supervisor.foto} />
-                    </ListItemAvatar>
-                    <ListItemText
-                        primary={supervisor.nombre}
-                        secondary={supervisor.email}
-                    />
-                    <ListItemSecondaryAction>
-                        <IconButton onClick={() => this.deleteUserHandler(supervisor.id, supervisor.nombre)}>
-                            <Delete />
-                        </IconButton>
-                    </ListItemSecondaryAction>
-                </ListItem>
-                <Divider />
-            </Fragment>
-        ));
+        let supervisores = this.props.usuarios
+            .filter(usuario => usuario.rol === "Supervisor")
+            .map(this.createUserRow);
 
-        let administradores = this.props.usuarios.filter(usuario => {
-            return usuario.rol === "Administrador" && usuario.id !== localStorage.getItem("uid") ? true : false;
-        }).map(administrador => (
-            <Fragment>
-                <ListItem key={administrador.id} button={true} onClick={() => this.userSelectedHandler(administrador.id)}>
-                    <ListItemAvatar>
-                        <Avatar alt={"Foto de " + administrador.nombre} src={administrador.foto} />
-                    </ListItemAvatar>
-                    <ListItemText
-                        primary={administrador.nombre}
-                        secondary={administrador.email}
-                    />
-                    <ListItemSecondaryAction>
-                        <IconButton onClick={() => this.deleteUserHandler(administrador.id, administrador.nombre)}>
-                            <Delete />
-                        </IconButton>
-                    </ListItemSecondaryAction>
-                </ListItem>
-                <Divider />
-            </Fragment>
-        ));
+        let administradores = this.props.usuarios
+            .filter(usuario => usuario.rol === "Administrador" && usuario.id !== localStorage.getItem("uid"))
+            .map(this.createUserRow);
 
-        let ciudadanos = this.props.usuarios.filter(usuario => {
-            return usuario.rol === "Ciudadano" && usuario.id !== localStorage.getItem("uid") ? true : false;
-        }).map(administrador => (
-            <Fragment>
-                <ListItem key={administrador.id} button={true} onClick={() => this.userSelectedHandler(administrador.id)}>
-                    <ListItemAvatar>
-                        <Avatar alt={"Foto de " + administrador.nombre} src={administrador.foto} />
-                    </ListItemAvatar>
-                    <ListItemText
-                        primary={administrador.nombre}
-                        secondary={administrador.email}
-                    />
-                    <ListItemSecondaryAction>
-                        <IconButton onClick={() => this.deleteUserHandler(administrador.id, administrador.nombre)}>
-                            <Delete />
-                        </IconButton>
-                    </ListItemSecondaryAction>
-                </ListItem>
-                <Divider />
-            </Fragment>
-        ));
+        let ciudadanos = this.props.usuarios
+            .filter(usuario => usuario.rol === "Ciudadano")
+            .map(this.createUserRow);
 
         const theme = createMuiTheme();
 
@@ -189,8 +137,15 @@ class Usuarios extends Component {
                         </Fab>
                     </Tooltip>
                 </Container>
-                <EditarUsuario open={this.props.mostrarDialogEditar} onClose={this.props.cerrarDialogEditar} editar={false} />
-                <EliminarUsuario open={this.props.mostrarDialogEliminar} onClose={this.props.cerrarDialogEliminar} />
+                <EditarUsuario
+                    open={this.props.mostrarDialogEditar}
+                    onClose={this.props.cerrarDialogEditar}
+                    editar={false}
+                />
+                <EliminarUsuario
+                    open={this.props.mostrarDialogEliminar}
+                    onClose={this.props.cerrarDialogEliminar}
+                />
                 <Notifier />
             </Fragment>
         );
