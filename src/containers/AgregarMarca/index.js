@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@material-ui/core";
 import useStyles from "../../share/useStyles";
 import { connect } from "react-redux";
@@ -8,6 +8,11 @@ const AgregarMarca = props => {
     const [marca, setMarca] = useState("");
     const [modelos, setModelos] = useState("");
     const estilos = useStyles();
+
+    useEffect(() => {
+        setMarca('');
+        setModelos('');
+    }, [props.open]);
 
     return (
         <Dialog open={props.open} onClose={props.onClose}>
