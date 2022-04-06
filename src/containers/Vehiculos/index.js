@@ -5,7 +5,7 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { withSnackbar } from "notistack";
 import Notifier from "../Notifier";
-import { cargarVehiculos } from "./actions";
+import { cargarVehiculos, editarVehiculo } from "./actions";
 import MarcaDeVehiculos from "../../components/MarcaDeVehiculos/MarcaDeVehiculos";
 import AgregarMarca from "../AgregarMarca";
 import { abrirDialogAgregarMarca, cerrarDialogAgregarMarca } from "../AgregarMarca/actions";
@@ -24,8 +24,6 @@ class Vehiculos extends Component {
         this.props.cargarVehiculos();
     }
 
-    toggleAgregarModelo = () => {}
-
     onDeleteMarca = (id, marca) => {
       this.setState({
         idSeleccionado: id,
@@ -34,8 +32,6 @@ class Vehiculos extends Component {
       });
       this.props.abrirDialogEliminarMarca();
     }
-
-    onDeleteModelo = () => {}
 
     render() {
         const theme = createMuiTheme();
@@ -53,21 +49,26 @@ class Vehiculos extends Component {
                                     <MarcaDeVehiculos
                                         key={vehiculo.id}
                                         logo={vehiculo.logo}
-                                        marca={vehiculo.marca}
-                                        modelos={vehiculo.modelos}
-                                        onAddModelo
+                                        vehiculo={vehiculo}
+                                        onUpdateMarca={this.props.editarVehiculo}
                                         onDeleteMarca={() => this.onDeleteMarca(vehiculo.id, vehiculo.marca)}
-                                        onDeleteModelo
                                     />
                                 ))}
                             </List>
                             <Tooltip title="Agregar marca" placement="left" arrow>
-                                <Fab color="primary" onClick={this.props.abrirDialogAgregarMarca} style={{position: "fixed", bottom: theme.spacing(5), right: theme.spacing(5)}}>
+                                <Fab
+                                    color="primary"
+                                    onClick={this.props.abrirDialogAgregarMarca}
+                                    style={{position: "fixed", bottom: theme.spacing(5), right: theme.spacing(5)}}
+                                >
                                     <Add />
                                 </Fab>
                             </Tooltip>
 
-                            <AgregarMarca open={this.props.mostrarDialogAgregarMarca} onClose={this.props.cerrarDialogAgregarMarca} />
+                            <AgregarMarca
+                                open={this.props.mostrarDialogAgregarMarca}
+                                onClose={this.props.cerrarDialogAgregarMarca}
+                            />
                             <EliminarMarca
                                 open={this.props.mostrarDialogEliminarMarca}
                                 onClose={this.props.cerrarDialogEliminarMarca}
@@ -101,6 +102,7 @@ const mapDispatchToProps = dispatch => {
         cerrarDialogAgregarMarca: () => dispatch(cerrarDialogAgregarMarca()),
         abrirDialogEliminarMarca: () => dispatch(abrirDialogEliminarMarca()),
         cerrarDialogEliminarMarca: () => dispatch(cerrarDialogEliminarMarca()),
+        editarVehiculo: (id, data) => dispatch(editarVehiculo(id, data))
     }
 }
 
