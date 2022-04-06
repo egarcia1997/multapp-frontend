@@ -30,10 +30,15 @@ export const cargarVehiculos = () => {
     }
 }
 
-const editarVehiculoConExito = vehiculos => {
+const editarVehiculoStart = () => {
     return {
-        type: actionTypes.EDITAR_VEHICULOS_CON_EXITO,
-        vehiculos: vehiculos,
+        type: actionTypes.EDITAR_VEHICULOS_START
+    }
+}
+
+const editarVehiculoConExito = () => {
+    return {
+        type: actionTypes.EDITAR_VEHICULOS_CON_EXITO
     }
 }
 
@@ -46,6 +51,7 @@ const editarVehiculoConError = error => {
 
 export const editarVehiculo = (id, data) => {
     return dispatch => {
+        dispatch(editarVehiculoStart());
         const vehiculo = { id, data };
           const headers = {
               "content-type": "application/json",
@@ -55,6 +61,8 @@ export const editarVehiculo = (id, data) => {
             .then(response => {
               console.log(response);
                 dispatch(editarVehiculoConExito(response.data));
+                dispatch(enqueueSnackbar({message: "Vehículo actualizado exitosamente", options: {variant: "success"}}));
+                dispatch(cargarVehiculos());
             }).catch(error => {
                 dispatch(editarVehiculoConError(error));
                 dispatch(enqueueSnackbar({message: traducirError(error.response.data.message), options: {variant: "error"}}));
