@@ -29,3 +29,35 @@ export const cargarVehiculos = () => {
             });
     }
 }
+
+const editarVehiculoConExito = vehiculos => {
+    return {
+        type: actionTypes.EDITAR_VEHICULOS_CON_EXITO,
+        vehiculos: vehiculos,
+    }
+}
+
+const editarVehiculoConError = error => {
+    return {
+        type: actionTypes.EDITAR_VEHICULOS_CON_ERROR,
+        error: error,
+    }
+}
+
+export const editarVehiculo = (id, data) => {
+    return dispatch => {
+        const vehiculo = { id, data };
+          const headers = {
+              "content-type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+          };
+        Axios.post("/editVehiculo", vehiculo, headers)
+            .then(response => {
+              console.log(response);
+                dispatch(editarVehiculoConExito(response.data));
+            }).catch(error => {
+                dispatch(editarVehiculoConError(error));
+                dispatch(enqueueSnackbar({message: traducirError(error.response.data.message), options: {variant: "error"}}));
+            });
+    }
+}
