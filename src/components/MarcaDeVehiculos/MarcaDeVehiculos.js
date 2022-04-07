@@ -14,6 +14,7 @@ const MarcaDeVehiculos = props => {
     const onCancelEdit = () => {
         setModelToEdit(null);
         setShowEditarMarca(false);
+        setShowAddModelo(false);
         setEditingValue('');
     };
 
@@ -29,12 +30,18 @@ const MarcaDeVehiculos = props => {
         setEditingValue(props.vehiculo.marca);
     };
 
+    const onToggleAddMarca = () => {
+        onCancelEdit();
+        setShowAddModelo(true);
+    };
+
     const onEditMarca = () => {
         const { id, ...rest } = props.vehiculo;
         props.onUpdateMarca(id, {
             ...rest,
             marca: editingValue
         });
+        onCancelEdit();
     }
 
     const onAddModelo = () => {
@@ -43,6 +50,7 @@ const MarcaDeVehiculos = props => {
             ...rest,
             modelos: [...rest.modelos, editingValue]
         });
+        onCancelEdit();
     };
 
     const onEditModelo = () => {
@@ -54,6 +62,7 @@ const MarcaDeVehiculos = props => {
             ...rest,
             modelos: newModelos
         });
+        onCancelEdit();
     };
 
     const onDeleteModelo = modelo => {
@@ -62,6 +71,7 @@ const MarcaDeVehiculos = props => {
             ...rest,
             modelos: rest.modelos.filter(m => m !== modelo)
         });
+        onCancelEdit();
     };
 
     return (
@@ -157,10 +167,34 @@ const MarcaDeVehiculos = props => {
                             </ListItemSecondaryAction>
                         </ListItem>
                     ))}
+                    <ListItem>
+                        {showAddModelo ? (
+                            <>
+                                <TextField
+                                    size="small"
+                                    value={editingValue}
+                                    onChange={e => setEditingValue(e.target.value)}
+                                />
+                                <ListItemSecondaryAction>
+                                    <Tooltip title="Guardar">
+                                        <IconButton onClick={onAddModelo}>
+                                            <Save />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title="Cancelar">
+                                        <IconButton onClick={onCancelEdit}>
+                                            <Cancel />
+                                        </IconButton>
+                                    </Tooltip>
+                                </ListItemSecondaryAction>
+                            </>
+                        ) : (
+                            <Button variant="text" startIcon={<Add />} onClick={onToggleAddMarca}>
+                                Agregar modelo
+                            </Button>
+                        )}
+                    </ListItem>
                 </List>
-                <Button variant="text" startIcon={<Add />}>
-                    Agregar modelo
-                </Button>
             </Collapse>
         </Fragment>
     );
