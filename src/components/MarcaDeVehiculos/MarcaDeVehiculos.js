@@ -87,6 +87,7 @@ const MarcaDeVehiculos = props => {
                         size="small"
                         value={editingValue}
                         onChange={e => setEditingValue(e.target.value)}
+                        autoFocus
                     />
                 ) : (
                     <ListItemText
@@ -98,7 +99,7 @@ const MarcaDeVehiculos = props => {
                     {showEditarMarca ? (
                         <>
                         <Tooltip title="Guardar">
-                            <IconButton onClick={onEditMarca}>
+                            <IconButton disabled={!editingValue} onClick={onEditMarca}>
                                 <Save />
                             </IconButton>
                         </Tooltip>
@@ -131,13 +132,14 @@ const MarcaDeVehiculos = props => {
                                     size="small"
                                     value={editingValue}
                                     onChange={e => setEditingValue(e.target.value)}
+                                    autoFocus
                                 />
                             ) : <ListItemText primary={modelo} />}
                             <ListItemSecondaryAction>
                                 {modelToEdit === modelo ? (
                                     <>
                                         <Tooltip title="Guardar">
-                                            <IconButton onClick={onEditModelo}>
+                                            <IconButton disabled={!editingValue} onClick={onEditModelo}>
                                                 <Save />
                                             </IconButton>
                                         </Tooltip>
@@ -169,10 +171,11 @@ const MarcaDeVehiculos = props => {
                                     size="small"
                                     value={editingValue}
                                     onChange={e => setEditingValue(e.target.value)}
+                                    autoFocus
                                 />
                                 <ListItemSecondaryAction>
                                     <Tooltip title="Guardar">
-                                        <IconButton onClick={onAddModelo}>
+                                        <IconButton disabled={!editingValue} onClick={onAddModelo}>
                                             <Save />
                                         </IconButton>
                                     </Tooltip>
