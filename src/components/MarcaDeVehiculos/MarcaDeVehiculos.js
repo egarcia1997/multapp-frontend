@@ -125,7 +125,7 @@ const MarcaDeVehiculos = props => {
             <Collapse in={show}>
                 <List>
                     {props.vehiculo.modelos.sort((a, b) => a.localeCompare(b)).map(modelo => (
-                        <ListItem>
+                        <ListItem divider>
                             {modelToEdit === modelo ? (
                                 <TextField
                                     size="small"
