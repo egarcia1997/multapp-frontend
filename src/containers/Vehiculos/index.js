@@ -45,7 +45,7 @@ class Vehiculos extends Component {
                                 {this.props.vehiculos.length === 0 && (
                                     <Typography>Aún no hay vehículos cargados.</Typography>
                                 )}
-                                {this.props.vehiculos.map(vehiculo => (
+                                {this.props.vehiculos.sort((a, b) => a.marca.localeCompare(b.marca)).map(vehiculo => (
                                     <MarcaDeVehiculos
                                         key={vehiculo.id}
                                         logo={vehiculo.logo}

@@ -95,11 +95,6 @@ const MarcaDeVehiculos = props => {
                     />
                 )}
                 <ListItemSecondaryAction>
-                    {/* <Tooltip title="Agregar modelo">
-                        <IconButton onClick={onAddModelo}>
-                            <Add />
-                        </IconButton>
-                    </Tooltip> */}
                     {showEditarMarca ? (
                         <>
                         <Tooltip title="Guardar">
@@ -129,7 +124,7 @@ const MarcaDeVehiculos = props => {
             </ListItem>
             <Collapse in={show}>
                 <List>
-                    {props.vehiculo.modelos.map(modelo => (
+                    {props.vehiculo.modelos.sort((a, b) => a.localeCompare(b)).map(modelo => (
                         <ListItem>
                             {modelToEdit === modelo ? (
                                 <TextField
