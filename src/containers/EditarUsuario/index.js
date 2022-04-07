@@ -234,9 +234,7 @@ const EditarUsuario = props => {
                             <Tooltip title="Si el usuario no vive en un edificio, deje vacío este campo">
                                 <TextField
                                     id="departamento"
-                                    type="number"
                                     label="Departamento"
-                                    inputProps={{ min: 1 }}
                                     value={departamento}
                                     onChange={event => setDepartamento(event.target.value)}
                                 />
