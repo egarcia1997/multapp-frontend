@@ -98,17 +98,17 @@ const MarcaDeVehiculos = props => {
                 <ListItemSecondaryAction>
                     {showEditarMarca ? (
                         <>
-                        <Tooltip title="Guardar">
-                            <IconButton disabled={!editingValue} onClick={onEditMarca}>
-                                <Save />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Cancelar">
-                            <IconButton onClick={onCancelEdit}>
-                                <Cancel />
-                            </IconButton>
-                        </Tooltip>
-                    </>
+                            <Tooltip title="Guardar">
+                                <IconButton disabled={!editingValue} onClick={onEditMarca}>
+                                    <Save />
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Cancelar">
+                                <IconButton onClick={onCancelEdit}>
+                                    <Cancel />
+                                </IconButton>
+                            </Tooltip>
+                        </>
                     ) : (
                         <Tooltip title="Editar nombre de la marca">
                             <IconButton onClick={onToggleEditMarca}>
