@@ -46,7 +46,7 @@ export const agregarMarca = (marca, modelos) => {
             "content-type": "application/json",
             "Access-Control-Allow-Origin": "*",
         };
-        Axios.post("/addMarca", data, headers)
+        Axios.post("/addVehiculo", data, headers)
             .then(() => {
                 dispatch(agregarMarcaConExito());
                 dispatch(enqueueSnackbar({message: "Marca creada exitosamente", options: {variant: "success"}}));

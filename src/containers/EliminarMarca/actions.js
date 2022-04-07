@@ -47,7 +47,7 @@ export const eliminarMarca = id => {
                 id: id
             }
         };
-        Axios.delete("/deleteMarca", data)
+        Axios.delete("/deleteVehiculo", data)
             .then(() => {
                 dispatch(eliminarMarcaConExito());
                 dispatch(enqueueSnackbar({message: "Marca eliminada exitosamente", options: {variant: "success"}}));
