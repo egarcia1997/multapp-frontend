@@ -48,7 +48,10 @@ class Perfil extends Component {
                                         <ListItemIcon>
                                             <Event />
                                         </ListItemIcon>
-                                        <ListItemText primary="Fecha de nacimiento" secondary={this.props.datos.fechaNacimiento} />
+                                        <ListItemText
+                                            primary="Fecha de nacimiento"
+                                            secondary={this.props.datos.fechaNacimiento.split('-').reverse().join('/')}
+                                        />
                                     </ListItem>
                                     <Divider />
                                     <ListItem>

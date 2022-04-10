@@ -55,7 +55,10 @@ class Usuario extends Component {
                                         <ListItemIcon>
                                             <Event />
                                         </ListItemIcon>
-                                        <ListItemText primary="Fecha de nacimiento" secondary={this.props.usuario.fechaNacimiento} />
+                                        <ListItemText
+                                            primary="Fecha de nacimiento"
+                                            secondary={this.props.usuario.fechaNacimiento.split('-').reverse().join('/')}
+                                        />
                                     </ListItem>
                                     <Divider />
                                     <ListItem>
