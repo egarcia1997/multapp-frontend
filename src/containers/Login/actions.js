@@ -68,11 +68,9 @@ export const recuperarContrasena = (email) => {
             "Access-Control-Allow-Origin": "*",
         }
         Axios.post("/recuperarContrasena", data, headers)
-            .then(response => {
-                console.log(response);
+            .then(() => {
                 dispatch(recuperarContrasenaConExito());
             }).catch(error => {
-                console.log(error.response.data.message);
                 dispatch(loginConError(error.response.data.message));
             });
     }

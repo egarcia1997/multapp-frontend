@@ -21,7 +21,6 @@ export const cargarVehiculos = () => {
     return dispatch => {
         Axios.get("/getVehiculos")
             .then(response => {
-              console.log(response);
                 dispatch(cargarVehiculosConExito(response.data));
             }).catch(error => {
                 dispatch(cargarVehiculosConError(error));
@@ -59,7 +58,6 @@ export const editarVehiculo = (id, data) => {
           };
         Axios.post("/editVehiculo", vehiculo, headers)
             .then(response => {
-              console.log(response);
                 dispatch(editarVehiculoConExito(response.data));
                 dispatch(enqueueSnackbar({message: "Vehículo actualizado exitosamente", options: {variant: "success"}}));
                 dispatch(cargarVehiculos());

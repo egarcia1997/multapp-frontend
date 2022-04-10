@@ -24,10 +24,8 @@ export const cargarMultas = () => {
     return dispatch => {
         Axios.get("/getMultas", headers)
             .then(response => {
-                console.log(response);
                 dispatch(cargarMultasConExito(response.data));
             }).catch(error => {
-                console.log(error);
                 dispatch(cargarMultasConError(error));
                 dispatch(enqueueSnackbar({message: "Error al cargar multas. Intente nuevamente", options: {variant: "error"}}));
             });
