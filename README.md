@@ -1,3 +1,5 @@
+Archiving this because I don't want to maintain this horrible piece of code. We passed the final exam, so it doesn't serve any real purpose anymore.
+
 # Multapp Frontend
 
 ## English
